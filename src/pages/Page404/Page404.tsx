@@ -4,7 +4,7 @@ import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import {
   BodyWrapper,
   Content,
-  Footer,
+  FooterWrapper,
   Wrapper,
 } from '../../components/CommonComponents/CommonComponents';
 
@@ -18,9 +18,9 @@ export const Page404 = () => {
           <h1>{PAGE_404_TITLE}</h1>
           <div>Error Message</div>
         </Content>
-        <Footer>
+        <FooterWrapper>
           <p>Footer</p>
-        </Footer>
+        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );

@@ -21,6 +21,6 @@ export const Content = styled('div')({
   overflowY: 'auto',
 });
 
-export const Footer = styled('div')({
+export const FooterWrapper = styled('div')({
   marginTop: 'auto',
 });

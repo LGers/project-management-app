@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Wrapper,
   Content,
-  Footer,
+  FooterWrapper,
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
 import { WELCOME_PAGE_TITLE } from '../../constants/common.dictionary';
@@ -26,9 +26,9 @@ export const WelcomePage = () => {
             <p>Mentor: Dmitriy</p>
           </Container>
         </Content>
-        <Footer>
+        <FooterWrapper>
           <p>Footer</p>
-        </Footer>
+        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );

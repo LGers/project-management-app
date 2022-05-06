@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Wrapper,
   Content,
-  Footer,
+  FooterWrapper,
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
 import { MAIN_PAGE_TITLE, PATH } from '../../constants/common.dictionary';
@@ -21,9 +21,9 @@ export const MainPage = () => {
           </Box>
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
         </Content>
-        <Footer>
+        <FooterWrapper>
           <p>Footer</p>
-        </Footer>
+        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );
