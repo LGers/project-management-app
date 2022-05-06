@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import {
   Wrapper,
@@ -6,25 +6,20 @@ import {
   Footer,
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
-import { WELCOME_PAGE_TITLE } from '../../constants/common.dictionary';
+import { MAIN_PAGE_TITLE, PATH } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
+import { Link } from 'react-router-dom';
 
-export const WelcomePage = () => {
+export const MainPage = () => {
   return (
     <BodyWrapper>
       <Wrapper>
         <WelcomePageHeader />
         <Content>
           <Box sx={{ bgcolor: '#cfe8fc' }}>
-            <h1>{WELCOME_PAGE_TITLE}</h1>
+            <h1>{MAIN_PAGE_TITLE}</h1>
           </Box>
-          <Container sx={{ textAlign: 'center' }}>
-            <p>Project Management App</p>
-            <p>RS School React 2022Q1</p>
-            <p>Command 8</p>
-            <p>Leonid - Marina - Sergey</p>
-            <p>Mentor: Dmitriy</p>
-          </Container>
+          <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
         </Content>
         <Footer>
           <p>Footer</p>
