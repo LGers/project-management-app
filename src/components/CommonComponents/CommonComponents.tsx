@@ -19,6 +19,22 @@ export const Content = styled('div')({
   height: '100%',
   overflowX: 'hidden',
   overflowY: 'auto',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const MessageTitleBig = styled('div')({
+  fontSize: '5rem',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  color: '#d21919',
+});
+
+export const MessageTitleMedium = styled('div')({
+  fontSize: '2rem',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  color: '#1976d2',
 });
 
 export const FooterWrapper = styled('div')({
