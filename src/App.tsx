@@ -9,13 +9,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
+import { ProtectedRouteProps } from './App.types';
 
-export type ProtectedRouteProps = {
-  isAuth: boolean;
-  children: ReactJSXElement;
-};
-
-const ProtectedRoute = ({ isAuth }: { isAuth: boolean }): ReactJSXElement => {
+const ProtectedRoute = ({ isAuth }: ProtectedRouteProps): ReactJSXElement => {
   if (!isAuth) {
     return <Navigate to={PATH.HOME} replace />;
   }
