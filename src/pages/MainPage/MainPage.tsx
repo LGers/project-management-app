@@ -24,6 +24,8 @@ export const MainPage = () => {
             <h1>{MAIN_PAGE_TITLE}</h1>
           </Box>
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
+          <Link to={PATH.COLUMNS}>columns</Link>
+          <Link to={PATH.BOARDS}>Boards</Link>
           <p>Is Auth?: </p>
           {auth.isAuth ? <p>Is Auth</p> : <p>NOT Auth</p>}
         </Content>
