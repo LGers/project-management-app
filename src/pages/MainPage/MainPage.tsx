@@ -9,6 +9,7 @@ import {
 import { MAIN_PAGE_TITLE, PATH } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { Link } from 'react-router-dom';
+import { FooterComponent } from '../../components/FooterComponent';
 
 export const MainPage = () => {
   return (
@@ -22,7 +23,8 @@ export const MainPage = () => {
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
         </Content>
         <FooterWrapper>
-          <p>Footer</p>
+          {/* <p>Footer</p> */}
+          <FooterComponent />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>

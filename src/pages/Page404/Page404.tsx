@@ -7,6 +7,7 @@ import {
   FooterWrapper,
   Wrapper,
 } from '../../components/CommonComponents/CommonComponents';
+import { FooterComponent } from '../../components/FooterComponent';
 
 export const Page404 = () => {
   return (
@@ -19,7 +20,8 @@ export const Page404 = () => {
           <div>Error Message</div>
         </Content>
         <FooterWrapper>
-          <p>Footer</p>
+          {/* <p>Footer</p> */}
+          <FooterComponent />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
