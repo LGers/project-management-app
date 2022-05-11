@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchLogin, fetchSignUp, MyKnownError } from './auth.thunk';
 
+export type Languages = 'en' | 'ru';
+
 export interface AuthState {
   isAuth: boolean;
   isSignUp: boolean;
+  language: Languages;
   error: {
     message: string;
     statusCode: number;
@@ -13,6 +16,7 @@ export interface AuthState {
 const initialState: AuthState = {
   isAuth: false,
   isSignUp: false,
+  language: 'en',
   error: {
     message: '',
     statusCode: 0,
@@ -24,6 +28,9 @@ export const authSlice = createSlice({
   reducers: {
     setAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
+    },
+    setLanguage: (state, action: PayloadAction<Languages>) => {
+      state.language = action.payload;
     },
     resetErrorMessage: (state) => {
       state.error = initialState.error;
@@ -68,6 +75,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setAuth, resetErrorMessage, resetIsSignUp } = authSlice.actions;
+export const { setAuth, resetErrorMessage, resetIsSignUp, setLanguage } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;
