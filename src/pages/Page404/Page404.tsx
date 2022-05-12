@@ -1,13 +1,19 @@
 import React from 'react';
-import { PAGE_404_TITLE } from '../../constants/common.dictionary';
+import {
+  PAGE_404_LINK_TO,
+  PAGE_404_MESSAGE,
+  PAGE_404_TITLE,
+  PATH,
+} from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import {
   BodyWrapper,
-  Content,
   FooterWrapper,
   Wrapper,
 } from '../../components/CommonComponents/CommonComponents';
 import { Footer } from '../../components/Footer';
+import { Link } from 'react-router-dom';
+import { MessageTitleBig, MessageTitleMedium, Page404Content } from './Page404Styles';
 
 export const Page404 = () => {
   return (
@@ -15,10 +21,13 @@ export const Page404 = () => {
       <Wrapper>
         {/*todo if (auth) MainHeader else WelcomePageHeader */}
         <WelcomePageHeader />
-        <Content>
-          <h1>{PAGE_404_TITLE}</h1>
-          <div>Error Message</div>
-        </Content>
+        <Page404Content>
+          <MessageTitleBig>{PAGE_404_TITLE}</MessageTitleBig>
+          <MessageTitleMedium>
+            {PAGE_404_MESSAGE}
+            <Link to={PATH.HOME}>{PAGE_404_LINK_TO}</Link>
+          </MessageTitleMedium>
+        </Page404Content>
         <FooterWrapper>
           {/* <p>Footer</p> */}
           <Footer />
