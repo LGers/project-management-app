@@ -9,6 +9,7 @@ import {
 import { PATH } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { Link } from 'react-router-dom';
+import { Footer } from '../../components/Footer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +32,8 @@ export const MainPage = () => {
           {auth.isAuth ? <p>Is Auth</p> : <p>NOT Auth</p>}
         </Content>
         <FooterWrapper>
-          <p>Footer</p>
+          {/* <p>Footer</p> */}
+          <Footer />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
