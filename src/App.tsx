@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { WelcomePage } from './pages/WelcomePage';
 import { PATH } from './constants/common.dictionary';
 import { Page404 } from './pages/Page404';
 import { CssBaseline } from '@mui/material';
 import { MainPage } from './pages/MainPage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
 import { ProtectedRouteProps } from './App.types';
+import { Languages, setLanguage } from './redux/auth/auth.slice';
+import { useTranslation } from 'react-i18next';
 
 const ProtectedRoute = ({ isAuth }: ProtectedRouteProps): ReactJSXElement => {
   if (!isAuth) {
@@ -25,6 +27,16 @@ const homePage = (isAuth: boolean): ReactJSXElement => {
 
 export const App = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    if (localStorage.getItem('language')) {
+      i18n.changeLanguage(localStorage.getItem('language') as Languages);
+      dispatch(setLanguage(localStorage.getItem('language') as Languages));
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <CssBaseline />

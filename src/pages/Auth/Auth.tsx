@@ -19,11 +19,14 @@ import {
 import { AuthAlert } from './AuthComponents/AuthAlert';
 import { resetIsSignUp } from '../../redux/auth/auth.slice';
 import { signInValidationSchema, signUpValidationSchema } from './Auth.validation';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
 
 export const Auth = ({ formName }: FormNameInterface) => {
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -39,10 +42,10 @@ export const Auth = ({ formName }: FormNameInterface) => {
       return (
         <TextField
           key={id}
-          placeholder={placeholder}
+          placeholder={t(placeholder)}
           type={type}
           size="small"
-          label={(errors[name] && errors[name]?.message) || placeholder}
+          label={(errors[name] && errors[name]?.message) || t(placeholder)}
           fullWidth
           {...register(name)}
         />
@@ -96,12 +99,13 @@ export const Auth = ({ formName }: FormNameInterface) => {
         <AuthContent>
           <h4>Lemasello</h4>
           <AuthForm onSubmit={handleSubmit(onSubmit)}>
-            <strong>{formData.name} to Lemasello</strong>
+            <strong>{t(formData.name + ' to')} Lemasello</strong>
             {formData.fields}
             <Button variant="contained" type="submit" color="success" sx={{ width: '100%' }}>
-              {formData.name}
+              {t(formData.name)}
             </Button>
           </AuthForm>
+          <LanguageSelect />
           <AuthAlert />
         </AuthContent>
         <FooterWrapper>Footer</FooterWrapper>
