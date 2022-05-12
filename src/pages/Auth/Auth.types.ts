@@ -22,7 +22,7 @@ export interface SignUpFormInputs extends SignInFormInputs {
   confirmPassword: string;
 }
 
-export type FormNameType = 'signIn' | 'signUp';
+export type FormNameType = 'signIn' | 'signUp' | 'singOut';
 
 export interface FormNameInterface {
   formName: FormNameType;

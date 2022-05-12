@@ -2,6 +2,7 @@ export const PATH = {
   HOME: '/',
   WELCOME_PAGE: '/welcome',
   LOG_IN: '/login',
+  SIGN_OUT: '/logout',
   SIGN_UP: '/signup',
   BOARDS: '/boards/',
   COLUMNS: '/columns/',
@@ -13,3 +14,5 @@ export const WELCOME_PAGE_TITLE = 'Welcome to Lemasello';
 export const PAGE_404_TITLE = 'Error 404, this page can not be found...';
 export const LOGIN_FORM_PAGE_TITLE = 'Login Form';
 export const SIGNUP_FORM_PAGE_TITLE = 'Signup Form';
+
+export const STANDARD_PADDING = 18;

@@ -6,8 +6,9 @@ import {
   FooterWrapper,
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
-import { WELCOME_PAGE_TITLE } from '../../constants/common.dictionary';
+import { PATH, WELCOME_PAGE_TITLE } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
+import { Link } from 'react-router-dom';
 
 export const WelcomePage = () => {
   return (

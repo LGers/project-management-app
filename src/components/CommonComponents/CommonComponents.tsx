@@ -24,3 +24,10 @@ export const Content = styled('div')({
 export const FooterWrapper = styled('div')({
   marginTop: 'auto',
 });
+
+export const AlignCenter = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+export const ButtonPadding = styled('div')({ paddingLeft: 10 });
