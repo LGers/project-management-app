@@ -8,7 +8,7 @@ import {
 } from '../../components/CommonComponents/CommonComponents';
 import { WELCOME_PAGE_TITLE } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
-import { FooterComponent } from '../../components/FooterComponent';
+import { Footer } from '../../components/Footer';
 
 export const WelcomePage = () => {
   return (
@@ -29,7 +29,7 @@ export const WelcomePage = () => {
         </Content>
         <FooterWrapper>
           {/* <p>Footer</p> */}
-          <FooterComponent />
+          <Footer />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>

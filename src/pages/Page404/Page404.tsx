@@ -7,7 +7,7 @@ import {
   FooterWrapper,
   Wrapper,
 } from '../../components/CommonComponents/CommonComponents';
-import { FooterComponent } from '../../components/FooterComponent';
+import { Footer } from '../../components/Footer';
 
 export const Page404 = () => {
   return (
@@ -21,7 +21,7 @@ export const Page404 = () => {
         </Content>
         <FooterWrapper>
           {/* <p>Footer</p> */}
-          <FooterComponent />
+          <Footer />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>

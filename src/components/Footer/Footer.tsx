@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppBar, Avatar, Box, Link, Toolbar, Typography } from '@mui/material';
-import { FOOTER_DATA, TEAM } from '../../constants/common.dictionary';
-import { IFooterTeamMember } from './FooterComponent.types';
+import { FOOTER_DATA, TEAM } from '../../constants/footer.dictionary';
+import { IFooterTeamMember } from './Footer.types';
 
-export const FooterComponent = () => {
+export const Footer = () => {
   const team = TEAM;
   return (
     <AppBar position="static" elevation={0} component="footer">
@@ -39,7 +39,12 @@ export const FooterComponent = () => {
             })}
           </Box>
           <Link href={FOOTER_DATA.FOOTER_LINK} underline="none" target="_blank" rel="noreferrer">
-            <img src={FOOTER_DATA.FOOTER_LOGO} width="105px" height="39px" />
+            <img
+              src={FOOTER_DATA.FOOTER_LOGO}
+              width="105px"
+              height="39px"
+              alt={FOOTER_DATA.FOOTER_LOGO}
+            />
           </Link>
         </Box>
       </Toolbar>
