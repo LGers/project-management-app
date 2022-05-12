@@ -11,7 +11,7 @@ export const authEn = {
 };
 
 export const authRu = {
-  'Sign In': 'Логин',
+  'Sign In': 'Войти',
   'Sign Up': 'Регистрация',
   'Your Name': 'Укажите ваше имя',
   'Login': 'Укажите лoгин',

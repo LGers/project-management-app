@@ -18,8 +18,8 @@ export const LanguageSelect = () => {
     <FormControl sx={{ m: 1, minWidth: 85 }} size="small">
       <InputLabel id="language-select-label">{t('languageLabel')}</InputLabel>
       <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+        labelId="language-select-label"
+        id="language-select"
         value={language}
         label={t('languageLabel')}
         onChange={handleChange}

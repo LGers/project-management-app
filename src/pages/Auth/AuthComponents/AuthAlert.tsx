@@ -12,7 +12,9 @@ export const AuthAlert = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (auth.error.message) setOpen(true);
+    if (auth.error.message) {
+      setOpen(true);
+    } else setOpen(false);
   }, [auth.error.message]);
 
   return (
