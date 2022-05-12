@@ -44,7 +44,10 @@ export const App = () => {
         <Route path={PATH.HOME} element={homePage(auth.isAuth)} />
         <Route path={PATH.LOG_IN} element={<Auth formName={'signIn'} />} />
         <Route path={PATH.SIGN_UP} element={<Auth formName={'signUp'} />} />
+        <Route path={PATH.SIGN_OUT} element={<Auth formName={'singOut'} />} />
+        <Route path={'/test/'} element={<MainPage />} />
         <Route element={<ProtectedRoute isAuth={auth.isAuth} />}>
+          <Route path={PATH.WELCOME_PAGE} element={<WelcomePage />} />
           <Route path={PATH.HOME} element={<MainPage />} />
           <Route path={PATH.COLUMNS} element={<MainPage />} />
           <Route path={PATH.BOARDS} element={<MainPage />} />

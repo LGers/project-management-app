@@ -7,12 +7,12 @@ import {
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
 import { PATH } from '../../constants/common.dictionary';
-import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
+import { MainHeader } from '../../components/MainHeader';
 
 export const MainPage = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -20,7 +20,7 @@ export const MainPage = () => {
   return (
     <BodyWrapper>
       <Wrapper>
-        <WelcomePageHeader />
+        <MainHeader />
         <Content>
           <Box sx={{ bgcolor: '#cfe8fc' }}>
             <h1>{t('mainPage.title')}</h1>
