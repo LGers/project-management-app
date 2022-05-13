@@ -24,6 +24,7 @@ const initialState: AuthState = {
     statusCode: 0,
   },
 };
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

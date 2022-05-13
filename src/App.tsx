@@ -6,12 +6,13 @@ import { Page404 } from './pages/Page404';
 import { CssBaseline } from '@mui/material';
 import { MainPage } from './pages/MainPage';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './redux/store';
+import { RootState, store } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
 import { ProtectedRouteProps } from './App.types';
 import { Languages, setLanguage } from './redux/auth/auth.slice';
 import { useTranslation } from 'react-i18next';
+import { fetchBoards } from './redux/boards/boards.thunk';
 
 const ProtectedRoute = ({ isAuth }: ProtectedRouteProps): ReactJSXElement => {
   if (!isAuth) {
@@ -34,6 +35,7 @@ export const App = () => {
     if (localStorage.getItem('language')) {
       i18n.changeLanguage(localStorage.getItem('language') as Languages);
       dispatch(setLanguage(localStorage.getItem('language') as Languages));
+      store.dispatch(fetchBoards({ login: 'data.userLogin', password: 'data.password' }));
     }
   }, []);
 
