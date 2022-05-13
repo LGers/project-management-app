@@ -32,7 +32,6 @@ export const MainPage = () => {
           {auth.isAuth ? <p>Is Auth</p> : <p>NOT Auth</p>}
         </Content>
         <FooterWrapper>
-          {/* <p>Footer</p> */}
           <Footer />
         </FooterWrapper>
       </Wrapper>
