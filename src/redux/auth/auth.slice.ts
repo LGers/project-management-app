@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchLogin, fetchSignUp, MyKnownError } from './auth.thunk';
+import { fetchLogin, fetchSignUp, fetchUsers, MyKnownError } from './auth.thunk';
 
 export type Languages = 'en' | 'ru';
 
@@ -15,7 +15,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuth: false,
+  isAuth: true,
   isSignUp: false,
   language: 'en',
   isFetching: false,
@@ -44,42 +44,43 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchLogin.pending, (state) => {
-      // console.log('pending');
       state.isFetching = true;
       state.error = initialState.error;
     });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
-      // console.log('fulfilled');
-      // console.log('action: ', action);
       localStorage.setItem('authToken', action.payload.token);
       state.isFetching = false;
       state.isAuth = true;
     });
     builder.addCase(fetchLogin.rejected, (state, action) => {
-      // console.log('rejected');
-      // console.log('action: ', action);
-      // console.log('action.payload: ', action.payload);
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
 
     builder.addCase(fetchSignUp.pending, (state) => {
-      // console.log('pending');
       state.isFetching = true;
       state.error = initialState.error;
     });
     builder.addCase(fetchSignUp.fulfilled, (state, action) => {
-      // console.log('fulfilled');
-      // console.log('action: ', action);
       state.isFetching = false;
       state.isSignUp = true;
     });
     builder.addCase(fetchSignUp.rejected, (state, action) => {
-      // console.log('rejected');
-      // console.log('action: ', action);
-      // console.log('action.payload: ', action.payload);
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchUsers.pending, (state) => {
+      state.isFetching = true;
+      state.error = initialState.error;
+    });
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.isAuth = true;
+    });
+    builder.addCase(fetchUsers.rejected, (state, action) => {
+      state.isFetching = false;
+      state.isAuth = false;
     });
   },
 });

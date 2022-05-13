@@ -1,9 +1,9 @@
 /* eslint-disable */
 export const mainPageEn = {
-  'MainPage Title': 'Main page Title',
+  'Boards': 'Boards',
 };
 
 export const mainPageRu = {
-  'MainPage Title': 'Главная страница',
+  'Boards': 'Доски',
 };
 /* eslint-disable */

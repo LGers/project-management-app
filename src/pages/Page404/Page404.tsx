@@ -11,6 +11,7 @@ import {
   FooterWrapper,
   Wrapper,
 } from '../../components/CommonComponents/CommonComponents';
+import { Footer } from '../../components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageTitleBig, MessageTitleMedium, Page404Content } from './Page404Styles';
 
@@ -28,7 +29,8 @@ export const Page404 = () => {
           </MessageTitleMedium>
         </Page404Content>
         <FooterWrapper>
-          <p>Footer</p>
+          {/* <p>Footer</p> */}
+          <Footer />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>

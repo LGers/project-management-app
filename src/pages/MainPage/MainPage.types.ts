@@ -1,3 +1,3 @@
-export type WelcomePageProps = {
+export type MainPageProps = {
   title: string; // fake props todo props or del it
 };

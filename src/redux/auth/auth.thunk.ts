@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginInterface, SignUpInterface } from '../../api';
 import axios from 'axios';
 import { signIn, signUp } from '../../api';
+import { boards } from '../../api/boards';
+import { users } from '../../api/users';
 
 interface SignInData {
   token: string;
@@ -24,6 +26,18 @@ export const fetchSignUp = createAsyncThunk(
   async ({ name, login, password }: SignUpInterface, thunkAPI) => {
     try {
       const res = await signUp({ name, login, password });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+    }
+  }
+);
+// todo types
+export const fetchUsers = createAsyncThunk<Array<Record<string, string>>, LoginInterface>(
+  'auth/fetchUsers',
+  async (_, thunkAPI) => {
+    try {
+      const res = await users();
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as MyKnownError).response.data);

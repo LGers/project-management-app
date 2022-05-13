@@ -7,6 +7,7 @@ import {
   BodyWrapper,
 } from '../../components/CommonComponents/CommonComponents';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
+import { Footer } from '../../components/Footer';
 import { useTranslation } from 'react-i18next';
 
 export const WelcomePage = () => {
@@ -33,7 +34,8 @@ export const WelcomePage = () => {
           </Container>
         </Content>
         <FooterWrapper>
-          <p>Footer</p>
+          {/* <p>Footer</p> */}
+          <Footer />
         </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
