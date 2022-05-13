@@ -39,7 +39,8 @@ export const App = () => {
       i18n.changeLanguage(localStorage.getItem('language') as Languages);
       dispatch(setLanguage(localStorage.getItem('language') as Languages));
     }
-    store.dispatch(fetchUsers({ login: 'data.userLogin', password: 'data.password' }));
+    // store.dispatch(fetchUsers({ login: 'data.userLogin', password: 'data.password' }));
+    store.dispatch(fetchUsers());
   }, []);
 
   return (

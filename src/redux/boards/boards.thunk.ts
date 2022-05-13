@@ -1,15 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginInterface, SignUpInterface } from '../../api';
-import { signIn, signUp } from '../../api';
 import { boards } from '../../api/boards';
 
-interface SignInData {
-  token: string;
-}
-
-export const fetchBoards = createAsyncThunk<Array<Record<string, string>>, LoginInterface>(
+export const fetchBoards = createAsyncThunk<Array<Record<string, string>>>(
   'boards/fetchBoards',
-  async (_, thunkAPI) => {
+  async (props, thunkAPI) => {
     try {
       const res = await boards();
       return res.data;

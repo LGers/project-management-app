@@ -33,9 +33,9 @@ export const fetchSignUp = createAsyncThunk(
   }
 );
 // todo types
-export const fetchUsers = createAsyncThunk<Array<Record<string, string>>, LoginInterface>(
+export const fetchUsers = createAsyncThunk<Array<Record<string, string>>>(
   'auth/fetchUsers',
-  async (_, thunkAPI) => {
+  async (props, thunkAPI) => {
     try {
       const res = await users();
       return res.data;

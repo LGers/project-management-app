@@ -14,7 +14,7 @@ export const Board = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    store.dispatch(fetchBoards({ login: 'data.userLogin', password: 'data.password' }));
+    store.dispatch(fetchBoards());
   }, []);
 
   return (
