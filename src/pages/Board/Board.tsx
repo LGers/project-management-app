@@ -1,18 +1,15 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
-// import { BoardCard } from '../../components/BoardCard';
 import { MainHeader } from '../../components/MainHeader';
-// import { fetchBoard } from '../../redux/boards/boards.thunk';
 import { fetchBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
 import { Column } from '../../components/Column';
-import { setBoard, setColumns } from '../../redux/board/board.slice';
-// import { setBoards } from '../../redux/boards/boards.slice';
+import { setColumns } from '../../redux/board/board.slice';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -27,30 +24,26 @@ export const Board = () => {
 
   const hideInput = () => {
     setAddBoard(false);
-    dispatch(setColumns({ id: 'unknown', title: inputName, tasks: [], order: 999 }));
+    if (inputName) dispatch(setColumns({ id: 'unknown', title: inputName, tasks: [], order: 999 }));
   };
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputName(event.target.value);
   };
 
-  const handleInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    // dispatch(setCatalogCurrentPage(1));
+  const handleFieldKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
+      setInputName('');
       setAddBoard(false);
-      // getCardsFromApi({
-      //   name: searchString,
-      //   filterBy: catalog.filterBy,
-      //   page: 1,
-      //   catalogLimit: catalog.catalogLimit,
-      // });
     }
     if (event.key === 'Enter') {
+      setInputName('');
       setAddBoard(false);
-      // dispatch(setColumns({ id: 'unknown', title: 'sdf', tasks: [], order: 999 }));
-      dispatch(
-        setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
-      );
+      if (inputName) {
+        dispatch(
+          setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
+        );
+      }
       // getCardsFromApi({
       //   name: searchString,
       //   filterBy: catalog.filterBy,
@@ -83,11 +76,11 @@ export const Board = () => {
               <input
                 onChange={onInputChange}
                 onBlur={hideInput}
-                onKeyUp={handleInputKeyUp}
+                onKeyUp={handleFieldKeyUp}
                 autoFocus={true}
               />
             )}
-            <Button onClick={() => setAddBoard(true)}>{t('Add Column')}</Button>
+            <Button onClick={() => setAddBoard(true)}>{t('Add column')}</Button>
           </Box>
         </Content>
         <FooterWrapper>

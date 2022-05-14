@@ -1,4 +1,4 @@
-import { _Board1, Board } from '../boards/boards.types';
+import { Board } from '../boards/boards.types';
 
 export interface BoardState {
   isFetching: boolean;
@@ -6,11 +6,10 @@ export interface BoardState {
     message: string;
     statusCode: number;
   };
-  // boardData: Board | undefined;
   boardData: Board;
 }
 
-export const emptyBoard1: Board = _Board1;
+//todo del it
 export const emptyBoard: Board = {
   id: 'undefined',
   title: 'undefined',

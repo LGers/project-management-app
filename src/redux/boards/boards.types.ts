@@ -11,24 +11,13 @@ export interface MyKnownError {
   };
 }
 
-// export interface BoardState {
-//   isFetching: boolean;
-//   error: {
-//     message: string;
-//     statusCode: number;
-//   };
-//   board: Board | undefined;
-// }
-
 export interface BoardsState {
   isFetching: boolean;
   error: {
     message: string;
     statusCode: number;
   };
-  // boards: Array<Record<string, string>>;
   boards: Board[];
-  // board: Board | undefined;
 }
 
 export interface Files {
@@ -59,6 +48,7 @@ export interface Board {
   columns: Column[];
 }
 
+// todo del it
 export const _Board1: Board = {
   id: '9a111e19-24ec-43e1-b8c4-13776842b8d5',
   title: 'Homework tasks',

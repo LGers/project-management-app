@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { boards, boardsId } from '../../api/boards';
+import { boardsId } from '../../api/boards';
 import { Board, MyKnownError } from '../boards/boards.types';
-// import { Board, MyKnownError } from './boards.types';
 
 export const fetchBoard = createAsyncThunk<Board, string>(
   'board/fetchBoard',

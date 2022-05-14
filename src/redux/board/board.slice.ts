@@ -22,22 +22,12 @@ export const boardSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    setBoard: (state, action: PayloadAction<Board>) => {
-      // state.boardData = action.payload;
-      // state.boardData = {...state.boardData, action.payload};
-    },
+    // setBoard: (state, action: PayloadAction<Board>) => {
+    //   // state.boardData = action.payload;
+    //   // state.boardData = {...state.boardData, action.payload};
+    // },
     setColumns: (state, action: PayloadAction<Column>) => {
-      // state.boardData = action.payload;
-
-      // state.boardData.columns = {
-      //   ...state.boardData.columns,
-      //   columns: [],
-      // };
       state.boardData.columns = [...state.boardData.columns, action.payload];
-      // {
-      //   ...state.boardData.columns,
-      //   columns: [],
-      // };
     },
   },
   extraReducers: (builder) => {
@@ -57,5 +47,5 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setColumns, setBoard } = boardSlice.actions;
+export const { setColumns } = boardSlice.actions;
 export const boardReducer = boardSlice.reducer;
