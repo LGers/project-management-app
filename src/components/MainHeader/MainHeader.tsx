@@ -7,30 +7,23 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
 } from '@mui/material';
 import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
-import { AlignCenter, ButtonPadding } from '../CommonComponents/CommonComponents';
+import { AlignCenter } from '../CommonComponents/CommonComponents';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { useCreateBoardApi } from './useCreateBoardApi';
-
-enum Language {
-  RU = 'RU',
-  EN = 'EN',
-}
+import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../redux/auth/auth.slice';
 
 export const MainHeader = () => {
-  const [language, setLanguage] = useState<Language>(Language.RU);
+  const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [boardName, setBoardName] = useState<string>('');
   const { createBoard } = useCreateBoardApi();
-
-  const handleChange = (event: React.MouseEvent) => {
-    const lang = (event.target as HTMLInputElement).value;
-    setLanguage(lang as Language);
-  };
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -42,17 +35,17 @@ export const MainHeader = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
   };
 
-  const handleCreate = () => {
+  const handleCreateBoard = () => {
     setOpen(false);
     createBoard({ name: boardName });
   };
 
   const logoutHandler = (): void => {
-    navigate(PATH.SIGN_OUT);
+    dispatch(setAuth(false));
   };
 
   return (
@@ -60,40 +53,37 @@ export const MainHeader = () => {
       <MainHeaderWrapper>
         <JustifySpaceBetween>
           <AlignCenter>
-            <ButtonPadding>
-              <Button color="primary" variant="contained" onClick={editProfileHandler}>
-                Edit profile
-              </Button>
-            </ButtonPadding>
-            <ButtonPadding>
-              <Button color="primary" variant="contained" onClick={newBoardHandler}>
-                Create new board
-              </Button>
-            </ButtonPadding>
-            <ButtonPadding>
-              <ToggleButtonGroup color="primary" value={language} exclusive onChange={handleChange}>
-                <ToggleButton value={Language.RU}>{Language.RU}</ToggleButton>
-                <ToggleButton value={Language.EN}>{Language.EN}</ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonPadding>
+            <Button color="primary" variant="contained" onClick={editProfileHandler}>
+              <p>{t('Edit profile')}</p>
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={newBoardHandler}
+              sx={{ marginLeft: 5 }}
+            >
+              <p> {t('Create new board')}</p>
+            </Button>
+            <LanguageSelect />
           </AlignCenter>
           <Button color="primary" variant="contained" onClick={logoutHandler}>
-            Sign Out
+            <p>{t('Sign Out')}</p>
           </Button>
         </JustifySpaceBetween>
       </MainHeaderWrapper>
       <div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Create New Board</DialogTitle>
+        <Dialog open={open} onClose={handleCloseDialog}>
+          <DialogTitle>
+            <p>{t('Create New Board')}</p>
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To create a new board, please enter board name here.
+              <p>{t('To create a new board, please enter board name here')}</p>
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Board Name"
               type="text"
               fullWidth
               value={boardName}
@@ -102,8 +92,8 @@ export const MainHeader = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleCreate}>Create</Button>
+            <Button onClick={handleCloseDialog}>{t('Cancel')}</Button>
+            <Button onClick={handleCreateBoard}>{t('Create')}</Button>
           </DialogActions>
         </Dialog>
       </div>
