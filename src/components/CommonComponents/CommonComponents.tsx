@@ -29,5 +29,3 @@ export const AlignCenter = styled('div')({
   display: 'flex',
   alignItems: 'center',
 });
-
-export const ButtonPadding = styled('div')({ paddingLeft: 10 });
