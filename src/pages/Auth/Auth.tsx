@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Field, FormNameInterface, FormNameType, SignUpFormInputs, FormData } from './Auth.types';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
@@ -21,6 +21,7 @@ import { resetIsSignUp } from '../../redux/auth/auth.slice';
 import { signInValidationSchema, signUpValidationSchema } from './Auth.validation';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export const Auth = ({ formName }: FormNameInterface) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -101,9 +102,16 @@ export const Auth = ({ formName }: FormNameInterface) => {
           <AuthForm onSubmit={handleSubmit(onSubmit)}>
             <strong>{t(formData.name + ' to')} Lemasello</strong>
             {formData.fields}
-            <Button variant="contained" type="submit" color="success" sx={{ width: '100%' }}>
+            <LoadingButton
+              type="submit"
+              loading={auth.isFetching}
+              loadingPosition="end"
+              variant="contained"
+              color="success"
+              sx={{ width: '100%' }}
+            >
               {t(formData.name)}
-            </Button>
+            </LoadingButton>
           </AuthForm>
           <LanguageSelect />
           <AuthAlert />
