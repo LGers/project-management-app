@@ -6,7 +6,7 @@ import { setColumns } from '../../redux/board/board.slice';
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const [showField, setShowField] = useState(false);
-  const [inputName, setInputName] = useState('');
+  const [fieldData, setFieldData] = useState('');
 
   const onFieldBlur = () => {
     setShowField(false);
@@ -14,13 +14,13 @@ export const Column: React.FC<ColumnProps> = (props) => {
 
   const handleFieldKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
-      setInputName('');
+      setFieldData('');
       setShowField(false);
     }
     if (event.key === 'Enter') {
-      setInputName('');
+      setFieldData('');
       setShowField(false);
-      if (inputName) {
+      if (fieldData) {
         // dispatch(
         //   setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
         // );

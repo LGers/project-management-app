@@ -16,30 +16,31 @@ export const Board = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
-  const [addBoard, setAddBoard] = useState(false);
-  const [inputName, setInputName] = useState('');
+  const [showField, setShowField] = useState(false);
+  const [fieldData, setFieldData] = useState('');
   useEffect(() => {
     store.dispatch(fetchBoard(id ?? ''));
   }, []);
 
-  const hideInput = () => {
-    setAddBoard(false);
-    if (inputName) dispatch(setColumns({ id: 'unknown', title: inputName, tasks: [], order: 999 }));
+  const onFieldBlur = () => {
+    setShowField(false);
+    if (fieldData) dispatch(setColumns({ id: 'unknown', title: fieldData, tasks: [], order: 999 }));
+    setFieldData('');
   };
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputName(event.target.value);
+    setFieldData(event.target.value);
   };
 
   const handleFieldKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
-      setInputName('');
-      setAddBoard(false);
+      setFieldData('');
+      setShowField(false);
     }
     if (event.key === 'Enter') {
-      setInputName('');
-      setAddBoard(false);
-      if (inputName) {
+      setFieldData('');
+      setShowField(false);
+      if (fieldData) {
         dispatch(
           setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
         );
@@ -72,15 +73,15 @@ export const Board = () => {
             {board?.columns.map((col) => (
               <Column key={col.id} {...col} />
             ))}
-            {addBoard && (
+            {showField && (
               <input
                 onChange={onInputChange}
-                onBlur={hideInput}
+                onBlur={onFieldBlur}
                 onKeyUp={handleFieldKeyUp}
                 autoFocus={true}
               />
             )}
-            <Button onClick={() => setAddBoard(true)}>{t('Add column')}</Button>
+            <Button onClick={() => setShowField(true)}>{t('Add column')}</Button>
           </Box>
         </Content>
         <FooterWrapper>
