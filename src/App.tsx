@@ -10,9 +10,11 @@ import { RootState, store } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
 import { ProtectedRouteProps } from './App.types';
-import { Languages, setLanguage } from './redux/auth/auth.slice';
+import { setLanguage } from './redux/auth/auth.slice';
 import { useTranslation } from 'react-i18next';
 import { fetchUsers } from './redux/auth/auth.thunk';
+import { Boards } from './pages/Boards';
+import { Languages } from './redux/auth/auth.types';
 import { Board } from './pages/Board';
 
 const ProtectedRoute = ({ isAuth, children }: ProtectedRouteProps) => {
@@ -39,7 +41,6 @@ export const App = () => {
       i18n.changeLanguage(localStorage.getItem('language') as Languages);
       dispatch(setLanguage(localStorage.getItem('language') as Languages));
     }
-    // store.dispatch(fetchUsers({ login: 'data.userLogin', password: 'data.password' }));
     store.dispatch(fetchUsers());
   }, []);
 
@@ -64,7 +65,7 @@ export const App = () => {
           path={PATH.COLUMNS + ':id'}
           element={
             <ProtectedRoute isAuth={isAuth}>
-              <Board />
+              <Boards />
             </ProtectedRoute>
           }
         />

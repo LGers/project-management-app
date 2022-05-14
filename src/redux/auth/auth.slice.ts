@@ -1,18 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchLogin, fetchSignUp, fetchUsers, MyKnownError } from './auth.thunk';
-
-export type Languages = 'en' | 'ru';
-
-export interface AuthState {
-  isAuth: boolean;
-  isSignUp: boolean;
-  language: Languages;
-  isFetching: boolean;
-  error: {
-    message: string;
-    statusCode: number;
-  };
-}
+import { fetchLogin, fetchSignUp, fetchUsers } from './auth.thunk';
+import { AuthState, Languages, MyKnownError } from './auth.types';
 
 const initialState: AuthState = {
   isAuth: true,

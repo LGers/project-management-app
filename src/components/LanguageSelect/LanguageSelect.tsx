@@ -1,8 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Languages, setLanguage } from '../../redux/auth/auth.slice';
+import { setLanguage } from '../../redux/auth/auth.slice';
 import { RootState } from '../../redux/store';
+import { Languages } from '../../redux/auth/auth.types';
 
 export const LanguageSelect = () => {
   const dispatch = useDispatch();

@@ -1,14 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchBoards, MyKnownError } from './boards.thunk';
-
-export interface BoardsState {
-  isFetching: boolean;
-  error: {
-    message: string;
-    statusCode: number;
-  };
-  boards: Array<Record<string, string>>;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+// import { fetchBoard, fetchBoards } from './boards.thunk';
+import { fetchBoards } from './boards.thunk';
+import { Board, BoardsState, MyKnownError } from './boards.types';
+import { boardSlice } from '../board/board.slice';
 
 const initialState: BoardsState = {
   isFetching: false,
@@ -17,16 +11,27 @@ const initialState: BoardsState = {
     statusCode: 0,
   },
   boards: [],
+  // board: undefined,
+};
+
+const pending = (state: BoardsState) => {
+  state.isFetching = true;
+  state.error = initialState.error;
 };
 
 export const boardsSlice = createSlice({
   name: 'boards',
   initialState,
-  reducers: {},
+  reducers: {
+    // setBoards: (state, action: PayloadAction<Board>) => {
+    //   state.boards = [...state.boards, action.payload];
+    // },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBoards.pending, (state) => {
-      state.isFetching = true;
-      state.error = initialState.error;
+      pending(state);
+      // state.isFetching = true;
+      // state.error = initialState.error;
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
       state.isFetching = false;
@@ -36,7 +41,22 @@ export const boardsSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
+
+    // builder.addCase(fetchBoard.pending, (state) => {
+    //   pending(state);
+    //   // state.isFetching = true;
+    //   // state.error = initialState.error;
+    // });
+    // builder.addCase(fetchBoard.fulfilled, (state, action) => {
+    //   state.isFetching = false;
+    //   state.board = action.payload;
+    // });
+    // builder.addCase(fetchBoard.rejected, (state, action) => {
+    //   state.isFetching = false;
+    //   state.error = action.payload as MyKnownError;
+    // });
   },
 });
 
+export const {} = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;
