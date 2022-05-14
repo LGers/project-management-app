@@ -15,7 +15,6 @@ import { Footer } from '../../components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageTitleBig, MessageTitleMedium, Page404Content } from './Page404Styles';
 import { useTranslation } from 'react-i18next';
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { MainHeader } from '../../components/MainHeader';
@@ -29,10 +28,10 @@ export const Page404 = () => {
       <Wrapper>
         {isAuth ? <MainHeader /> : <WelcomePageHeader />}
         <Page404Content>
-          <MessageTitleBig>{t(`${PAGE_404_TITLE}`)}</MessageTitleBig>
+          <MessageTitleBig>{t(PAGE_404_TITLE)}</MessageTitleBig>
           <MessageTitleMedium>
-            {t(`${PAGE_404_MESSAGE}`)}
-            <Link to={PATH.HOME}>{t(`${PAGE_404_LINK_TO}`)}</Link>
+            {t(PAGE_404_MESSAGE)}
+            <Link to={PATH.HOME}>{t(PAGE_404_LINK_TO)}</Link>
           </MessageTitleMedium>
         </Page404Content>
         <FooterWrapper>
