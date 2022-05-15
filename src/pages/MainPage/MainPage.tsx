@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { LegacyRef, useEffect, useRef } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { PATH } from '../../constants/common.dictionary';
 import { Link } from 'react-router-dom';
@@ -10,10 +10,14 @@ import { useTranslation } from 'react-i18next';
 import { BoardCard } from '../../components/BoardCard';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoards } from '../../redux/boards/boards.thunk';
+import { useScroll } from './useScroll';
 
 export const MainPage = () => {
   const boards = useSelector((state: RootState) => state.boards);
   const { t } = useTranslation();
+
+  const ref = useRef();
+  const trigger = useScroll(ref);
 
   useEffect(() => {
     store.dispatch(fetchBoards());
@@ -22,8 +26,8 @@ export const MainPage = () => {
   return (
     <BodyWrapper>
       <Wrapper>
-        <MainHeader />
-        <Content>
+        <MainHeader hide={trigger} />
+        <Content ref={ref as unknown as LegacyRef<HTMLDivElement>}>
           <Box sx={{ bgcolor: '#cfe8fc' }}>
             <h1>{t('Boards')}</h1>
           </Box>
