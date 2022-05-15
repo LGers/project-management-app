@@ -14,22 +14,27 @@ import {
 import { Footer } from '../../components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageTitleBig, MessageTitleMedium, Page404Content } from './Page404Styles';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { MainHeader } from '../../components/MainHeader';
 
 export const Page404 = () => {
+  const { t } = useTranslation();
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+
   return (
     <BodyWrapper>
       <Wrapper>
-        {/*todo if (auth) MainHeader else WelcomePageHeader */}
-        <WelcomePageHeader />
+        {isAuth ? <MainHeader /> : <WelcomePageHeader />}
         <Page404Content>
-          <MessageTitleBig>{PAGE_404_TITLE}</MessageTitleBig>
+          <MessageTitleBig>{t(PAGE_404_TITLE)}</MessageTitleBig>
           <MessageTitleMedium>
-            {PAGE_404_MESSAGE}
-            <Link to={PATH.HOME}>{PAGE_404_LINK_TO}</Link>
+            {t(PAGE_404_MESSAGE)}
+            <Link to={PATH.HOME}>{t(PAGE_404_LINK_TO)}</Link>
           </MessageTitleMedium>
         </Page404Content>
         <FooterWrapper>
-          {/* <p>Footer</p> */}
           <Footer />
         </FooterWrapper>
       </Wrapper>

@@ -6,18 +6,23 @@ import { Page404 } from './pages/Page404';
 import { CssBaseline } from '@mui/material';
 import { MainPage } from './pages/MainPage';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from './redux/store';
+import { RootState, store } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
 import { ProtectedRouteProps } from './App.types';
-import { Languages, setLanguage } from './redux/auth/auth.slice';
+import { setLanguage } from './redux/auth/auth.slice';
 import { useTranslation } from 'react-i18next';
+import { fetchUsers } from './redux/auth/auth.thunk';
+import { Boards } from './pages/Boards';
+import { Languages } from './redux/auth/auth.types';
+import { Board } from './pages/Board';
 
-const ProtectedRoute = ({ isAuth }: ProtectedRouteProps): ReactJSXElement => {
+const ProtectedRoute = ({ isAuth, children }: ProtectedRouteProps) => {
+  console.log('isAuth', isAuth);
   if (!isAuth) {
     return <Navigate to={PATH.HOME} replace />;
   }
-  return <MainPage />;
+  return children;
 };
 
 const homePage = (isAuth: boolean): ReactJSXElement => {
@@ -27,6 +32,7 @@ const homePage = (isAuth: boolean): ReactJSXElement => {
 
 export const App = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
 
@@ -35,6 +41,7 @@ export const App = () => {
       i18n.changeLanguage(localStorage.getItem('language') as Languages);
       dispatch(setLanguage(localStorage.getItem('language') as Languages));
     }
+    store.dispatch(fetchUsers());
   }, []);
 
   return (
@@ -45,15 +52,23 @@ export const App = () => {
         <Route path={PATH.LOG_IN} element={<Auth formName={'signIn'} />} />
         <Route path={PATH.SIGN_UP} element={<Auth formName={'signUp'} />} />
         <Route path={PATH.SIGN_OUT} element={<Auth formName={'singOut'} />} />
-        <Route path={'/test/'} element={<MainPage />} />
-        <Route element={<ProtectedRoute isAuth={auth.isAuth} />}>
-          <Route path={PATH.WELCOME_PAGE} element={<WelcomePage />} />
-          <Route path={PATH.HOME} element={<MainPage />} />
-          <Route path={PATH.COLUMNS} element={<MainPage />} />
-          <Route path={PATH.BOARDS} element={<MainPage />} />
-          <Route path={PATH.PROFILE} element={<MainPage />} />
-        </Route>
-
+        <Route path={PATH.WELCOME_PAGE} element={<WelcomePage />} />
+        <Route
+          path={PATH.BOARD + ':id'}
+          element={
+            <ProtectedRoute isAuth={isAuth}>
+              <Board />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={PATH.COLUMNS + ':id'}
+          element={
+            <ProtectedRoute isAuth={isAuth}>
+              <Boards />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>

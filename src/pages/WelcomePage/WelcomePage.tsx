@@ -34,7 +34,6 @@ export const WelcomePage = () => {
           </Container>
         </Content>
         <FooterWrapper>
-          {/* <p>Footer</p> */}
           <Footer />
         </FooterWrapper>
       </Wrapper>

@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
 
-export const MainHeader = ({ hide }: { hide: boolean }) => {
+export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [boardName, setBoardName] = useState<string>('');

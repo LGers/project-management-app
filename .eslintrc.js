@@ -31,6 +31,17 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    // '@typescript-eslint/naming-convention': [
+    //   'error',
+    //   {
+    //     selector: 'interface',
+    //     format: ['PascalCase'],
+    //     custom: {
+    //       regex: '^I[A-Z]',
+    //       match: false,
+    //     },
+    //   },
+    // ],
   },
   settings: {
     react: {
