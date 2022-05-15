@@ -4,7 +4,7 @@ import { enTranslation } from './dictionary.en';
 import { ruTranslation } from './dictionary.ru';
 
 i18n.use(initReactI18next).init({
-  debug: true,
+  debug: false,
   lng: 'en',
   fallbackLng: 'en',
   interpolation: {
