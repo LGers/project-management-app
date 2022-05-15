@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {
+  AppBar,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Slide,
   TextField,
 } from '@mui/material';
 import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
@@ -18,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
 
-export const MainHeader = () => {
+export const MainHeader = ({ hide }: { hide: boolean }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [boardName, setBoardName] = useState<string>('');
@@ -45,10 +47,11 @@ export const MainHeader = () => {
   };
 
   const logoutHandler = (): void => {
+    localStorage.removeItem('authToken');
     dispatch(setAuth(false));
   };
 
-  return (
+  const header = (
     <>
       <MainHeaderWrapper>
         <JustifySpaceBetween>
@@ -97,6 +100,17 @@ export const MainHeader = () => {
           </DialogActions>
         </Dialog>
       </div>
+    </>
+  );
+
+  return (
+    <>
+      <Slide appear={false} direction="down" in={!hide}>
+        <AppBar>{header}</AppBar>
+      </Slide>
+      <Slide appear={false} direction="down" in={hide}>
+        <div>{header}</div>
+      </Slide>
     </>
   );
 };
