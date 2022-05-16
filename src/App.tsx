@@ -18,7 +18,6 @@ import { Languages } from './redux/auth/auth.types';
 import { Board } from './pages/Board';
 
 const ProtectedRoute = ({ isAuth, children }: ProtectedRouteProps) => {
-  console.log('isAuth', isAuth);
   if (!isAuth) {
     return <Navigate to={PATH.HOME} replace />;
   }

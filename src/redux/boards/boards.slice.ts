@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchBoards } from './boards.thunk';
+import { fetchUpdateBoard } from '../board/board.thunk';
+import { fetchBoards, fetchCreateBoard, fetchDeleteBoard } from './boards.thunk';
 import { BoardsState, MyKnownError } from './boards.types';
 
 const initialState: BoardsState = {
@@ -29,6 +30,36 @@ export const boardsSlice = createSlice({
       state.boards = action.payload;
     });
     builder.addCase(fetchBoards.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchCreateBoard.pending, (state) => {
+      pending(state);
+    });
+    builder.addCase(fetchCreateBoard.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.boards = [...state.boards, action.payload];
+    });
+    builder.addCase(fetchCreateBoard.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchUpdateBoard.pending, (state) => {
+      pending(state);
+    });
+    builder.addCase(fetchUpdateBoard.fulfilled, () => {});
+    builder.addCase(fetchUpdateBoard.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchDeleteBoard.pending, (state) => {
+      pending(state);
+    });
+    builder.addCase(fetchDeleteBoard.fulfilled, () => {});
+    builder.addCase(fetchDeleteBoard.rejected, (state, action) => {
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });

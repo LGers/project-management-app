@@ -7,7 +7,8 @@ export const authEn = {
   'Password': 'Enter Password',
   'Confirm Password': 'Confirm Password',
   'Sign In to': 'Sign In to',
-  'Sign Up to': 'Sign Up to'
+  'Sign Up to': 'Sign Up to',
+  'Go to Main page': 'Go to Main page'
 };
 
 export const authRu = {
@@ -18,6 +19,7 @@ export const authRu = {
   'Password': 'Введите пароль',
   'Confirm Password': 'Подтвердите пароль',
   'Sign In to': 'Войти в',
-  'Sign Up to': 'Регистрация в'
+  'Sign Up to': 'Регистрация в',
+  'Go to Main page': 'На главную страницу'
 };
 /* eslint-disable */
