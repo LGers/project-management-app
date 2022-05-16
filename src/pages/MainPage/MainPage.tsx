@@ -22,6 +22,7 @@ import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
 
 import { useScroll } from './useScroll';
 import { DragBoard } from '../Boards/DragBoard/DragBoard';
+import { Task } from '../../components/Task/Task';
 
 export const MainPage = () => {
   const boards = useSelector((state: RootState) => state.boards);
@@ -68,6 +69,7 @@ export const MainPage = () => {
           </Button>
           <DragBoard />
           {boards.boards.map((board) => {
+            console.log('board:', board);
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
@@ -97,6 +99,8 @@ export const MainPage = () => {
               <Button onClick={handleCreateNewBoard}>Create</Button>
             </DialogActions>
           </Dialog>
+          <p>{JSON.stringify(boards.boards)}</p>
+          <Task />
         </Content>
         <FooterWrapper>
           <Footer />

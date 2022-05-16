@@ -72,9 +72,13 @@ export const Board = () => {
               overflow: 'hidden',
             }}
           >
-            {board?.columns.map((col) => (
+            {board?.columns.map((col) => {
+              console.log(board);
+              return <Column key={col.id} {...col} />;
+            })}
+            {/* {board?.columns.map((col) => (
               <Column key={col.id} {...col} />
-            ))}
+            ))} */}
             {showField && (
               <input
                 onChange={onInputChange}
