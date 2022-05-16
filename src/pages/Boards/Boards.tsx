@@ -8,9 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { BoardCard } from '../../components/BoardCard';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoards } from '../../redux/boards/boards.thunk';
+import { ErrorMessage } from '../../components/ErrorMessage';
 
 export const Boards = () => {
   const boards = useSelector((state: RootState) => state.boards);
+  const errorMessage = useSelector((state: RootState) => state.boards.error.message);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export const Boards = () => {
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
+          <ErrorMessage errorMessage={errorMessage} />
         </Content>
         <FooterWrapper>
           <Footer />

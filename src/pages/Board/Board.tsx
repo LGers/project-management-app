@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
 import { MainHeader } from '../../components/MainHeader';
-import { fetchBoard } from '../../redux/board/board.thunk';
+import { fetchBoard, fetchUpdateBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
 import { Column } from '../../components/Column';
 import { setColumns } from '../../redux/board/board.slice';
+import { BoardTitleField } from '../../components/BoardTitleField';
+import { ErrorMessage } from '../../components/ErrorMessage';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
-  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const errorMessage = useSelector((state: RootState) => state.boards.error.message);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
@@ -46,13 +48,12 @@ export const Board = () => {
           setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
         );
       }
-      // getCardsFromApi({
-      //   name: searchString,
-      //   filterBy: catalog.filterBy,
-      //   page: 1,
-      //   catalogLimit: catalog.catalogLimit,
-      // });
     }
+  };
+
+  const setField = (title: string) => {
+    store.dispatch(fetchUpdateBoard({ boardId: board.id, title }));
+    store.dispatch(fetchBoard(board.id));
   };
 
   return (
@@ -60,8 +61,8 @@ export const Board = () => {
       <Wrapper>
         <MainHeader />
         <Content>
-          <Box sx={{ bgcolor: '#cfe8fc' }}>
-            <h1>{board?.title}</h1>
+          <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
+            <BoardTitleField title={board.title} setField={setField} />
           </Box>
           <Box
             sx={{
@@ -83,6 +84,7 @@ export const Board = () => {
               />
             )}
             <Button onClick={() => setShowField(true)}>{t('Add column')}</Button>
+            <ErrorMessage errorMessage={errorMessage} />
           </Box>
         </Content>
         <FooterWrapper>

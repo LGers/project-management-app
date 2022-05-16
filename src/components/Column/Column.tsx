@@ -2,7 +2,9 @@ import { Button, CardContent, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Column as ColumnProps } from '../../redux/boards/boards.types';
 import { ColumnCard } from './Column.styles';
-import { TitleField } from '../TitleField/TitleField';
+import { TitleField } from '../TitleField';
+import { store } from '../../redux';
+import { fetchUpdateBoard } from '../../redux/board/board.thunk';
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const [showField, setShowField] = useState(false);
@@ -24,9 +26,11 @@ export const Column: React.FC<ColumnProps> = (props) => {
   };
 
   const setField = (value: string) => {
-    // todo request to api
-    console.log(value);
+    // todo fetch Update Column
+    store.dispatch(fetchUpdateBoard({ boardId: props.id, title: value }));
+    // store.dispatch(fetchBoards());
   };
+
   return (
     <ColumnCard>
       <CardContent>
