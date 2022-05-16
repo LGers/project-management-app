@@ -1,8 +1,9 @@
-import { Button, CardContent, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
 import { DragBucket } from '../../redux/boards/boards.types';
-import { ColumnCard } from './Column.styles';
 import { Droppable, Draggable } from 'react-virtualized-dnd';
+import { store } from '../../redux';
+import { fetchUpdateBoard } from '../../redux/board/board.thunk';
 
 interface ColumnProps {
   groupName: string;
@@ -28,18 +29,13 @@ export const Column = (props: ColumnProps): ReactElement => {
     if (event.key === 'Enter') {
       setFieldData('');
       setShowField(false);
-      if (fieldData) {
-        // dispatch(
-        //   setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
-        // );
-      }
-      // getCardsFromApi({
-      //   name: searchString,
-      //   filterBy: catalog.filterBy,
-      //   page: 1,
-      //   catalogLimit: catalog.catalogLimit,
-      // });
     }
+  };
+
+  const setField = (value: string) => {
+    // todo fetch Update Column
+    store.dispatch(fetchUpdateBoard({ boardId: bucket.id, title: value }));
+    // store.dispatch(fetchBoards());
   };
 
   return (
@@ -70,6 +66,10 @@ export const Column = (props: ColumnProps): ReactElement => {
                 {item.name}
               </Typography>
               {i === 0 && <Button onClick={addTask}>Add Task</Button>}
+              {/* {showField && (
+                <input autoFocus={true} onBlur={onFieldBlur} onKeyUp={handleFieldKeyUp} />
+              )}
+              <Button onClick={() => setShowField(true)}>Add Task</Button> */}
             </div>
           </Draggable>
         ))}

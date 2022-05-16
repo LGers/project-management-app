@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
 import { MainHeader } from '../../components/MainHeader';
-import { fetchBoard } from '../../redux/board/board.thunk';
+import { fetchBoard, fetchUpdateBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
 import { setColumn } from '../../redux/board/board.slice';
 import { DragBoard } from './DragBoard/DragBoard';
+import { BoardTitleField } from '../../components/BoardTitleField';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
+  const errorMessage = useSelector((state: RootState) => state.boards.error.message);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
@@ -51,13 +53,12 @@ export const Board = () => {
           })
         );
       }
-      // getCardsFromApi({
-      //   name: searchString,
-      //   filterBy: catalog.filterBy,
-      //   page: 1,
-      //   catalogLimit: catalog.catalogLimit,
-      // });
     }
+  };
+
+  const setField = (title: string) => {
+    store.dispatch(fetchUpdateBoard({ boardId: board.id, title }));
+    store.dispatch(fetchBoard(board.id));
   };
 
   return (
@@ -65,8 +66,8 @@ export const Board = () => {
       <Wrapper>
         <MainHeader />
         <Content>
-          <Box sx={{ bgcolor: '#cfe8fc' }}>
-            <h1>{board?.title}</h1>
+          <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
+            <BoardTitleField title={board.title} setField={setField} />
           </Box>
           <Box
             sx={{
