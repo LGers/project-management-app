@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllBoards } from '../../api/boards';
+import { createBoard, getAllBoards } from '../../api/boards';
 import { Board, MyKnownError } from './boards.types';
 
 export const fetchBoards = createAsyncThunk<Array<Board>>(
@@ -7,6 +7,18 @@ export const fetchBoards = createAsyncThunk<Array<Board>>(
   async (props, thunkAPI) => {
     try {
       const res = await getAllBoards();
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+    }
+  }
+);
+
+export const fetchCreateBoard = createAsyncThunk<Board, { title: string }>(
+  'boards/fetchCreateBoard',
+  async (props, thunkAPI) => {
+    try {
+      const res = await createBoard(props.title);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as MyKnownError).response.data);

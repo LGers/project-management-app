@@ -26,22 +26,6 @@ export const Boards = () => {
             <h1>{t('Board Name ')}</h1>
           </Box>
           <p>Board</p>
-          {/*<div>
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
-                <button>xs=8</button>
-              </Grid>
-              <Grid item xs={4}>
-                <p>xs=4</p>
-              </Grid>
-              <Grid item xs={4}>
-                <p>xs=4</p>
-              </Grid>
-              <Grid item xs={8}>
-                <p>xs=8</p>
-              </Grid>
-            </Grid>
-          </div>*/}
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
