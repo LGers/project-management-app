@@ -8,10 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoard, fetchUpdateBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
-import { Column } from '../../components/Column';
-import { setColumns } from '../../redux/board/board.slice';
+import { setColumn } from '../../redux/board/board.slice';
+import { DragBoard } from './DragBoard/DragBoard';
 import { BoardTitleField } from '../../components/BoardTitleField';
-import { ErrorMessage } from '../../components/ErrorMessage';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -27,7 +26,7 @@ export const Board = () => {
 
   const onFieldBlur = () => {
     setShowField(false);
-    if (fieldData) dispatch(setColumns({ id: 'unknown', title: fieldData, tasks: [], order: 999 }));
+    if (fieldData) dispatch(setColumn({ id: 'unknown', title: fieldData, tasks: [], order: 999 }));
     setFieldData('');
   };
 
@@ -36,6 +35,7 @@ export const Board = () => {
   };
 
   const handleFieldKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(event);
     if (event.key === 'Escape') {
       setFieldData('');
       setShowField(false);
@@ -45,7 +45,12 @@ export const Board = () => {
       setShowField(false);
       if (fieldData) {
         dispatch(
-          setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
+          setColumn({
+            id: Math.random().toString(),
+            title: event.currentTarget.value,
+            tasks: [],
+            order: 999,
+          })
         );
       }
     }
@@ -72,24 +77,19 @@ export const Board = () => {
               overflow: 'hidden',
             }}
           >
-            {board?.columns.map((col) => {
-              console.log(board);
-              return <Column key={col.id} {...col} />;
-            })}
-            {/* {board?.columns.map((col) => (
-              <Column key={col.id} {...col} />
-            ))} */}
+            <DragBoard />
             {showField && (
-              <input
-                onChange={onInputChange}
-                onBlur={onFieldBlur}
-                onKeyUp={handleFieldKeyUp}
-                autoFocus={true}
-              />
+              <div style={{ backgroundColor: 'red' }}>
+                <input
+                  onChange={onInputChange}
+                  onBlur={onFieldBlur}
+                  onKeyUp={handleFieldKeyUp}
+                  autoFocus={true}
+                />
+              </div>
             )}
-            <Button onClick={() => setShowField(true)}>{t('Add column')}</Button>
-            <ErrorMessage errorMessage={errorMessage} />
           </Box>
+          <Button onClick={() => setShowField(true)}>{t('Add column')}</Button>
         </Content>
         <FooterWrapper>
           <Footer />

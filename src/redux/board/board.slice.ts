@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Board, Column, MyKnownError } from '../boards/boards.types';
+import { Column, MyKnownError } from '../boards/boards.types';
 import { BoardState, emptyBoard } from './board.types';
 import { fetchBoard } from './board.thunk';
 
@@ -26,7 +26,10 @@ export const boardSlice = createSlice({
     //   // state.boardData = action.payload;
     //   // state.boardData = {...state.boardData, action.payload};
     // },
-    setColumns: (state, action: PayloadAction<Column>) => {
+    setColumns: (state, action: PayloadAction<Column[]>) => {
+      state.boardData.columns = action.payload;
+    },
+    setColumn: (state, action: PayloadAction<Column>) => {
       state.boardData.columns = [...state.boardData.columns, action.payload];
     },
   },
@@ -47,5 +50,5 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setColumns } = boardSlice.actions;
+export const { setColumns, setColumn } = boardSlice.actions;
 export const boardReducer = boardSlice.reducer;

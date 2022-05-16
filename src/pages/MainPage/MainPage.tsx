@@ -67,7 +67,6 @@ export const MainPage = () => {
           >
             <p> {t('Create new board')}</p>
           </Button>
-          <DragBoard />
           {boards.boards.map((board) => {
             console.log('board:', board);
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
