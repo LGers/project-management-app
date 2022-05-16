@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createBoard, getAllBoards } from '../../api/boards';
+import { createBoard, deleteBoard, getAllBoards } from '../../api/boards';
 import { Board, MyKnownError } from './boards.types';
 
 export const fetchBoards = createAsyncThunk<Array<Board>>(
@@ -25,3 +25,15 @@ export const fetchCreateBoard = createAsyncThunk<Board, { title: string }>(
     }
   }
 );
+
+export const fetchDeleteBoard = createAsyncThunk<
+  { statusCode: number; message: string },
+  { id: string }
+>('boards/fetchDeleteBoard', async (props, thunkAPI) => {
+  try {
+    const res = await deleteBoard(props.id);
+    return res.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+  }
+});

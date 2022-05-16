@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchUpdateBoard } from '../board/board.thunk';
-import { fetchBoards, fetchCreateBoard } from './boards.thunk';
-import { Board, BoardsState, MyKnownError } from './boards.types';
+import { fetchBoards, fetchCreateBoard, fetchDeleteBoard } from './boards.thunk';
+import { BoardsState, MyKnownError } from './boards.types';
 
 const initialState: BoardsState = {
   isFetching: false,
@@ -49,14 +49,17 @@ export const boardsSlice = createSlice({
     builder.addCase(fetchUpdateBoard.pending, (state) => {
       pending(state);
     });
-    builder.addCase(fetchUpdateBoard.fulfilled, (state, action) => {
-      // state.isFetching = false;
-      const { title, id } = action.payload;
-      // let newBoard = state.boards.find((board) => board.id === id);
-      // newBoard = newBoard.title;
-      // state.boards = [...state.boards, action.payload];
-    });
+    builder.addCase(fetchUpdateBoard.fulfilled, () => {});
     builder.addCase(fetchUpdateBoard.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchDeleteBoard.pending, (state) => {
+      pending(state);
+    });
+    builder.addCase(fetchDeleteBoard.fulfilled, () => {});
+    builder.addCase(fetchDeleteBoard.rejected, (state, action) => {
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
