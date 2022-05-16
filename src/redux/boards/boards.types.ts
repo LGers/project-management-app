@@ -42,6 +42,26 @@ export interface Column {
   tasks: Task[];
 }
 
+export interface DragItem {
+  id: string;
+  name: string;
+  isHeader?: boolean;
+  isEnd?: boolean;
+  task: Task;
+}
+
+export interface DragBucket {
+  id: string;
+  column: Column;
+  droppableId: string;
+  items: DragItem[];
+}
+
+export interface DragData {
+  droppableId: string;
+  draggableId: string;
+}
+
 export interface Board {
   id: string;
   title: string;
