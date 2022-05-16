@@ -1,10 +1,18 @@
 import { Button, CardContent, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { Column as ColumnProps } from '../../redux/boards/boards.types';
+import React, { ReactElement, useState } from 'react';
+import { DragBucket } from '../../redux/boards/boards.types';
 import { ColumnCard } from './Column.styles';
-import { setColumns } from '../../redux/board/board.slice';
+import { Droppable, Draggable } from 'react-virtualized-dnd';
 
-export const Column: React.FC<ColumnProps> = (props) => {
+interface ColumnProps {
+  groupName: string;
+  bucket: DragBucket;
+  title: string;
+  addTask: () => void;
+}
+
+export const Column = (props: ColumnProps): ReactElement => {
+  const { groupName, bucket, addTask, title } = props;
   const [showField, setShowField] = useState(false);
   const [fieldData, setFieldData] = useState('');
 
@@ -35,23 +43,37 @@ export const Column: React.FC<ColumnProps> = (props) => {
   };
 
   return (
-    <ColumnCard>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {props.title}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {props.id}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {props.order}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Tasks: {JSON.stringify(props.tasks)}
-        </Typography>
-        {showField && <input autoFocus={true} onBlur={onFieldBlur} onKeyUp={handleFieldKeyUp} />}
-        <Button onClick={() => setShowField(true)}>Add Task</Button>
-      </CardContent>
-    </ColumnCard>
+    <Draggable dragAndDropGroup={groupName} draggableId={bucket.id}>
+      <Droppable
+        containerHeight={600}
+        dragAndDropGroup={groupName}
+        droppableId={bucket.droppableId}
+        key={bucket.droppableId}
+      >
+        {bucket.items.map((item, i) => (
+          <Draggable
+            key={`key_${i}`}
+            dragAndDropGroup={groupName}
+            draggableId={item.id}
+            isSectionHeader={item.isHeader || item.isEnd}
+            disableMove={item.isEnd}
+          >
+            <div
+              style={{
+                border: !item.isEnd ? '1px solid black' : undefined,
+                backgroundColor: item.isEnd ? '#EBEBEB' : 'white',
+                height: item.isEnd ? 500 - bucket.items.length * 58 : 'inherit',
+                fontWeight: item.isHeader ? 600 : 200,
+              }}
+            >
+              <Typography variant={item.isHeader ? 'h5' : 'h6'} component="div">
+                {item.name}
+              </Typography>
+              {i === 0 && <Button onClick={addTask}>Add Task</Button>}
+            </div>
+          </Draggable>
+        ))}
+      </Droppable>
+    </Draggable>
   );
 };
