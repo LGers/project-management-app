@@ -9,6 +9,6 @@ export const boards = () => {
   return instance.get(URL.boards());
 };
 
-export const boardsId = (id: string) => {
-  return instance.get(URL.boardsId(id));
+export const createBoard = (title: string) => {
+  return instance.post(URL.boards(), { title });
 };
