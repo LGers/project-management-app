@@ -13,6 +13,7 @@ import { setColumns } from '../../redux/board/board.slice';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
