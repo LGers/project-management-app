@@ -11,6 +11,7 @@ import { BoardCard } from '../../components/BoardCard';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoards } from '../../redux/boards/boards.thunk';
 import { useScroll } from './useScroll';
+import { Task } from '../../components/Task/Task';
 
 export const MainPage = () => {
   const boards = useSelector((state: RootState) => state.boards);
@@ -32,12 +33,14 @@ export const MainPage = () => {
             <h1>{t('Boards')}</h1>
           </Box>
           {boards.boards.map((board) => {
+            console.log('board:', board);
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
           <Link to={PATH.COLUMNS}>columns</Link>
           <Link to={PATH.BOARD}>Boards</Link>
           <p>{JSON.stringify(boards.boards)}</p>
+          <Task />
         </Content>
         <FooterWrapper>
           <Footer />
