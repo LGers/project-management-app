@@ -2,7 +2,9 @@ import { Button, CardContent, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Column as ColumnProps } from '../../redux/boards/boards.types';
 import { ColumnCard } from './Column.styles';
-import { setColumns } from '../../redux/board/board.slice';
+import { TitleField } from '../TitleField';
+import { store } from '../../redux';
+import { fetchUpdateBoard } from '../../redux/board/board.thunk';
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const [showField, setShowField] = useState(false);
@@ -20,26 +22,19 @@ export const Column: React.FC<ColumnProps> = (props) => {
     if (event.key === 'Enter') {
       setFieldData('');
       setShowField(false);
-      if (fieldData) {
-        // dispatch(
-        //   setColumns({ id: 'unknown', title: event.currentTarget.value, tasks: [], order: 999 })
-        // );
-      }
-      // getCardsFromApi({
-      //   name: searchString,
-      //   filterBy: catalog.filterBy,
-      //   page: 1,
-      //   catalogLimit: catalog.catalogLimit,
-      // });
     }
+  };
+
+  const setField = (value: string) => {
+    // todo fetch Update Column
+    store.dispatch(fetchUpdateBoard({ boardId: props.id, title: value }));
+    // store.dispatch(fetchBoards());
   };
 
   return (
     <ColumnCard>
       <CardContent>
-        <Typography variant="h5" component="div">
-          {props.title}
-        </Typography>
+        <TitleField title={props.title} setField={setField} />
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {props.id}
         </Typography>
