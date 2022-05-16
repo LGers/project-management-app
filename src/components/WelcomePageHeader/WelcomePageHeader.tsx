@@ -4,7 +4,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
-import { SignOutButton } from '../SignOutButton/SignOutButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
@@ -22,6 +21,15 @@ const AuthButtons = () => {
   );
 };
 
+const GoToMainPageButton = () => {
+  const { t } = useTranslation();
+  return (
+    <Button variant="outlined" component={RouterLink} to={PATH.HOME} sx={{ margin: 1 }}>
+      {t('Go to Main page')}
+    </Button>
+  );
+};
+
 export const WelcomePageHeader = () => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   return (
@@ -30,7 +38,7 @@ export const WelcomePageHeader = () => {
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           Lemasello
         </Typography>
-        {isAuth ? <SignOutButton /> : <AuthButtons />}
+        {isAuth ? <GoToMainPageButton /> : <AuthButtons />}
         <LanguageSelect />
       </Toolbar>
     </AppBar>
