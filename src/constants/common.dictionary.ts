@@ -19,3 +19,6 @@ export const SIGNUP_FORM_PAGE_TITLE = 'Signup Form';
 export const STANDARD_PADDING = 18;
 export const PAGE_404_MESSAGE = 'Something wrong, you can back to ';
 export const PAGE_404_LINK_TO = 'main page';
+
+export const SUBMIT = 'submit';
+export const CANCEL = 'cancel';

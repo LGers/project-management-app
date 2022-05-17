@@ -5,6 +5,7 @@ import { authRu } from './auth.dictionary';
 // import { page404Ru } from './page404.dictionary';
 import { mainPageRu } from './mainPage.dictionary';
 import { page404Ru } from './page404.dictionary';
+import { taskRu } from './task.dictionary';
 
 export const ruTranslation = {
   languageLabel: 'Язык',
@@ -13,4 +14,5 @@ export const ruTranslation = {
   ...mainHeaderRu,
   ...authRu,
   ...page404Ru,
+  ...taskRu,
 };
