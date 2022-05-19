@@ -38,7 +38,7 @@ export const Column = (props: ColumnProps): ReactElement => {
   const setField = (value: string) => {
     // todo fetch Update Column
     store.dispatch(fetchUpdateBoard({ boardId: bucket.id, title: value }));
-    // store.dispatch(fetchBoards());
+
   };
 
   return (
@@ -63,27 +63,6 @@ export const Column = (props: ColumnProps): ReactElement => {
               outerScrollBar={true}
             >
               {!item.isHeader && <FakeTaskCard {...item} />}
-              {/*<div
-              style={{
-                // border: !item.isEnd ? '3px solid blue' : undefined,
-                border: !item.isEnd ? '3px solid blue' : '3px solid red',
-                height: !item.isEnd ? 'auto' : '50px',
-                backgroundColor: item.isEnd ? '#EBEBEB' : 'white',
-                // height: item.isEnd ? 200 - bucket.items.length * 58 : 'inherit',
-                // // height: '100vh',
-                // fontWeight: item.isHeader ? 600 : 200,
-                color: 'black',
-              }}
-            >
-              <Typography variant={item.isHeader ? 'h5' : 'h6'} component="div">
-                {item.name}
-              </Typography>
-              {i === 0 && <Button onClick={addTask}>Add Task</Button>}
-               {showField && (
-                <input autoFocus={true} onBlur={onFieldBlur} onKeyUp={handleFieldKeyUp} />
-              )}
-              <Button onClick={() => setShowField(true)}>Add Task</Button>
-            </div>*/}
             </Draggable>
           ))}
           <Button onClick={addTask}>Add Task</Button>
