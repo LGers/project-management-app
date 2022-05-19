@@ -416,7 +416,8 @@ var Draggable = (function (_Component) {
           return;
         }
         if (e) {
-          if (!isTouch) e.preventDefault();
+          if (!isTouch && e.target.type !== 'textarea' && e.target.type !== 'text')
+            e.preventDefault();
           e.stopPropagation();
         }
         if (!isTouch) {

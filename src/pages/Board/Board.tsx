@@ -69,26 +69,17 @@ export const Board = () => {
           <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
             <BoardTitleField title={board.title} setField={setField} />
           </Box>
-          <Box
-            sx={{
-              display: 'inherit',
-              height: '100%',
-              p: 1,
-              overflow: 'hidden',
-            }}
-          >
-            <DragBoard />
-            {showField && (
-              <div style={{ backgroundColor: 'red' }}>
-                <input
-                  onChange={onInputChange}
-                  onBlur={onFieldBlur}
-                  onKeyUp={handleFieldKeyUp}
-                  autoFocus={true}
-                />
-              </div>
-            )}
-          </Box>
+          <DragBoard />
+          {showField && (
+            <div style={{ backgroundColor: 'red' }}>
+              <input
+                onChange={onInputChange}
+                onBlur={onFieldBlur}
+                onKeyUp={handleFieldKeyUp}
+                autoFocus={true}
+              />
+            </div>
+          )}
           <Button onClick={() => setShowField(true)}>{t('Add column')}</Button>
         </Content>
         <FooterWrapper>

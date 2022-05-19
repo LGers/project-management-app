@@ -68,7 +68,6 @@ export const MainPage = () => {
             <p> {t('Create new board')}</p>
           </Button>
           {boards.boards.map((board) => {
-            console.log('board:', board);
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>

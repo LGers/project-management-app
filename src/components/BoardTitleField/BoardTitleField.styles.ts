@@ -3,7 +3,9 @@ import { TextField } from '@mui/material';
 
 export const StyledTitleField = styled(TextField)({
   border: '0px solid',
+  opacity: 1,
   outline: 0,
+  width: '100%',
   '& .MuiInput-underline:after': {
     borderBottomColor: 'green',
   },
@@ -13,13 +15,14 @@ export const StyledTitleField = styled(TextField)({
     '& fieldset': {
       borderColor: 'red',
       border: 'none',
-      // fontSize: 28,
     },
     '&:hover fieldset': {
       borderColor: 'yellow',
     },
     '&.Mui-focused fieldset': {
       border: 'solid 1px #0000006b',
+      // backgroundColor: '#fff',
+      color: '#000',
     },
   },
 });

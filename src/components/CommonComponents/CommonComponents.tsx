@@ -4,6 +4,10 @@ export const BodyWrapper = styled('div')({
   height: '100vh',
   overflow: 'hidden',
   background: 'linear-gradient(0deg, #fff, #eae6ff 100%)',
+  // backgroundPosition: '50%',
+  // backgroundSize: 'cover',
+  // backgroundImage:
+  //   'url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2557x1600/b38a507e1f2fcf39cc1a4407f47eda4a/photo-1650892344024-fb34a919e258.jpg")',
 });
 
 export const Wrapper = styled('div')({
@@ -11,6 +15,10 @@ export const Wrapper = styled('div')({
   flexDirection: 'column',
   height: '100%',
   overflow: 'hidden',
+  backgroundPosition: '50%',
+  backgroundSize: 'cover',
+  backgroundImage:
+    'url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2557x1600/b38a507e1f2fcf39cc1a4407f47eda4a/photo-1650892344024-fb34a919e258.jpg")',
 });
 
 export const Content = styled('div')({

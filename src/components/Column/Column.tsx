@@ -4,6 +4,9 @@ import { DragBucket } from '../../redux/boards/boards.types';
 import { Droppable, Draggable } from 'react-virtualized-dnd';
 import { store } from '../../redux';
 import { fetchUpdateBoard } from '../../redux/board/board.thunk';
+import { TitleField } from '../TitleField';
+import { FakeTaskCard } from '../FakeTaskCard/FakeTaskCard';
+import { ColumnCard, ColumnCardContent, ColumnTasks } from './Column.styles';
 
 interface ColumnProps {
   groupName: string;
@@ -40,40 +43,52 @@ export const Column = (props: ColumnProps): ReactElement => {
 
   return (
     <Draggable dragAndDropGroup={groupName} draggableId={bucket.id}>
-      <Droppable
-        containerHeight={600}
-        dragAndDropGroup={groupName}
-        droppableId={bucket.droppableId}
-        key={bucket.droppableId}
-      >
-        {bucket.items.map((item, i) => (
-          <Draggable
-            key={`key_${i}`}
-            dragAndDropGroup={groupName}
-            draggableId={item.id}
-            isSectionHeader={item.isHeader || item.isEnd}
-            disableMove={item.isEnd}
-          >
-            <div
+      <ColumnCard>
+        <Droppable
+          dragAndDropGroup={groupName}
+          droppableId={bucket.droppableId}
+          key={bucket.droppableId}
+          outerScrollBar={true}
+          containerHeight={950}
+        >
+          <TitleField title={title} setField={setFieldData} />
+          <Button onClick={addTask}>Add Task</Button>
+          {bucket.items.map((item, i) => (
+            <Draggable
+              key={`key_${i}`}
+              dragAndDropGroup={groupName}
+              draggableId={item.id}
+              isSectionHeader={item.isHeader || item.isEnd}
+              disableMove={item.isEnd}
+              outerScrollBar={true}
+            >
+              {!item.isHeader && <FakeTaskCard {...item} />}
+              {/*<div
               style={{
-                border: !item.isEnd ? '1px solid black' : undefined,
+                // border: !item.isEnd ? '3px solid blue' : undefined,
+                border: !item.isEnd ? '3px solid blue' : '3px solid red',
+                height: !item.isEnd ? 'auto' : '50px',
                 backgroundColor: item.isEnd ? '#EBEBEB' : 'white',
-                height: item.isEnd ? 500 - bucket.items.length * 58 : 'inherit',
-                fontWeight: item.isHeader ? 600 : 200,
+                // height: item.isEnd ? 200 - bucket.items.length * 58 : 'inherit',
+                // // height: '100vh',
+                // fontWeight: item.isHeader ? 600 : 200,
+                color: 'black',
               }}
             >
               <Typography variant={item.isHeader ? 'h5' : 'h6'} component="div">
                 {item.name}
               </Typography>
               {i === 0 && <Button onClick={addTask}>Add Task</Button>}
-              {/* {showField && (
+               {showField && (
                 <input autoFocus={true} onBlur={onFieldBlur} onKeyUp={handleFieldKeyUp} />
               )}
-              <Button onClick={() => setShowField(true)}>Add Task</Button> */}
-            </div>
-          </Draggable>
-        ))}
-      </Droppable>
+              <Button onClick={() => setShowField(true)}>Add Task</Button>
+            </div>*/}
+            </Draggable>
+          ))}
+          <Button onClick={addTask}>Add Task</Button>
+        </Droppable>
+      </ColumnCard>
     </Draggable>
   );
 };

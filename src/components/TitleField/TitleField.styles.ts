@@ -5,6 +5,8 @@ export const StyledTitleField = styled(TextField)({
   border: '0px solid',
   outline: 0,
   fontWeight: 'bold',
+  width: '100%',
+  backgroundColor: '#ebebeb',
   '& .MuiInput-underline:after': {
     borderBottomColor: 'green',
   },
