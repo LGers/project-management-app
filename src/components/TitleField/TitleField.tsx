@@ -7,7 +7,6 @@ export const TitleField = ({ title, setField }: Props) => {
   const [focussed, setFocussed] = useState(false);
   const [oldValue, setOldValue] = useState(title);
   const [newValue, setNewValue] = useState(title);
-
   const handleFieldKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();

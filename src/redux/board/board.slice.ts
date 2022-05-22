@@ -1,7 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Column, MyKnownError } from '../boards/boards.types';
 import { BoardState, emptyBoard } from './board.types';
-import { fetchBoard, fetchCreateColumn, fetchDeleteColumn, fetchUpdateColumn } from './board.thunk';
+import {
+  fetchAllColumns,
+  fetchBoard,
+  fetchCreateColumn,
+  fetchDeleteColumn,
+  fetchUpdateBoard,
+  fetchUpdateColumn,
+} from './board.thunk';
 
 const initialState: BoardState = {
   isFetching: false,
@@ -45,11 +52,11 @@ export const boardSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
-
     builder.addCase(fetchUpdateColumn.pending, (state) => {
-      pending(state);
+      state.isFetching = true;
+      state.error = initialState.error;
     });
-    builder.addCase(fetchUpdateColumn.fulfilled, (state, action) => {
+    builder.addCase(fetchUpdateColumn.fulfilled, (state) => {
       state.isFetching = false;
     });
     builder.addCase(fetchUpdateColumn.rejected, (state, action) => {
@@ -60,7 +67,7 @@ export const boardSlice = createSlice({
     builder.addCase(fetchCreateColumn.pending, (state) => {
       pending(state);
     });
-    builder.addCase(fetchCreateColumn.fulfilled, (state, action: PayloadAction<Column>) => {
+    builder.addCase(fetchCreateColumn.fulfilled, (state) => {
       state.isFetching = false;
     });
     builder.addCase(fetchCreateColumn.rejected, (state, action) => {
@@ -75,6 +82,19 @@ export const boardSlice = createSlice({
       state.isFetching = false;
     });
     builder.addCase(fetchDeleteColumn.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+    builder.addCase(fetchAllColumns.pending, (state) => {
+      state.isFetching = true;
+      state.error = initialState.error;
+    });
+    builder.addCase(fetchAllColumns.fulfilled, (state, action) => {
+      state.isFetching = false;
+      console.log(action.payload);
+      state.boardData.columns = [...action.payload];
+    });
+    builder.addCase(fetchAllColumns.rejected, (state, action) => {
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });

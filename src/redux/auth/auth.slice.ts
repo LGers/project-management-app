@@ -7,6 +7,7 @@ const initialState: AuthState = {
   isSignUp: false,
   language: 'en',
   isFetching: false,
+  users: [],
   error: {
     message: '',
     statusCode: 0,
@@ -37,6 +38,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       localStorage.setItem('authToken', action.payload.token);
+      localStorage.setItem('login', action.meta.arg.login);
       state.isFetching = false;
       state.isAuth = true;
     });
@@ -65,6 +67,7 @@ export const authSlice = createSlice({
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isAuth = true;
+      state.users = action.payload;
     });
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.isFetching = false;

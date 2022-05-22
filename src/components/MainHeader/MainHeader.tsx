@@ -35,6 +35,7 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
 
   const logoutHandler = (): void => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('login');
     dispatch(setAuth(false));
   };
 
