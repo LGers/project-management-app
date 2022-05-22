@@ -6,6 +6,7 @@ import { setColumns } from '../../../redux/board/board.slice';
 import { DragBucket, DragData, Task } from '../../../redux/boards/boards.types';
 import { Column } from '../../../components/Column';
 import { mapDataToBuckets, moveBuckets, moveItems, restoreTasks } from './Dashboard.utils';
+import { DragBoardColumn, DragBoardContent } from './DragBoard.styles';
 
 export const DragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -44,28 +45,27 @@ export const DragBoard = () => {
   };
 
   return (
-    <div style={{ width: '100%', height: 500 }}>
-      <DragDropContext
-        dragAndDropGroup={name}
-        onDragEnd={onElementDragEndHandler}
-        outerScrollBar={true}
-      >
-        <div style={{ display: 'flex', justifyContent: 'left' }}>
-          {buckets.map((elem, index: number) => (
-            <div
+    <DragDropContext
+      dragAndDropGroup={name}
+      onDragEnd={onElementDragEndHandler}
+      outerScrollBar={true}
+    >
+      <DragBoardContent>
+        {buckets.map((elem, index: number) => (
+          <DragBoardColumn key={`key_${index}`}>
+            <Column
               key={`key_${index}`}
-              style={{ border: '1px solid black', backgroundColor: '#EBEBEB', width: 400 }}
-            >
-              <Column
-                groupName={name}
-                bucket={elem}
-                title={elem.column.title}
-                addTask={() => addTaskHandler(index)}
-              />
-            </div>
-          ))}
-        </div>
-      </DragDropContext>
-    </div>
+              groupName={name}
+              bucket={elem}
+              title={elem.column.title}
+              columnId={elem.column.id}
+              boardId={board.id}
+              order={elem.column.order}
+              addTask={() => addTaskHandler(index)}
+            />
+          </DragBoardColumn>
+        ))}
+      </DragBoardContent>
+    </DragDropContext>
   );
 };

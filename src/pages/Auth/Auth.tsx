@@ -11,11 +11,7 @@ import { PATH } from '../../constants/common.dictionary';
 import { RootState, store } from '../../redux/store';
 import { fetchLogin, fetchSignUp } from '../../redux/auth/auth.thunk';
 import { AuthContent, AuthForm } from './Auth.styles';
-import {
-  BodyWrapper,
-  FooterWrapper,
-  Wrapper,
-} from '../../components/CommonComponents/CommonComponents';
+import { BodyWrapper, FooterWrapper, Wrapper } from '../../components/CommonComponents';
 import { AuthAlert } from './AuthComponents/AuthAlert';
 import { resetIsSignUp } from '../../redux/auth/auth.slice';
 import { signInValidationSchema, signUpValidationSchema } from './Auth.validation';

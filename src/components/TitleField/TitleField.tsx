@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { StyledTitleField } from './TitleField.styles';
 import { useState } from 'react';
-
-type Props = {
-  title: string;
-  setField: (title: string) => void;
-};
+import { Props } from './TitleField.types';
 
 export const TitleField = ({ title, setField }: Props) => {
   const [focussed, setFocussed] = useState(false);
@@ -13,7 +9,7 @@ export const TitleField = ({ title, setField }: Props) => {
   const [newValue, setNewValue] = useState(title);
 
   const handleFieldKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' || event.key === 'Escape') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       if (!newValue) {
         setNewValue(oldValue);
@@ -24,6 +20,17 @@ export const TitleField = ({ title, setField }: Props) => {
         setFocussed(false);
         setField(newValue);
       }
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setFocussed(false);
+      setNewValue(title);
+    }
+  };
+
+  const onBlurTitleField = () => {
+    if (newValue) {
+      setField(newValue);
     }
   };
 
@@ -39,7 +46,7 @@ export const TitleField = ({ title, setField }: Props) => {
       onFocus={() => setFocussed(true)}
       size={'small'}
       multiline
-      onBlur={() => setFocussed(false)}
+      onBlur={onBlurTitleField}
       focused={focussed}
     />
   );
