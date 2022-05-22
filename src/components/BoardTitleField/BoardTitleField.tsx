@@ -1,13 +1,9 @@
 import * as React from 'react';
 import { StyledTitleField } from './BoardTitleField.styles';
 import { useEffect, useState } from 'react';
+import { BoardTitleFieldProps } from './BoardTitleField.types';
 
-type Props = {
-  title: string;
-  setField: (title: string) => void;
-};
-
-export const BoardTitleField = ({ title, setField }: Props) => {
+export const BoardTitleField = ({ title, setField }: BoardTitleFieldProps) => {
   const [focussed, setFocussed] = useState(false);
   const [newValue, setNewValue] = useState(title);
   useEffect(() => {

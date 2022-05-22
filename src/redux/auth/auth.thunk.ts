@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginInterface, SignUpInterface } from '../../api';
 import { signIn, signUp } from '../../api';
 import { getAllUsers } from '../../api/users';
-import { MyKnownError, SignInData } from './auth.types';
+import { MyKnownError, SignInData, User } from './auth.types';
 
 export const fetchLogin = createAsyncThunk<SignInData, LoginInterface>(
   'auth/fetchLogin',
@@ -29,14 +29,11 @@ export const fetchSignUp = createAsyncThunk(
 );
 
 // todo types
-export const fetchUsers = createAsyncThunk<Array<Record<string, string>>>(
-  'auth/fetchUsers',
-  async (props, thunkAPI) => {
-    try {
-      const res = await getAllUsers();
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
-    }
+export const fetchUsers = createAsyncThunk<User[]>('auth/fetchUsers', async (props, thunkAPI) => {
+  try {
+    const res = await getAllUsers();
+    return res.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
   }
-);
+});

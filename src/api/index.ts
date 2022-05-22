@@ -1,3 +1,3 @@
 export { instance } from './instance';
-export * from './lemaselloApi';
+export * from './auth';
 export * from './lemaselloApi.types';
