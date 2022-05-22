@@ -29,8 +29,8 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
     setOpen(true);
   };
 
-  const handleCreateNewBoard = (title: string) => {
-    store.dispatch(fetchCreateBoard({ title, description: '123' }));
+  const handleCreateNewBoard = (title: string, description: string) => {
+    store.dispatch(fetchCreateBoard({ title, description }));
   };
 
   const logoutHandler = (): void => {
