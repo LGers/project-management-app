@@ -2,13 +2,12 @@ import { Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoard, fetchCreateColumn, fetchUpdateBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
-import { setAddColumn } from '../../redux/board/board.slice';
 import { DragBoard } from './DragBoard/DragBoard';
 import { BoardTitleField } from '../../components/BoardTitleField';
 import { AddColumnDialog } from '../../components/AddColumnDialog';
@@ -18,7 +17,6 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const errorMessage = useSelector((state: RootState) => state.board.error.message);
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { id } = useParams();
   const [showAddColumnDialog, setShowAddColumnDialog] = useState(false);
@@ -30,11 +28,11 @@ export const Board = () => {
     store.dispatch(fetchUpdateBoard({ boardId: board.id, title }));
   };
 
-  const addColumn = (title: string) => {
-    dispatch(setAddColumn({ id: '', order: board.columns.length + 1, title: title, tasks: [] }));
-    store.dispatch(
+  const addColumn = async (title: string) => {
+    await store.dispatch(
       fetchCreateColumn({ boardId: board.id, order: board.columns.length + 1, title: title }) // todo del order
     );
+    store.dispatch(fetchBoard(board.id));
   };
 
   return (

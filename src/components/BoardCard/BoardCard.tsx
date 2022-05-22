@@ -48,7 +48,8 @@ export const BoardCard = (props: { id: string; title: string }) => {
       <ConfirmationDialog
         open={open}
         setOpen={setOpen}
-        boardTitle={props.title}
+        itemName={'board'}
+        itemTitle={props.title}
         deleteItem={deleteItem}
       />
     </div>
