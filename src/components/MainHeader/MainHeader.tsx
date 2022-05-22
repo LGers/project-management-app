@@ -14,17 +14,18 @@ import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
 import { AlignCenter } from '../CommonComponents/CommonComponents';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
-import { useCreateBoardApi } from './useCreateBoardApi';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
+import { fetchCreateBoard } from '../../redux/boards/boards.thunk';
+import { store } from '../../redux/store';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
-  const [boardName, setBoardName] = useState<string>('');
-  const { createBoard } = useCreateBoardApi();
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -38,12 +39,15 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   };
 
   const handleCloseDialog = () => {
+    setTitle('');
+    setDescription('');
     setOpen(false);
   };
 
   const handleCreateBoard = () => {
     setOpen(false);
-    createBoard({ name: boardName });
+    store.dispatch(fetchCreateBoard({ title, description }));
+    handleCloseDialog();
   };
 
   const logoutHandler = (): void => {
@@ -86,12 +90,22 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="title"
               type="text"
               fullWidth
-              value={boardName}
+              value={title}
               variant="standard"
-              onChange={(event) => setBoardName(event?.target.value)}
+              onChange={(event) => setTitle(event?.target.value)}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="description"
+              type="text"
+              fullWidth
+              value={description}
+              variant="standard"
+              onChange={(event) => setDescription(event?.target.value)}
             />
           </DialogContent>
           <DialogActions>

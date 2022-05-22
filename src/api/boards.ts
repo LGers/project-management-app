@@ -9,8 +9,8 @@ export const getAllBoards = () => {
   return instance.get(URL.boards());
 };
 
-export const createBoard = (title: string) => {
-  return instance.post(URL.boards(), { title });
+export const createBoard = (title: string, description: string) => {
+  return instance.post(URL.boards(), { title, description });
 };
 
 export const getBoardById = (boardId: string) => {

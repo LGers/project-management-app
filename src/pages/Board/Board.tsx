@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
 import { MainHeader } from '../../components/MainHeader';
-import { fetchBoard, fetchUpdateBoard } from '../../redux/board/board.thunk';
+import { fetchBoard, fetchCreateColumn, fetchUpdateBoard } from '../../redux/board/board.thunk';
 import { useParams } from 'react-router-dom';
 import { setColumn } from '../../redux/board/board.slice';
 import { DragBoard } from './DragBoard/DragBoard';
@@ -44,12 +44,10 @@ export const Board = () => {
       setFieldData('');
       setShowField(false);
       if (fieldData) {
-        dispatch(
-          setColumn({
-            id: Math.random().toString(),
+        store.dispatch(
+          fetchCreateColumn({
+            boardId: board.id,
             title: event.currentTarget.value,
-            tasks: [],
-            order: 999,
           })
         );
       }

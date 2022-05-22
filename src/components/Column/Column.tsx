@@ -10,10 +10,11 @@ interface ColumnProps {
   bucket: DragBucket;
   title: string;
   addTask: () => void;
+  deleteColumn: () => void;
 }
 
 export const Column = (props: ColumnProps): ReactElement => {
-  const { groupName, bucket, addTask, title } = props;
+  const { groupName, bucket, addTask, title, deleteColumn } = props;
   const [showField, setShowField] = useState(false);
   const [fieldData, setFieldData] = useState('');
 
@@ -65,6 +66,7 @@ export const Column = (props: ColumnProps): ReactElement => {
               <Typography variant={item.isHeader ? 'h5' : 'h6'} component="div">
                 {item.name}
               </Typography>
+              {i === 0 && <Button onClick={deleteColumn}>Delete</Button>}
               {i === 0 && <Button onClick={addTask}>Add Task</Button>}
               {/* {showField && (
                 <input autoFocus={true} onBlur={onFieldBlur} onKeyUp={handleFieldKeyUp} />

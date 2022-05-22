@@ -19,17 +19,14 @@ import { useTranslation } from 'react-i18next';
 import { BoardCard } from '../../components/BoardCard';
 import { MainHeader } from '../../components/MainHeader';
 import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
-
 import { useScroll } from './useScroll';
-import { DragBoard } from '../Boards/DragBoard/DragBoard';
-import { Task } from '../../components/Task/Task';
 
 export const MainPage = () => {
   const boards = useSelector((state: RootState) => state.boards);
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [boardName, setBoardName] = useState('');
-
+  const [boardDescription, setBoardDescription] = useState('');
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBoardName(event.target.value);
   };
@@ -41,7 +38,7 @@ export const MainPage = () => {
 
   const handleCreateNewBoard = () => {
     setBoardName('');
-    store.dispatch(fetchCreateBoard({ title: boardName }));
+    store.dispatch(fetchCreateBoard({ title: boardName, description: boardDescription }));
     setOpen(false);
   };
 
@@ -99,7 +96,7 @@ export const MainPage = () => {
             </DialogActions>
           </Dialog>
           <p>{JSON.stringify(boards.boards)}</p>
-          <Task />
+          {/* <Task /> */}
         </Content>
         <FooterWrapper>
           <Footer />

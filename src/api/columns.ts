@@ -10,8 +10,8 @@ export const getAllColumns = (boardId: string) => {
   return instance.get(URL.boardsBoardIdColumns(boardId));
 };
 
-export const createColumn = (boardId: string, title: string, order: number) => {
-  return instance.post(URL.boardsBoardIdColumns(boardId), { title, order });
+export const createColumn = (boardId: string, title: string) => {
+  return instance.post(URL.boardsBoardIdColumns(boardId), { title });
 };
 
 export const getColumnById = (boardId: string, columnId: string) => {
@@ -22,6 +22,6 @@ export const deleteColumn = (boardId: string, columnId: string) => {
   return instance.delete(URL.boardsBoardIdColumnsColumnId(boardId, columnId));
 };
 
-export const updateColumn = (boardId: string, columnId: string) => {
-  return instance.put(URL.boardsBoardIdColumnsColumnId(boardId, columnId));
+export const updateColumn = (boardId: string, columnId: string, title: string, order: number) => {
+  return instance.put(URL.boardsBoardIdColumnsColumnId(boardId, columnId), { title, order });
 };

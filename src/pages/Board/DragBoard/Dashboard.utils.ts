@@ -1,31 +1,33 @@
-import { Board, DragBucket, DragData } from '../../../redux/boards/boards.types';
+import { Board, Column, DragBucket, DragData } from '../../../redux/boards/boards.types';
+
+const getItems = (column: Column) => {
+  const header = { id: 'HEADER', name: column.title, isHeader: true };
+  const end = { id: 'END_OF_LIST', isEnd: true, name: '' };
+  const middle = column?.tasks?.map((task) => {
+    return { id: task.id, name: task.title, task };
+  });
+  if (middle && middle.length) {
+    return [header, ...middle, end];
+  }
+  return [header, end];
+};
 
 const mapDataToBuckets = (board: Board) => {
   let id = 0;
-  return board.columns.map((column) => {
-    return {
-      droppableId: `drop_${id++}`,
-      column,
-      ...column,
-      id: `COLUMN_${id++}`,
-      items: [
-        { id: '1', name: column.title, isHeader: true },
-        ...column.tasks.map((task) => {
-          return { id: task.id, name: task.title, task };
-        }),
-        { id: 'END_OF_LIST', isEnd: true, name: '' },
-      ],
-    } as unknown as DragBucket;
-  });
-};
+  if (!board?.columns) return [];
 
-const moveBuckets = (e: DragData, destinationId: string, buckets: DragBucket[]) => {
-  const toMoveIndex = buckets.findIndex((bucket) => bucket.id === e.draggableId);
-  const bucketToMove = { ...buckets[toMoveIndex] };
-  const indx = buckets.findIndex((bucket) => bucket.droppableId === destinationId);
-  buckets[toMoveIndex].id = 'DELETE';
-  buckets.splice(indx, 0, bucketToMove);
-  return buckets.filter((a) => a.id !== 'DELETE');
+  return board.columns
+    .filter((c) => c)
+    .sort((a, b) => a.order - b.order)
+    .map((column) => {
+      return {
+        droppableId: `drop_${id++}`,
+        column,
+        ...column,
+        id: `COLUMN_${id++}`,
+        items: getItems(column),
+      } as unknown as DragBucket;
+    });
 };
 
 const moveItems = (
@@ -65,4 +67,4 @@ const restoreTasks = (buckets: DragBucket[]) => {
   });
 };
 
-export { moveBuckets, moveItems, mapDataToBuckets, restoreTasks };
+export { moveItems, mapDataToBuckets, restoreTasks };
