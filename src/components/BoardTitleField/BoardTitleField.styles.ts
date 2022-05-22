@@ -6,23 +6,20 @@ export const StyledTitleField = styled(TextField)({
   opacity: 1,
   outline: 0,
   width: '100%',
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'green',
-  },
   '& .MuiOutlinedInput-root': {
     fontSize: 35,
     fontWeight: 'bold',
     '& fieldset': {
-      borderColor: 'red',
-      border: 'none',
+      borderColor: 'transparent',
     },
     '&:hover fieldset': {
-      borderColor: 'yellow',
+      borderColor: 'transparent',
+    },
+    '&.Mui-focused': {
+      backgroundColor: '#fff',
     },
     '&.Mui-focused fieldset': {
       border: 'solid 1px #0000006b',
-      // backgroundColor: '#fff',
-      color: '#000',
     },
   },
 });

@@ -58,6 +58,9 @@ export const DragBoard = () => {
               groupName={name}
               bucket={elem}
               title={elem.column.title}
+              columnId={elem.column.id}
+              boardId={board.id}
+              order={elem.column.order}
               addTask={() => addTaskHandler(index)}
             />
           </DragBoardColumn>

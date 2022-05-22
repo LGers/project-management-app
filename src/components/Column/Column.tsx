@@ -1,44 +1,43 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
 import { DragBucket } from '../../redux/boards/boards.types';
 import { Droppable, Draggable } from 'react-virtualized-dnd';
 import { store } from '../../redux';
-import { fetchUpdateBoard } from '../../redux/board/board.thunk';
+import { fetchBoard, fetchDeleteColumn, fetchUpdateColumn } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
 import { FakeTaskCard } from '../FakeTaskCard/FakeTaskCard';
-import { ColumnCard, ColumnCardContent, ColumnTasks } from './Column.styles';
+import { ColumnCard } from './Column.styles';
+import { AddTaskCard } from '../AddTaskCard';
+import { Add } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
+import { setDeleteColumn } from '../../redux/board/board.slice';
+import { useDispatch } from 'react-redux';
 
 interface ColumnProps {
   groupName: string;
   bucket: DragBucket;
   title: string;
+  boardId: string;
+  columnId: string;
+  order: number;
   addTask: () => void;
 }
 
 export const Column = (props: ColumnProps): ReactElement => {
-  const { groupName, bucket, addTask, title } = props;
-  const [showField, setShowField] = useState(false);
-  const [fieldData, setFieldData] = useState('');
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { groupName, bucket, addTask, title, columnId, boardId } = props;
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
 
-  const onFieldBlur = () => {
-    setShowField(false);
+  const setColumnName = (value: string) => {
+    store.dispatch(fetchUpdateColumn({ boardId, columnId, title: value, order: props.order }));
+    store.dispatch(fetchBoard(boardId));
   };
 
-  const handleFieldKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Escape') {
-      setFieldData('');
-      setShowField(false);
-    }
-    if (event.key === 'Enter') {
-      setFieldData('');
-      setShowField(false);
-    }
-  };
-
-  const setField = (value: string) => {
-    // todo fetch Update Column
-    store.dispatch(fetchUpdateBoard({ boardId: bucket.id, title: value }));
-
+  const deleteColumn = () => {
+    store.dispatch(fetchDeleteColumn({ boardId, columnId }));
+    dispatch(setDeleteColumn(columnId));
+    store.dispatch(fetchBoard(boardId));
   };
 
   return (
@@ -51,8 +50,10 @@ export const Column = (props: ColumnProps): ReactElement => {
           outerScrollBar={true}
           containerHeight={950}
         >
-          <TitleField title={title} setField={setFieldData} />
-          <Button onClick={addTask}>Add Task</Button>
+          <TitleField title={title} setField={setColumnName} />
+          <Button onClick={deleteColumn}>Delete</Button>
+          <p>columnId: {columnId}</p>
+          <p>boardId: {boardId}</p>
           {bucket.items.map((item, i) => (
             <Draggable
               key={`key_${i}`}
@@ -62,10 +63,21 @@ export const Column = (props: ColumnProps): ReactElement => {
               disableMove={item.isEnd}
               outerScrollBar={true}
             >
-              {!item.isHeader && <FakeTaskCard {...item} />}
+              {!item.isHeader && !item.isEnd && <FakeTaskCard {...item} />}
             </Draggable>
           ))}
-          <Button onClick={addTask}>Add Task</Button>
+          {isAddTaskOpen ? (
+            <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTask} />
+          ) : (
+            <Button
+              onClick={() => setIsAddTaskOpen(true)}
+              startIcon={<Add />}
+              fullWidth={true}
+              sx={{ justifyContent: 'flex-start' }}
+            >
+              {t('Add Task')}
+            </Button>
+          )}
         </Droppable>
       </ColumnCard>
     </Draggable>

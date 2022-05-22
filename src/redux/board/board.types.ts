@@ -9,9 +9,8 @@ export interface BoardState {
   boardData: Board;
 }
 
-//todo del it
 export const emptyBoard: Board = {
-  id: 'undefined',
-  title: 'undefined',
+  id: '',
+  title: '',
   columns: [],
 };
