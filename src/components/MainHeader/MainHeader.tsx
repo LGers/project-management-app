@@ -11,6 +11,8 @@ import { setAuth } from '../../redux/auth/auth.slice';
 import { store } from '../../redux';
 import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
 import { CreateItemDialog } from '../CreateItemDialog';
+import { CreateBoardDialog } from '../CreateBoardDialog';
+import { set } from 'react-hook-form';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
@@ -60,12 +62,18 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
           </Button>
         </JustifySpaceBetween>
       </MainHeaderWrapper>
-      <CreateItemDialog
+      <CreateBoardDialog
+        itemName={'board'}
+        open={open}
+        setOpen={setOpen}
+        createBoard={handleCreateNewBoard}
+      />
+      {/*<CreateItemDialog
         itemName={'board'}
         open={open}
         setOpen={setOpen}
         createItem={handleCreateNewBoard}
-      />
+      />*/}
     </>
   );
 

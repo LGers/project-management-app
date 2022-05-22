@@ -32,7 +32,7 @@ export const MainPage = () => {
             <h1>{t('Boards')}</h1>
           </Box>
           {boards.boards.map((board) => {
-            return <BoardCard key={board.id} id={board.id} title={board.title} />;
+            return <BoardCard key={board.id} {...board} />;
           })}
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
           <Link to={PATH.COLUMNS}>columns</Link>

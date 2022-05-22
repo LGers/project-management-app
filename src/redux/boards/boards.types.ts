@@ -65,5 +65,6 @@ export interface DragData {
 export interface Board {
   id: string;
   title: string;
+  description: string;
   columns: Column[];
 }

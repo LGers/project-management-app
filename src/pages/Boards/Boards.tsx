@@ -27,9 +27,8 @@ export const Boards = () => {
           <Box sx={{ bgcolor: '#cfe8fc' }}>
             <h1>{t('Board Name ')}</h1>
           </Box>
-          <p>Board</p>
           {boards.boards.map((board) => {
-            return <BoardCard key={board.id} id={board.id} title={board.title} />;
+            return <BoardCard key={board.id} {...board} />;
           })}
           <ErrorMessage errorMessage={errorMessage} />
         </Content>

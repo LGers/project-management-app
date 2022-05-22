@@ -28,6 +28,18 @@ export const fetchUpdateBoard = createAsyncThunk<Board, { boardId: string; title
   }
 );
 
+export const fetchUpdateColumn1 = createAsyncThunk<
+  Column,
+  { boardId: string; columnId: string; title: string; order: number }
+>('board/fetchUpdateBoard', async ({ boardId, columnId, title, order }, thunkAPI) => {
+  try {
+    const res = await updateColumn(boardId, columnId, title, order);
+    return res.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+  }
+});
+
 export const fetchCreateColumn = createAsyncThunk<Column, { boardId: string; title: string }>(
   'board/fetchCreateColumn',
   async ({ boardId, title }, thunkAPI) => {

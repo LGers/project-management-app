@@ -7,7 +7,7 @@ import { ConfirmationDialog } from '../ConfirmationDialog';
 import { fetchBoards, fetchDeleteBoard } from '../../redux/boards/boards.thunk';
 import { store } from '../../redux';
 
-export const BoardCard = (props: { id: string; title: string }) => {
+export const BoardCard = (props: { id: string; title: string; description: string }) => {
   const [open, setOpen] = useState(false);
   const onDeleteCard = () => {
     setOpen(true);
@@ -26,6 +26,9 @@ export const BoardCard = (props: { id: string; title: string }) => {
             <CardContent>
               <Typography variant="h5" component="div">
                 {props.title}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                Description: {props.description}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 {props.id}
