@@ -10,8 +10,6 @@ import { ColumnCard } from './Column.styles';
 import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { setDeleteColumn } from '../../redux/board/board.slice';
-import { useDispatch } from 'react-redux';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 
 interface ColumnProps {
@@ -26,19 +24,19 @@ interface ColumnProps {
 
 export const Column = (props: ColumnProps): ReactElement => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const { groupName, bucket, addTask, title, columnId, boardId } = props;
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const setColumnName = (value: string) => {
-    store.dispatch(fetchUpdateColumn({ boardId, columnId, title: value, order: props.order }));
+  const setColumnName = async (value: string) => {
+    await store.dispatch(
+      fetchUpdateColumn({ boardId, columnId, title: value, order: props.order })
+    );
     store.dispatch(fetchBoard(boardId));
   };
 
   const deleteColumn = async () => {
     await store.dispatch(fetchDeleteColumn({ boardId, columnId }));
-    // dispatch(setDeleteColumn(columnId));
     store.dispatch(fetchBoard(boardId));
   };
 

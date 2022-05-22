@@ -1,33 +1,20 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Slide,
-  TextField,
-} from '@mui/material';
+import { AppBar, Button, Slide } from '@mui/material';
 import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
 import { AlignCenter } from '../CommonComponents';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
-import { useCreateBoardApi } from './useCreateBoardApi';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
 import { store } from '../../redux';
-import { fetchCreateBoard } from '../../redux/boards/boards.thunk';
+import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
 import { CreateItemDialog } from '../CreateItemDialog';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
-  const [boardName, setBoardName] = useState<string>('');
-  const { createBoard } = useCreateBoardApi();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -40,19 +27,8 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
     setOpen(true);
   };
 
-  const handleCloseDialog = () => {
-    setOpen(false);
-  };
-
-  const handleCreateBoard = () => {
-    setOpen(false);
-    createBoard({ name: boardName });
-  };
-
   const handleCreateNewBoard = (title: string) => {
-    setBoardName('');
     store.dispatch(fetchCreateBoard({ title }));
-    setOpen(false);
   };
 
   const logoutHandler = (): void => {
@@ -83,38 +59,12 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
           </Button>
         </JustifySpaceBetween>
       </MainHeaderWrapper>
-      <div>
-        <CreateItemDialog
-          itemName={'board'}
-          open={open}
-          setOpen={setOpen}
-          createItem={handleCreateNewBoard}
-        />
-        {/*<Dialog open={open} onClose={handleCloseDialog}>
-          <DialogTitle>
-            <p>{t('Create New Board')}</p>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>{t('To create a new board, please enter board name here')}</p>
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              type="text"
-              fullWidth
-              value={boardName}
-              variant="standard"
-              onChange={(event) => setBoardName(event?.target.value)}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>{t('Cancel')}</Button>
-            <Button onClick={handleCreateBoard}>{t('Create')}</Button>
-          </DialogActions>
-        </Dialog>*/}
-      </div>
+      <CreateItemDialog
+        itemName={'board'}
+        open={open}
+        setOpen={setOpen}
+        createItem={handleCreateNewBoard}
+      />
     </>
   );
 

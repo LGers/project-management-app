@@ -33,12 +33,10 @@ export const CreateItemDialog = ({
   return (
     <Dialog open={open} onClose={handleCloseDialog}>
       <DialogTitle>
-        <p>{t(`Create New Board`)}</p>
-        <p>{t(`Create New ${itemName}`)}</p>
+        <p>{t(`Create new ${itemName}`)}</p>
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <p>{t('To create a new board, please enter board name here')}</p>
           <p>{t(`Please enter ${itemName} name here`)}</p>
         </DialogContentText>
         <TextField
@@ -50,6 +48,7 @@ export const CreateItemDialog = ({
           value={fieldValue}
           variant="standard"
           onChange={(event) => setFieldValue(event?.target.value)}
+          sx={{ minWidth: '300px' }}
         />
       </DialogContent>
       <DialogActions>

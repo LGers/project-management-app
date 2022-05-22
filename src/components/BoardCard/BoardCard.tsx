@@ -13,8 +13,8 @@ export const BoardCard = (props: { id: string; title: string }) => {
     setOpen(true);
   };
 
-  const deleteItem = () => {
-    store.dispatch(fetchDeleteBoard({ id: props.id }));
+  const deleteItem = async () => {
+    await store.dispatch(fetchDeleteBoard({ id: props.id }));
     store.dispatch(fetchBoards());
   };
 
