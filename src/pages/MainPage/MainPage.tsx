@@ -59,21 +59,21 @@ export const MainPage = () => {
           <Box sx={{ bgcolor: '#cfe8fc' }}>
             <h1>{t('Boards')}</h1>
           </Box>
-          <Button
+          {/*<Button
             color="primary"
             variant="contained"
             onClick={() => setOpen(true)}
             sx={{ marginLeft: 5 }}
           >
             <p> {t('Create new board')}</p>
-          </Button>
+          </Button>*/}
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} id={board.id} title={board.title} />;
           })}
           <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
           <Link to={PATH.COLUMNS}>columns</Link>
           <Link to={PATH.BOARD}>Boards</Link>
-          <Dialog open={open} onClose={handleClose}>
+          {/*<Dialog open={open} onClose={handleClose}>
             <DialogTitle>Subscribe</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -97,8 +97,8 @@ export const MainPage = () => {
               <Button onClick={handleCreateNewBoard}>Create</Button>
             </DialogActions>
           </Dialog>
-          <p>{JSON.stringify(boards.boards)}</p>
-          <Task />
+          <p>{JSON.stringify(boards.boards)}</p>*/}
+          {/*<Task />*/}
         </Content>
         <FooterWrapper>
           <Footer />

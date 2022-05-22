@@ -11,7 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
-import { AlignCenter } from '../CommonComponents/CommonComponents';
+import { AlignCenter } from '../CommonComponents';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { useCreateBoardApi } from './useCreateBoardApi';
@@ -19,6 +19,9 @@ import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
+import { store } from '../../redux';
+import { fetchCreateBoard } from '../../redux/boards/boards.thunk';
+import { CreateItemDialog } from '../CreateItemDialog';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
@@ -44,6 +47,12 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const handleCreateBoard = () => {
     setOpen(false);
     createBoard({ name: boardName });
+  };
+
+  const handleCreateNewBoard = (title: string) => {
+    setBoardName('');
+    store.dispatch(fetchCreateBoard({ title }));
+    setOpen(false);
   };
 
   const logoutHandler = (): void => {
@@ -75,7 +84,13 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
         </JustifySpaceBetween>
       </MainHeaderWrapper>
       <div>
-        <Dialog open={open} onClose={handleCloseDialog}>
+        <CreateItemDialog
+          itemName={'board'}
+          open={open}
+          setOpen={setOpen}
+          createItem={handleCreateNewBoard}
+        />
+        {/*<Dialog open={open} onClose={handleCloseDialog}>
           <DialogTitle>
             <p>{t('Create New Board')}</p>
           </DialogTitle>
@@ -98,7 +113,7 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
             <Button onClick={handleCloseDialog}>{t('Cancel')}</Button>
             <Button onClick={handleCreateBoard}>{t('Create')}</Button>
           </DialogActions>
-        </Dialog>
+        </Dialog>*/}
       </div>
     </>
   );
