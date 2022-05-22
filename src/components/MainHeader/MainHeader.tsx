@@ -1,31 +1,20 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Slide,
-  TextField,
-} from '@mui/material';
+import { AppBar, Button, Slide } from '@mui/material';
 import { JustifySpaceBetween, MainHeaderWrapper } from './MainHeader.styles';
-import { AlignCenter } from '../CommonComponents/CommonComponents';
+import { AlignCenter } from '../CommonComponents';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { LanguageSelect } from '../LanguageSelect/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
-import { fetchCreateBoard } from '../../redux/boards/boards.thunk';
-import { store } from '../../redux/store';
+import { store } from '../../redux';
+import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
+import { CreateItemDialog } from '../CreateItemDialog';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -38,20 +27,13 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
     setOpen(true);
   };
 
-  const handleCloseDialog = () => {
-    setTitle('');
-    setDescription('');
-    setOpen(false);
-  };
-
-  const handleCreateBoard = () => {
-    setOpen(false);
-    store.dispatch(fetchCreateBoard({ title, description }));
-    handleCloseDialog();
+  const handleCreateNewBoard = (title: string) => {
+    store.dispatch(fetchCreateBoard({ title, description: '123' }));
   };
 
   const logoutHandler = (): void => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('login');
     dispatch(setAuth(false));
   };
 
@@ -78,42 +60,12 @@ export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
           </Button>
         </JustifySpaceBetween>
       </MainHeaderWrapper>
-      <div>
-        <Dialog open={open} onClose={handleCloseDialog}>
-          <DialogTitle>
-            <p>{t('Create New Board')}</p>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <p>{t('To create a new board, please enter board name here')}</p>
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
-              type="text"
-              fullWidth
-              value={title}
-              variant="standard"
-              onChange={(event) => setTitle(event?.target.value)}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="description"
-              type="text"
-              fullWidth
-              value={description}
-              variant="standard"
-              onChange={(event) => setDescription(event?.target.value)}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>{t('Cancel')}</Button>
-            <Button onClick={handleCreateBoard}>{t('Create')}</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+      <CreateItemDialog
+        itemName={'board'}
+        open={open}
+        setOpen={setOpen}
+        createItem={handleCreateNewBoard}
+      />
     </>
   );
 

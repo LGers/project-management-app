@@ -28,7 +28,6 @@ export const SignIn = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpFormInputs> = async (data) => {
-    console.log(data);
     store.dispatch(fetchLogin({ login: data.userLogin, password: data.password }));
   };
 

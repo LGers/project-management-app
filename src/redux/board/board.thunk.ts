@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getBoardById, updateBoard } from '../../api/boards';
 import { createColumn, deleteColumn, getAllColumns, updateColumn } from '../../api/columns';
-import { createTask } from '../../api/tasks';
+import { createTask, updateTask } from '../../api/tasks';
 import { Board, Column, MyKnownError } from '../boards/boards.types';
 
 export const fetchBoard = createAsyncThunk<Board, string>(
@@ -77,6 +77,7 @@ export const fetchUpdateColumn = createAsyncThunk<Column, FetchUpdateColumn>(
     }
   }
 );
+
 type FetchCreateTask = {
   boardId: string;
   columnId: string;
@@ -89,6 +90,28 @@ export const fetchCreateTask = createAsyncThunk<Column, FetchCreateTask>(
   async ({ boardId, columnId, title, description, userId }, thunkAPI) => {
     try {
       const res = await createTask(boardId, columnId, title, description, userId);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+    }
+  }
+);
+
+type FetchUpdateTack = {
+  boardId: string;
+  columnId: string;
+  taskId: string;
+  title: string;
+  description: string;
+  userId: string;
+  order: number;
+};
+
+export const fetchUpdateTack = createAsyncThunk<Column, FetchUpdateTack>(
+  'board/fetchUpdateTack',
+  async ({ boardId, columnId, taskId, title, description, userId, order }, thunkAPI) => {
+    try {
+      const res = await updateTask(boardId, columnId, taskId, title, description, userId, order);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as MyKnownError).response.data);

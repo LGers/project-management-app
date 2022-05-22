@@ -15,19 +15,17 @@ const getItems = (column: Column) => {
 const mapDataToBuckets = (board: Board) => {
   let id = 0;
   if (!board?.columns) return [];
-
-  return board.columns
-    .filter((c) => c)
-    .sort((a, b) => a.order - b.order)
-    .map((column) => {
-      return {
-        droppableId: `drop_${id++}`,
-        column,
-        ...column,
-        id: `COLUMN_${id++}`,
-        items: getItems(column),
-      } as unknown as DragBucket;
-    });
+  const filtered = board.columns.filter((c) => c);
+  filtered.sort((a, b) => a.order - b.order);
+  return filtered.map((column) => {
+    return {
+      droppableId: `drop_${id++}`,
+      column,
+      ...column,
+      id: `COLUMN_${id++}`,
+      items: getItems(column),
+    } as unknown as DragBucket;
+  });
 };
 
 const moveItems = (

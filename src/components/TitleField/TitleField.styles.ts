@@ -2,21 +2,21 @@ import { styled } from '@mui/system';
 import { TextField } from '@mui/material';
 
 export const StyledTitleField = styled(TextField)({
-  border: '0px solid',
+  border: 'none',
   outline: 0,
   fontWeight: 'bold',
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'green',
-  },
+  width: '100%',
   '& .MuiOutlinedInput-root': {
     fontSize: '30px',
+    boxSizing: 'border-box',
     '& fieldset': {
-      borderColor: 'red',
-      border: 'none',
-      fontSize: '30px',
+      borderColor: 'transparent',
     },
     '&:hover fieldset': {
-      borderColor: 'yellow',
+      borderColor: 'transparent',
+    },
+    '&.Mui-focused': {
+      backgroundColor: '#fff',
     },
     '&.Mui-focused fieldset': {
       border: 'solid 1px #0000006b',

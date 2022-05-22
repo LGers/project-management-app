@@ -16,35 +16,33 @@ const initialState: BoardState = {
     message: '',
     statusCode: 0,
   },
-  // boardData: {
-  //   id: '',
-  //   title: '',
-  //   columns: [],
-  // },
-  // boardData: undefined,
   boardData: emptyBoard,
+};
+
+const pending = (state: BoardState) => {
+  state.isFetching = true;
+  state.error = initialState.error;
 };
 
 export const boardSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    // setBoard: (state, action: PayloadAction<Board>) => {
-    //   // state.boardData = action.payload;
-    //   // state.boardData = {...state.boardData, action.payload};
-    // },
     setColumns: (state, action: PayloadAction<Column[]>) => {
       state.boardData.columns = action.payload;
     },
-    setColumn: (state, action: PayloadAction<Column>) => {
+    setAddColumn: (state, action: PayloadAction<Column>) => {
       state.boardData.columns = [...state.boardData.columns, action.payload];
+    },
+    setDeleteColumn: (state, action: PayloadAction<string>) => {
+      state.boardData.columns = state.boardData.columns.filter(
+        (column) => column.id !== action.payload
+      );
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.pending, (state) => {
-      // pending(state);
-      state.isFetching = true;
-      state.error = initialState.error;
+      pending(state);
     });
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
       state.isFetching = false;
@@ -65,27 +63,23 @@ export const boardSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
+
     builder.addCase(fetchCreateColumn.pending, (state) => {
-      state.isFetching = true;
-      state.error = initialState.error;
+      pending(state);
     });
-    builder.addCase(fetchCreateColumn.fulfilled, (state, action) => {
+    builder.addCase(fetchCreateColumn.fulfilled, (state) => {
       state.isFetching = false;
-      state.boardData.columns = [...state.boardData.columns, action.payload];
     });
     builder.addCase(fetchCreateColumn.rejected, (state, action) => {
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
+
     builder.addCase(fetchDeleteColumn.pending, (state) => {
-      state.isFetching = true;
-      state.error = initialState.error;
+      pending(state);
     });
-    builder.addCase(fetchDeleteColumn.fulfilled, (state, action) => {
+    builder.addCase(fetchDeleteColumn.fulfilled, (state) => {
       state.isFetching = false;
-      state.boardData.columns = [
-        ...state.boardData.columns.filter((c) => c.id !== action.meta.arg.columnId),
-      ];
     });
     builder.addCase(fetchDeleteColumn.rejected, (state, action) => {
       state.isFetching = false;
@@ -97,6 +91,7 @@ export const boardSlice = createSlice({
     });
     builder.addCase(fetchAllColumns.fulfilled, (state, action) => {
       state.isFetching = false;
+      console.log(action.payload);
       state.boardData.columns = [...action.payload];
     });
     builder.addCase(fetchAllColumns.rejected, (state, action) => {
@@ -106,5 +101,5 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setColumns, setColumn } = boardSlice.actions;
+export const { setColumns, setAddColumn, setDeleteColumn } = boardSlice.actions;
 export const boardReducer = boardSlice.reducer;

@@ -2,8 +2,6 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
@@ -13,12 +11,11 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 export const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
   const { t } = useTranslation();
-  const error = useSelector((state: RootState) => state.boards.error);
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    setOpen(!!error.message);
-  }, [error]);
+    setOpen(!!errorMessage);
+  }, [errorMessage]);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {

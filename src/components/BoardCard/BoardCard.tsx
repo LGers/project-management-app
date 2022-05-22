@@ -13,8 +13,8 @@ export const BoardCard = (props: { id: string; title: string }) => {
     setOpen(true);
   };
 
-  const deleteItem = () => {
-    store.dispatch(fetchDeleteBoard({ id: props.id }));
+  const deleteItem = async () => {
+    await store.dispatch(fetchDeleteBoard({ id: props.id }));
     store.dispatch(fetchBoards());
   };
 
@@ -48,7 +48,8 @@ export const BoardCard = (props: { id: string; title: string }) => {
       <ConfirmationDialog
         open={open}
         setOpen={setOpen}
-        boardTitle={props.title}
+        itemName={'board'}
+        itemTitle={props.title}
         deleteItem={deleteItem}
       />
     </div>
