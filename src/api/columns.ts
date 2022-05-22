@@ -14,8 +14,8 @@ export const getAllColumns = (boardId: string) => {
   return instance.get(URL.boardsBoardIdColumns(boardId));
 };
 
-export const createColumn = (boardId: string, title: string, order: number) => {
-  return instance.post(URL.boardsBoardIdColumns(boardId), { title, order });
+export const createColumn = (boardId: string, title: string) => {
+  return instance.post(URL.boardsBoardIdColumns(boardId), { title });
 };
 
 export const getColumnById = (boardId: string, columnId: string) => {

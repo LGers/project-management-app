@@ -51,17 +51,17 @@ export const fetchUpdateColumn = createAsyncThunk<
   }
 });
 
-export const fetchCreateColumn = createAsyncThunk<
-  Column,
-  { boardId: string; order: number; title: string }
->('board/fetchCreateColumn', async ({ boardId, title, order }, thunkAPI) => {
-  try {
-    const res = await createColumn(boardId, title, order);
-    return res.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+export const fetchCreateColumn = createAsyncThunk<Column, { boardId: string; title: string }>(
+  'board/fetchCreateColumn',
+  async ({ boardId, title }, thunkAPI) => {
+    try {
+      const res = await createColumn(boardId, title);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error as MyKnownError).response.data);
+    }
   }
-});
+);
 
 export const fetchDeleteColumn = createAsyncThunk<Column, { boardId: string; columnId: string }>(
   'board/fetchDeleteColumn',

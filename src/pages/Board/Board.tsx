@@ -29,9 +29,7 @@ export const Board = () => {
   };
 
   const addColumn = async (title: string) => {
-    await store.dispatch(
-      fetchCreateColumn({ boardId: board.id, order: board.columns.length + 1, title: title }) // todo del order
-    );
+    await store.dispatch(fetchCreateColumn({ boardId: board.id, title: title }));
     store.dispatch(fetchBoard(board.id));
   };
 

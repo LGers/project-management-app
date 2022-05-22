@@ -14,11 +14,11 @@ export const fetchBoards = createAsyncThunk<Array<Board>>(
   }
 );
 
-export const fetchCreateBoard = createAsyncThunk<Board, { title: string }>(
+export const fetchCreateBoard = createAsyncThunk<Board, { title: string; description: string }>(
   'boards/fetchCreateBoard',
   async (props, thunkAPI) => {
     try {
-      const res = await createBoard(props.title);
+      const res = await createBoard(props.title, props.description);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as MyKnownError).response.data);

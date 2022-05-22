@@ -12,5 +12,6 @@ export interface BoardState {
 export const emptyBoard: Board = {
   id: '',
   title: '',
+  description: '',
   columns: [],
 };
