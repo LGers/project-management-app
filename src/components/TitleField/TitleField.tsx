@@ -23,7 +23,14 @@ export const TitleField = ({ title, setField }: Props) => {
     }
     if (event.key === 'Escape') {
       event.preventDefault();
+      setFocussed(false);
       setNewValue(title);
+    }
+  };
+
+  const onBlurTitleField = () => {
+    if (newValue) {
+      setField(newValue);
     }
   };
 
@@ -39,7 +46,7 @@ export const TitleField = ({ title, setField }: Props) => {
       onFocus={() => setFocussed(true)}
       size={'small'}
       multiline
-      onBlur={() => setFocussed(false)}
+      onBlur={onBlurTitleField}
       focused={focussed}
     />
   );

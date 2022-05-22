@@ -52,8 +52,6 @@ export const Column = (props: ColumnProps): ReactElement => {
         >
           <TitleField title={title} setField={setColumnName} />
           <Button onClick={deleteColumn}>Delete</Button>
-          <p>columnId: {columnId}</p>
-          <p>boardId: {boardId}</p>
           {bucket.items.map((item, i) => (
             <Draggable
               key={`key_${i}`}
