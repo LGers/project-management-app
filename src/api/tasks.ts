@@ -32,3 +32,7 @@ export const updateTask = (
     order,
   });
 };
+
+export const deleteTask = (boardId: string, columnId: string, taskId: string) => {
+  return instance.delete(URL.updateTask(boardId, columnId, taskId));
+};

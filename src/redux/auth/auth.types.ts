@@ -14,6 +14,7 @@ export interface AuthState {
   isSignUp: boolean;
   language: Languages;
   isFetching: boolean;
+  userId: string;
   users: User[];
   error: {
     message: string;
@@ -32,4 +33,10 @@ export interface MyKnownError {
       message: string;
     };
   };
+}
+
+export interface TokenData {
+  iat: number;
+  userId: string;
+  login: string;
 }

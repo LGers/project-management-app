@@ -11,6 +11,7 @@ import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
+import { CreateItemDialog } from '../CreateItemDialog';
 
 interface ColumnProps {
   groupName: string;
@@ -19,8 +20,9 @@ interface ColumnProps {
   boardId: string;
   columnId: string;
   order: number;
-  addTask: () => void;
+  addTask: (title: string, description: string) => void;
 }
+const isCrossCheckVersion = true;
 
 export const Column = (props: ColumnProps): ReactElement => {
   const { t } = useTranslation();
@@ -69,10 +71,12 @@ export const Column = (props: ColumnProps): ReactElement => {
                   disableMove={item.isEnd}
                   outerScrollBar={true}
                 >
-                  {!item.isHeader && !item.isEnd && <FakeTaskCard {...item} />}
+                  {!item.isHeader && !item.isEnd && (
+                    <FakeTaskCard item={item} boardId={boardId} columnId={columnId} />
+                  )}
                 </Draggable>
               ))}
-            {isAddTaskOpen ? (
+            {isAddTaskOpen && !isCrossCheckVersion ? (
               <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTask} />
             ) : (
               <Button
@@ -87,6 +91,12 @@ export const Column = (props: ColumnProps): ReactElement => {
           </Droppable>
         </ColumnCard>
       </Draggable>
+      <CreateItemDialog
+        itemName={'task'}
+        open={isAddTaskOpen}
+        setOpen={setIsAddTaskOpen}
+        createItem={addTask}
+      />
       <ConfirmationDialog
         open={open}
         setOpen={setOpen}

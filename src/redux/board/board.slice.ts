@@ -6,6 +6,7 @@ import {
   fetchBoard,
   fetchCreateColumn,
   fetchDeleteColumn,
+  fetchDeleteTask,
   fetchUpdateBoard,
   fetchUpdateColumn,
 } from './board.thunk';
@@ -85,16 +86,32 @@ export const boardSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
+
     builder.addCase(fetchAllColumns.pending, (state) => {
       state.isFetching = true;
       state.error = initialState.error;
     });
     builder.addCase(fetchAllColumns.fulfilled, (state, action) => {
       state.isFetching = false;
-      console.log(action.payload);
+      // console.log(action.payload);
       state.boardData.columns = [...action.payload];
     });
     builder.addCase(fetchAllColumns.rejected, (state, action) => {
+      state.isFetching = false;
+      state.error = action.payload as MyKnownError;
+    });
+    // builder.addCase(fetchAllColumns.pending, (state) => {
+    //   state.isFetching = true;
+    //   state.error = initialState.error;
+    // });
+
+    builder.addCase(fetchDeleteTask.pending, (state) => {
+      pending(state);
+    });
+    builder.addCase(fetchDeleteTask.fulfilled, (state) => {
+      state.isFetching = false;
+    });
+    builder.addCase(fetchDeleteTask.rejected, (state, action) => {
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });

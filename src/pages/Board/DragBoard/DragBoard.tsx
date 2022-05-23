@@ -18,9 +18,10 @@ import { updateTask } from '../../../api/tasks';
 
 export const DragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
-  const users = useSelector((state: RootState) => state.auth.users);
-  const login = localStorage.getItem('login');
-  const userId = users.find((user) => user.login === login)?.id as string;
+  const userId = useSelector((state: RootState) => state.auth.userId);
+  // const users = useSelector((state: RootState) => state.auth.users);
+  // const login = localStorage.getItem('login');
+  // const userId = users.find((user) => user.login === login)?.id as string;
   const [buckets, setBuckets] = useState<DragBucket[]>([]);
   const name = 'board-group';
 
@@ -51,28 +52,28 @@ export const DragBoard = () => {
     const newIndex = buckets.findIndex((bucket) => bucket.droppableId === destinationId);
     const movingIndex = buckets[bucketIndex].items.findIndex((item) => item.id === e.draggableId);
     const task = buckets[bucketIndex].items[movingIndex].task;
-
     store.dispatch(
       fetchUpdateTack({
         boardId: board.id,
         columnId: buckets[bucketIndex].column.id,
         taskId: task.id,
         title: buckets[bucketIndex].items[movingIndex].task.title,
-        order: newIndex + 1,
-        description: '123',
+        // order: newIndex + 1,
+        order: 1, // todo
+        description: buckets[bucketIndex].items[movingIndex].task.description,
         userId,
       })
     );
   };
 
-  const addTaskHandler = (index: number) => {
+  const addTaskHandler = (index: number, title: string, description: string) => {
     store
       .dispatch(
         fetchCreateTask({
           boardId: board.id,
           columnId: buckets[index].column.id,
-          title: Math.random().toString(),
-          description: 'not empty',
+          title,
+          description,
           userId,
         })
       )
@@ -96,7 +97,9 @@ export const DragBoard = () => {
               columnId={elem.column.id}
               order={elem.column.order}
               boardId={board.id}
-              addTask={() => addTaskHandler(index)}
+              addTask={(title: string, description: string) =>
+                addTaskHandler(index, title, description)
+              }
             />
           </DragBoardColumn>
         ))}
