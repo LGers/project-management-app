@@ -11,6 +11,7 @@ import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
+import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
   groupName: string;
@@ -54,6 +55,7 @@ export const Column = (props: ColumnProps): ReactElement => {
             containerHeight={950}
           >
             {/* <TitleField title={title} setField={setColumnName} /> */}
+            {/* {console.log('bucket:')} */}
             <div style={{ minWidth: 400, height: 60 }}>
               <Typography variant="h5">{title}</Typography>
             </div>
@@ -69,7 +71,8 @@ export const Column = (props: ColumnProps): ReactElement => {
                   disableMove={item.isEnd}
                   outerScrollBar={true}
                 >
-                  {!item.isHeader && !item.isEnd && <FakeTaskCard {...item} />}
+                  {/* {!item.isHeader && !item.isEnd && <FakeTaskCard {...item} />} */}
+                  {!item.isHeader && !item.isEnd && <TaskCard item={item} />}
                 </Draggable>
               ))}
             {isAddTaskOpen ? (
