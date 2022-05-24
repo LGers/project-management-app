@@ -13,6 +13,7 @@ import { BoardTitleField } from '../../components/BoardTitleField';
 import { AddColumnDialog } from '../../components/AddColumnDialog';
 import { ColumnSkeleton } from '../../components/ColumnSkeleton';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { TitleField } from '../../components/TitleField';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -31,6 +32,13 @@ export const Board = () => {
         store.dispatch(fetchBoard(board.id));
       });
   };
+  const setBoardDescription = (description: string) => {
+    store
+      .dispatch(fetchUpdateBoard({ boardId: board.id, title: board.title, description }))
+      .then(() => {
+        store.dispatch(fetchBoard(board.id));
+      });
+  };
 
   const addColumn = async (title: string) => {
     await store.dispatch(fetchCreateColumn({ boardId: board.id, title: title }));
@@ -44,6 +52,7 @@ export const Board = () => {
         <Content>
           <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
             <BoardTitleField title={board.title} setField={setBoardTitle} />
+            <TitleField title={board.description} setField={setBoardDescription} />
           </Box>
           {!board.title && <ColumnSkeleton />}
           <DragBoard />
