@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-virtualized-dnd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState, store } from '../../../redux/store';
-import { setColumns } from '../../../redux/board/board.slice';
 import { DragBucket, DragData } from '../../../redux/boards/boards.types';
 import { Column } from '../../../components/Column';
-import { mapDataToBuckets, moveItems, restoreTasks } from './Dashboard.utils';
+import { mapDataToBuckets } from './Dashboard.utils';
 import {
-  fetchAllColumns,
   fetchBoard,
   fetchCreateTask,
   fetchDeleteTask,
   fetchUpdateColumn,
-  fetchUpdateTack,
 } from '../../../redux/board/board.thunk';
 import { DragBoardColumn, DragBoardContent } from './DragBoard.styles';
-import { updateTask } from '../../../api/tasks';
 
 export const DragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -25,7 +21,6 @@ export const DragBoard = () => {
   // const userId = users.find((user) => user.login === login)?.id as string;
   const [buckets, setBuckets] = useState<DragBucket[]>([]);
   const name = 'board-group';
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setBuckets(mapDataToBuckets(board));
