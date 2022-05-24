@@ -10,6 +10,7 @@ import {
   fetchAllColumns,
   fetchBoard,
   fetchCreateTask,
+  fetchDeleteTask,
   fetchUpdateColumn,
   fetchUpdateTack,
 } from '../../../redux/board/board.thunk';
@@ -24,6 +25,7 @@ export const DragBoard = () => {
   // const userId = users.find((user) => user.login === login)?.id as string;
   const [buckets, setBuckets] = useState<DragBucket[]>([]);
   const name = 'board-group';
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setBuckets(mapDataToBuckets(board));
@@ -47,23 +49,30 @@ export const DragBoard = () => {
         });
       return;
     }
-
     const bucketIndex = buckets.findIndex((bucket) => bucket.droppableId === e.droppableId);
     const newIndex = buckets.findIndex((bucket) => bucket.droppableId === destinationId);
-    const movingIndex = buckets[bucketIndex].items.findIndex((item) => item.id === e.draggableId);
-    const task = buckets[bucketIndex].items[movingIndex].task;
-    store.dispatch(
-      fetchUpdateTack({
-        boardId: board.id,
-        columnId: buckets[bucketIndex].column.id,
-        taskId: task.id,
-        title: buckets[bucketIndex].items[movingIndex].task.title,
-        // order: newIndex + 1,
-        order: 1, // todo
-        description: buckets[bucketIndex].items[movingIndex].task.description,
-        userId,
-      })
-    );
+    const toMoveColumnId = buckets[bucketIndex].column.id;
+    const taskIndex = buckets[bucketIndex].items.findIndex((item) => item.id === e.draggableId);
+    const toMoveTask = buckets[bucketIndex].items[taskIndex].task;
+    store
+      .dispatch(
+        fetchDeleteTask({ boardId: board.id, columnId: toMoveColumnId, taskId: toMoveTask.id })
+      )
+      .then(() => {
+        store
+          .dispatch(
+            fetchCreateTask({
+              boardId: board.id,
+              columnId: buckets[newIndex].column.id,
+              title: toMoveTask.title,
+              description: toMoveTask.description,
+              userId,
+            })
+          )
+          .then(() => {
+            store.dispatch(fetchBoard(board.id));
+          });
+      });
   };
 
   const addTaskHandler = (index: number, title: string, description: string) => {
