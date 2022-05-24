@@ -11,7 +11,7 @@ export const AddTaskCard = ({ setOpen, addTask }: AddTaskCardProps) => {
 
   const handleSubmit = () => {
     if (value) {
-      addTask();
+      addTask(value, '');
       setValue('');
     }
   };
@@ -23,7 +23,7 @@ export const AddTaskCard = ({ setOpen, addTask }: AddTaskCardProps) => {
   const handleBlurField = () => {
     setOpen(false);
     if (value) {
-      addTask();
+      addTask(value, '');
       setValue('');
     }
   };

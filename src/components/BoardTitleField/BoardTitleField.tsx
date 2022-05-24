@@ -5,22 +5,50 @@ import { BoardTitleFieldProps } from './BoardTitleField.types';
 
 export const BoardTitleField = ({ title, setField }: BoardTitleFieldProps) => {
   const [focussed, setFocussed] = useState(false);
+  const [oldValue, setOldValue] = useState(title);
   const [newValue, setNewValue] = useState(title);
   useEffect(() => {
     setNewValue(title);
   }, [title]);
 
   const handleFieldKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' || event.key === 'Escape') {
+    // if (event.key === 'Enter' || event.key === 'Escape') {
+    //   event.preventDefault();
+    //   if (!newValue) {
+    //     setNewValue(title);
+    //     setFocussed(false);
+    //   } else {
+    //     setFocussed(false);
+    //     setField(newValue);
+    //   }
+    // }
+    if (event.key === 'Enter') {
       event.preventDefault();
-      if (!newValue) {
-        setNewValue(title);
-        setFocussed(false);
-      } else {
-        setFocussed(false);
-        setField(newValue);
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        if (!newValue) {
+          setNewValue(oldValue);
+          setFocussed(false);
+        } else {
+          setOldValue(newValue);
+          setNewValue(newValue);
+          setFocussed(false);
+          setField(newValue);
+        }
       }
     }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setFocussed(false);
+      setNewValue(title);
+    }
+  };
+
+  const onBlurTitleField = () => {
+    if (newValue) {
+      setField(newValue);
+    }
+    setFocussed(false);
   };
 
   const onChangeTitleField = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +63,7 @@ export const BoardTitleField = ({ title, setField }: BoardTitleFieldProps) => {
       onFocus={() => setFocussed(true)}
       size={'small'}
       multiline
-      onBlur={() => setFocussed(false)}
+      onBlur={onBlurTitleField}
       focused={focussed}
     />
   );

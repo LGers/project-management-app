@@ -18,7 +18,8 @@ export const CreateItemDialog = ({
   createItem,
 }: CreateItemDialogProps) => {
   const { t } = useTranslation();
-  const [fieldValue, setFieldValue] = useState<string>('');
+  const [itemTitle, setItemTitle] = useState<string>('');
+  const [itemDescription, setItemDescription] = useState<string>('');
 
   const handleCloseDialog = () => {
     setOpen(false);
@@ -26,8 +27,8 @@ export const CreateItemDialog = ({
 
   const handleCreateBoard = () => {
     setOpen(false);
-    setFieldValue('');
-    createItem(fieldValue);
+    setItemTitle('');
+    createItem(itemTitle, itemDescription);
   };
 
   return (
@@ -41,13 +42,25 @@ export const CreateItemDialog = ({
         </DialogContentText>
         <TextField
           autoFocus
+          placeholder={t(`${itemName} title`)}
           margin="dense"
-          id="name"
+          id="item-title"
           type="text"
           fullWidth
-          value={fieldValue}
+          value={itemTitle}
           variant="standard"
-          onChange={(event) => setFieldValue(event?.target.value)}
+          onChange={(event) => setItemTitle(event?.target.value)}
+          sx={{ minWidth: '300px' }}
+        />
+        <TextField
+          placeholder={t(`${itemName} description`)}
+          margin="dense"
+          id="item-description"
+          type="text"
+          fullWidth
+          value={itemDescription}
+          variant="standard"
+          onChange={(event) => setItemDescription(event?.target.value)}
           sx={{ minWidth: '300px' }}
         />
       </DialogContent>

@@ -10,7 +10,7 @@ import { RootState, store } from './redux/store';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { Auth } from './pages/Auth/Auth';
 import { ProtectedRouteProps } from './App.types';
-import { setLanguage } from './redux/auth/auth.slice';
+import { setLanguage, setUserId } from './redux/auth/auth.slice';
 import { useTranslation } from 'react-i18next';
 import { fetchUsers } from './redux/auth/auth.thunk';
 import { Boards } from './pages/Boards';
@@ -40,6 +40,7 @@ export const App = () => {
       i18n.changeLanguage(localStorage.getItem('language') as Languages);
       dispatch(setLanguage(localStorage.getItem('language') as Languages));
     }
+    dispatch(setUserId());
     store.dispatch(fetchUsers());
   }, []);
 
