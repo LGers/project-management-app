@@ -44,6 +44,10 @@ export const Column = (props: ColumnProps): ReactElement => {
     setOpen(true);
   };
 
+  const onClickTask = () => {
+    console.log('TaskOpen');
+  };
+
   return (
     <div>
       <Draggable dragAndDropGroup={groupName} draggableId={bucket.id}>
@@ -72,7 +76,12 @@ export const Column = (props: ColumnProps): ReactElement => {
                   outerScrollBar={true}
                 >
                   {!item.isHeader && !item.isEnd && (
-                    <FakeTaskCard item={item} boardId={boardId} columnId={columnId} />
+                    <FakeTaskCard
+                      item={item}
+                      boardId={boardId}
+                      columnId={columnId}
+                      onClick={onClickTask}
+                    />
                   )}
                 </Draggable>
               ))}
