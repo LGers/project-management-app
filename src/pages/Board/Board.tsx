@@ -25,7 +25,11 @@ export const Board = () => {
   }, []);
 
   const setBoardTitle = (title: string) => {
-    store.dispatch(fetchUpdateBoard({ boardId: board.id, title }));
+    store
+      .dispatch(fetchUpdateBoard({ boardId: board.id, title, description: board.description }))
+      .then(() => {
+        store.dispatch(fetchBoard(board.id));
+      });
   };
 
   const addColumn = async (title: string) => {

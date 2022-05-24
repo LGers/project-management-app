@@ -31,6 +31,7 @@ export const TitleField = ({ title, setField }: Props) => {
     if (newValue) {
       setField(newValue);
     }
+    setFocussed(false);
   };
 
   const onChangeTitleField = (event: React.ChangeEvent<HTMLInputElement>) => {

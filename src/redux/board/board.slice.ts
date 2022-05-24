@@ -100,10 +100,6 @@ export const boardSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload as MyKnownError;
     });
-    // builder.addCase(fetchAllColumns.pending, (state) => {
-    //   state.isFetching = true;
-    //   state.error = initialState.error;
-    // });
 
     builder.addCase(fetchDeleteTask.pending, (state) => {
       pending(state);

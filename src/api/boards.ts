@@ -21,6 +21,6 @@ export const deleteBoard = (boardId: string) => {
   return instance.delete(URL.boardsId(boardId));
 };
 
-export const updateBoard = (boardId: string, title: string) => {
-  return instance.put(URL.boardsId(boardId), { title });
+export const updateBoard = (boardId: string, title: string, description: string) => {
+  return instance.put(URL.boardsId(boardId), { title, description });
 };
