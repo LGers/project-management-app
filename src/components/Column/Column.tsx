@@ -12,6 +12,7 @@ import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
+import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
   groupName: string;
@@ -83,6 +84,7 @@ export const Column = (props: ColumnProps): ReactElement => {
                       onClick={onClickTask}
                     />
                   )}
+                  {/* {!item.isHeader && !item.isEnd && <TaskCard item={item} />} */}
                 </Draggable>
               ))}
             {isAddTaskOpen && !isCrossCheckVersion ? (
