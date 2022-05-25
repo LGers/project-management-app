@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
 import { DragBucket } from '../../redux/boards/boards.types';
 import { Droppable, Draggable } from 'react-virtualized-dnd';
@@ -11,6 +11,7 @@ import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
+import { CreateItemDialog } from '../CreateItemDialog';
 import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
@@ -20,8 +21,9 @@ interface ColumnProps {
   boardId: string;
   columnId: string;
   order: number;
-  addTask: () => void;
+  addTask: (title: string, description: string) => void;
 }
+const isCrossCheckVersion = true;
 
 export const Column = (props: ColumnProps): ReactElement => {
   const { t } = useTranslation();
@@ -29,9 +31,10 @@ export const Column = (props: ColumnProps): ReactElement => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const setColumnName = async (value: string) => {
-    await store.dispatch(fetchUpdateColumn({ boardId, columnId, title: value, order }));
-    store.dispatch(fetchBoard(boardId));
+  const onUpdateColumnTitle = (title: string) => {
+    store.dispatch(fetchUpdateColumn({ boardId, columnId, title, order })).then(() => {
+      store.dispatch(fetchBoard(boardId));
+    });
   };
 
   const deleteColumn = async () => {
@@ -41,6 +44,10 @@ export const Column = (props: ColumnProps): ReactElement => {
 
   const onDeleteColumn = () => {
     setOpen(true);
+  };
+
+  const onClickTask = () => {
+    console.log('TaskOpen');
   };
 
   return (
@@ -54,10 +61,8 @@ export const Column = (props: ColumnProps): ReactElement => {
             outerScrollBar={true}
             containerHeight={950}
           >
-            {/* <TitleField title={title} setField={setColumnName} /> */}
-            {/* {console.log('bucket:')} */}
             <div style={{ minWidth: 400, height: 60 }}>
-              <Typography variant="h5">{title}</Typography>
+              <TitleField title={title} setField={onUpdateColumnTitle} />
             </div>
             <Button onClick={onDeleteColumn}>Delete</Button>
             {bucket.items
@@ -71,11 +76,18 @@ export const Column = (props: ColumnProps): ReactElement => {
                   disableMove={item.isEnd}
                   outerScrollBar={true}
                 >
-                  {/* {!item.isHeader && !item.isEnd && <FakeTaskCard {...item} />} */}
-                  {!item.isHeader && !item.isEnd && <TaskCard item={item} />}
+                  {!item.isHeader && !item.isEnd && (
+                    <FakeTaskCard
+                      item={item}
+                      boardId={boardId}
+                      columnId={columnId}
+                      onClick={onClickTask}
+                    />
+                  )}
+                  {/* {!item.isHeader && !item.isEnd && <TaskCard item={item} />} */}
                 </Draggable>
               ))}
-            {isAddTaskOpen ? (
+            {isAddTaskOpen && !isCrossCheckVersion ? (
               <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTask} />
             ) : (
               <Button
@@ -90,6 +102,12 @@ export const Column = (props: ColumnProps): ReactElement => {
           </Droppable>
         </ColumnCard>
       </Draggable>
+      <CreateItemDialog
+        itemName={'task'}
+        open={isAddTaskOpen}
+        setOpen={setIsAddTaskOpen}
+        createItem={addTask}
+      />
       <ConfirmationDialog
         open={open}
         setOpen={setOpen}

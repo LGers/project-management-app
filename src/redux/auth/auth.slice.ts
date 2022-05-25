@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchLogin, fetchSignUp, fetchUsers } from './auth.thunk';
-import { AuthState, Languages, MyKnownError } from './auth.types';
+import { AuthState, Languages, MyKnownError, TokenData } from './auth.types';
+import jwt_decode from 'jwt-decode';
 
 const initialState: AuthState = {
   isAuth: true,
   isSignUp: false,
   language: 'en',
   isFetching: false,
+  userId: '',
   users: [],
   error: {
     message: '',
@@ -30,6 +32,14 @@ export const authSlice = createSlice({
     resetIsSignUp: (state) => {
       state.isSignUp = false;
     },
+    setUserId: (state) => {
+      const token = localStorage.getItem('authToken') ?? '';
+      try {
+        state.userId = (jwt_decode(token) as TokenData).userId;
+      } catch (e) {
+        state.error.message = 'Authorization error';
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchLogin.pending, (state) => {
@@ -39,6 +49,7 @@ export const authSlice = createSlice({
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       localStorage.setItem('authToken', action.payload.token);
       localStorage.setItem('login', action.meta.arg.login);
+      state.userId = (jwt_decode(action.payload.token) as TokenData).userId;
       state.isFetching = false;
       state.isAuth = true;
     });
@@ -76,6 +87,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setAuth, resetErrorMessage, resetIsSignUp, setLanguage } = authSlice.actions;
+export const { setAuth, resetErrorMessage, resetIsSignUp, setLanguage, setUserId } =
+  authSlice.actions;
 
 export const authReducer = authSlice.reducer;
