@@ -14,6 +14,7 @@ import { AddColumnDialog } from '../../components/AddColumnDialog';
 import { ColumnSkeleton } from '../../components/ColumnSkeleton';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { TitleField } from '../../components/TitleField';
+import { BeautifulDragBoard } from './BeautifulDragBoard/BeautifulDragBoard';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -55,7 +56,8 @@ export const Board = () => {
             <TitleField title={board.description} setField={setBoardDescription} />
           </Box>
           {!board.title && <ColumnSkeleton />}
-          <DragBoard />
+          {/*<DragBoard />*/}
+          <BeautifulDragBoard />
           <Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
           <AddColumnDialog
             itemName={t('column')}
