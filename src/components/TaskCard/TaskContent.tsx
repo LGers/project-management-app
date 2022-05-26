@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Card, CardContent, Dialog, TextareaAutosize } from '@mui/material';
+import { Box, Card, CardContent, Dialog } from '@mui/material';
 import { StyledTitleField } from '../BoardTitleField/BoardTitleField.styles';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -147,52 +147,3 @@ export const TaskContent = (props: ITaskProp) => {
     </Dialog>
   );
 };
-
-// export const TitleField = ({ title, setField }: Props) => {
-//   const [focussed, setFocussed] = useState(false);
-//   const [oldValue, setOldValue] = useState(title);
-//   const [newValue, setNewValue] = useState(title);
-//   const handleFieldKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (event.key === 'Enter') {
-//       event.preventDefault();
-//       if (!newValue) {
-//         setNewValue(oldValue);
-//         setFocussed(false);
-//       } else {
-//         setOldValue(newValue);
-//         setNewValue(newValue);
-//         setFocussed(false);
-//         setField(newValue);
-//       }
-//     }
-//     if (event.key === 'Escape') {
-//       event.preventDefault();
-//       setFocussed(false);
-//       setNewValue(title);
-//     }
-//   };
-
-//   const onBlurTitleField = () => {
-//     if (newValue) {
-//       setField(newValue);
-//     }
-//     setFocussed(false);
-//   };
-
-//   const onChangeTitleField = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setNewValue(event.target.value);
-//   };
-
-//   return (
-//     <StyledTitleField
-//       value={newValue}
-//       onChange={onChangeTitleField}
-//       onKeyDown={handleFieldKeyDown}
-//       onFocus={() => setFocussed(true)}
-//       size={'small'}
-//       multiline
-//       onBlur={onBlurTitleField}
-//       focused={focussed}
-//     />
-//   );
-// };
