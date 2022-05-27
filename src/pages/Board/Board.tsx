@@ -14,8 +14,7 @@ import { AddColumnDialog } from '../../components/AddColumnDialog';
 import { ColumnSkeleton } from '../../components/ColumnSkeleton';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { TitleField } from '../../components/TitleField';
-import { BeautifulDragBoard } from './BeautifulDragBoard/BeautifulDragBoard';
-import { createTasksObj } from './BeautifulDragBoard/BoardUtils';
+import { BeautifulDragBoard } from './BeautifulDragBoard';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
@@ -24,10 +23,7 @@ export const Board = () => {
   const { id } = useParams();
   const [showAddColumnDialog, setShowAddColumnDialog] = useState(false);
   useEffect(() => {
-    store.dispatch(fetchBoard(id ?? '')).then(() => {
-      // debugger;
-      // createTasksObj(board.columns);
-    });
+    store.dispatch(fetchBoard(id ?? ''));
   }, []);
 
   const setBoardTitle = (title: string) => {
