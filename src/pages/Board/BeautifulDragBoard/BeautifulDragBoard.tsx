@@ -31,7 +31,7 @@ export const BeautifulDragBoard = () => {
   const tasks: TaskBeautiful[] = Object.values(state.tasks);
 
   const onDragEnd = (result: DropResult) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
@@ -41,9 +41,22 @@ export const BeautifulDragBoard = () => {
       return;
     }
 
+    if (type === 'column') {
+      const newColumnOrder = Array.from(state.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...state,
+        columnOrder: newColumnOrder,
+      };
+      setState(newState);
+      return;
+    }
+
     const column = state.columns[source.droppableId];
     // const dropBoard = state.boards[source.droppableId];
-    const dropBoard = state.boards['board-1'];
+    /*    const dropBoard = state.boards['board-1'];
     const newColumnIds = Array.from(dropBoard.columnIds);
     newColumnIds.splice(source.index, 1);
     newColumnIds.splice(destination.index, 0, draggableId);
@@ -51,22 +64,22 @@ export const BeautifulDragBoard = () => {
     const newBoard = {
       ...dropBoard,
       columnIds: newColumnIds,
-    };
+    };*/
 
     // debugger;
-    console.log(newColumnIds);
+    // console.log(newColumnIds);
     // const newColumns = createColumnsObj(state.columns, newColumnIds);
-    const newState = {
-      ...state,
-      boards: {
-        ...state.boards,
-        // [newBoard.id]: newBoard,
-        ['board-1']: newBoard,
-      },
-      columnOrder: newColumnIds,
-    };
+    // const newState = {
+    //   ...state,
+    //   boards: {
+    //     ...state.boards,
+    //     // [newBoard.id]: newBoard,
+    //     // ['board-1']: newBoard,
+    //   },
+    //   // columnOrder: newColumnIds,
+    // };
 
-    setState(newState);
+    // setState(newState);
     return;
   };
   console.log('state', state);
