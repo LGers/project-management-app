@@ -6,7 +6,8 @@ import {
   Task,
   TaskBeautiful,
 } from '../../redux/boards/boards.types';
-import { Droppable, Draggable } from 'react-virtualized-dnd';
+// import { Droppable, Draggable } from 'react-virtualized-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 import { store } from '../../redux';
 import {
   fetchBoard,
@@ -29,9 +30,10 @@ import { RootState } from '../../redux/store';
 interface ColumnProps {
   column: ColumnBeautifulProps;
   tasks: TaskBeautiful[];
+  index: number;
 }
 
-export const ColumnBeautiful = ({ column, tasks }: ColumnProps): ReactElement => {
+export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactElement => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const userId = useSelector((state: RootState) => state.auth.userId);
   const { order, id } = column;
@@ -82,18 +84,27 @@ export const ColumnBeautiful = ({ column, tasks }: ColumnProps): ReactElement =>
 
   return (
     <div>
-      <ColumnCard>
-        <div style={{ minWidth: 400 }}>
-          <TitleField title={column.title} setField={onUpdateColumnTitle} />
-          <Button onClick={onDeleteColumn}>Delete</Button>
-        </div>
-        {tasks.map((task, index) => {
-          return <BeautifulTaskCard key={task.id} task={task} onClick={onClickTask} />;
-        })}
-        {/*{isAddTaskOpen && (
+      <Draggable draggableId={column.id} index={index}>
+        {(provided) => (
+          <ColumnCard
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <div style={{ minWidth: 400 }}>
+              <p>dragCol {column.id}</p>
+              <TitleField title={column.title} setField={onUpdateColumnTitle} />
+              <Button onClick={onDeleteColumn}>Delete</Button>
+            </div>
+            {tasks.map((task, index) => {
+              return <BeautifulTaskCard key={task.id} task={task} onClick={onClickTask} />;
+            })}
+            {/*{isAddTaskOpen && (
           <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
         )}*/}
-      </ColumnCard>
+          </ColumnCard>
+        )}
+      </Draggable>
       {/*<CreateItemDialog
         itemName={'task'}
         open={isAddTaskOpen}
