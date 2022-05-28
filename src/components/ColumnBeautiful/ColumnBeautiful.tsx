@@ -20,6 +20,7 @@ import { CreateItemDialog } from '../CreateItemDialog';
 import { BeautifulTaskCard } from '../BeautifulTaskCard/BeautifulTaskCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
   column: ColumnBeautifulProps;
@@ -109,9 +110,10 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
               >
                 {tasks.map((task, index) => {
                   return (
-                    <BeautifulTaskCard
+                    <TaskCard
                       key={task.id}
-                      task={task}
+                      // task={task}
+                      task={{  }}
                       onClick={onClickTask}
                       index={index}
                     />
