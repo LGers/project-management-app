@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { Stack } from '@mui/material';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
+import { BoardContent } from './Board.styles';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -108,16 +109,18 @@ export const BeautifulDragBoard = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={'board-1'} direction={'horizontal'} type={'column'}>
         {(provided) => (
-          <Stack
-            direction={'row'}
-            spacing={2}
+          <BoardContent
+            // direction={'row'}
+            // spacing={2}
             ref={provided.innerRef}
             {...provided.droppableProps}
-            sx={{
+            /*sx={{
+              padding: 1,
+              height: '100%',
               justifyContent: 'flex-start',
               // bgcolor: '#f1f111', // todo del it
-              overflow: 'auto',
-            }}
+              overflowY: 'auto',
+            }}*/
           >
             {state.columnOrder.map((columnId, index) => {
               const column = state.columns[columnId];
@@ -129,7 +132,7 @@ export const BeautifulDragBoard = () => {
               );
             })}
             {provided.placeholder}
-          </Stack>
+          </BoardContent>
         )}
       </Droppable>
     </DragDropContext>
