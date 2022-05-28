@@ -49,8 +49,8 @@ export const Board = () => {
   return (
     <BodyWrapper>
       <Wrapper>
-        <MainHeader />
         <Content>
+          <MainHeader />
           <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
             <BoardTitleField title={board.title} setField={setBoardTitle} />
             <TitleField title={board.description} setField={setBoardDescription} />
@@ -66,10 +66,10 @@ export const Board = () => {
             addColumn={addColumn}
           />
           <ErrorMessage errorMessage={errorMessage} />
+          <FooterWrapper>
+            <Footer />
+          </FooterWrapper>
         </Content>
-        <FooterWrapper>
-          <Footer />
-        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );

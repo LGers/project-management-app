@@ -1,13 +1,7 @@
-import { Button } from '@mui/material';
+import { Button, Card, Paper } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
-import {
-  ColumnBeautifulProps,
-  DragBucket,
-  Task,
-  TaskBeautiful,
-} from '../../redux/boards/boards.types';
-// import { Droppable, Draggable } from 'react-virtualized-dnd';
-import { Draggable } from 'react-beautiful-dnd';
+import { ColumnBeautifulProps, TaskBeautiful } from '../../redux/boards/boards.types';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { store } from '../../redux';
 import {
   fetchBoard,
@@ -41,7 +35,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   const boardId = board.id;
   const columnId = column.id;
 
-  const tasks2 = column.tasks;
   const { t } = useTranslation();
   // const { addTask, tasks } = props;
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
@@ -83,42 +76,70 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   };
 
   return (
-    <div>
-      <Draggable draggableId={column.id} index={index}>
-        {(provided) => (
+    <Draggable draggableId={column.id} index={index}>
+      {(provided) => (
+        <Card
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            bgcolor: 'transparent',
+          }}
+        >
           <ColumnCard
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
             <div style={{ minWidth: 400 }}>
-              <p>dragCol {column.id}</p>
               <TitleField title={column.title} setField={onUpdateColumnTitle} />
               <Button onClick={onDeleteColumn}>Delete</Button>
             </div>
-            {tasks.map((task, index) => {
-              return <BeautifulTaskCard key={task.id} task={task} onClick={onClickTask} />;
-            })}
+            <Droppable droppableId={column.id} type={'task'}>
+              {(provided, snapshot) => (
+                <Paper
+                  elevation={0}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  sx={{
+                    pb: '12px',
+                    transition: 'transform 0.05s ease',
+                    bgcolor: snapshot.draggingOverWith ? '#bdbdd5' : '#ebebeb',
+                  }}
+                >
+                  {tasks.map((task, index) => {
+                    return (
+                      <BeautifulTaskCard
+                        key={task.id}
+                        task={task}
+                        onClick={onClickTask}
+                        index={index}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </Paper>
+              )}
+            </Droppable>
             {/*{isAddTaskOpen && (
-          <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
-        )}*/}
+            <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
+          )}*/}
           </ColumnCard>
-        )}
-      </Draggable>
-      {/*<CreateItemDialog
-        itemName={'task'}
-        open={isAddTaskOpen}
-        setOpen={setIsAddTaskOpen}
-        createItem={addTaskHandler}
-        // createItem={addTask}
-      />*/}
-      <ConfirmationDialog
-        open={open}
-        setOpen={setOpen}
-        itemName={'column'}
-        itemTitle={column.title}
-        deleteItem={deleteColumn}
-      />
-    </div>
+          {/*<CreateItemDialog
+            itemName={'task'}
+            open={isAddTaskOpen}
+            setOpen={setIsAddTaskOpen}
+            createItem={addTaskHandler}
+            // createItem={addTask}
+          />*/}
+          <ConfirmationDialog
+            open={open}
+            setOpen={setOpen}
+            itemName={'column'}
+            itemTitle={column.title}
+            deleteItem={deleteColumn}
+          />
+        </Card>
+      )}
+    </Draggable>
   );
 };
