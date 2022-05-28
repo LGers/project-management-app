@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createTasksObj, initialState } from './BoardUtils';
-import { ColumnBeautifulProps, TaskBeautiful } from '../../../redux/boards/boards.types';
+import { ColumnBeautifulProps } from '../../../redux/boards/boards.types';
 import { ColumnBeautiful } from '../../../components/ColumnBeautiful';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-import { Stack } from '@mui/material';
+import { RootState, store } from '../../../redux/store';
+import { Button, Stack } from '@mui/material';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { BoardContent } from './Board.styles';
+import { AddColumnDialog } from '../../../components/AddColumnDialog';
+import { useTranslation } from 'react-i18next';
+import { fetchBoard, fetchCreateColumn } from '../../../redux/board/board.thunk';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -16,13 +19,20 @@ export interface Props {
 export const BeautifulDragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
 
+  const errorMessage = useSelector((state: RootState) => state.board.error.message);
+  const { t } = useTranslation();
+  const [showAddColumnDialog, setShowAddColumnDialog] = useState(false);
   const [state, setState] = useState(initialState);
   useEffect(() => {
     const newState = createTasksObj(board.columns);
     setState(newState);
   }, [board.columns]);
 
-  // const tasks: TaskBeautiful[] = Object.values(state.tasks);
+  const addColumn = (title: string) => {
+    store.dispatch(fetchCreateColumn({ boardId: board.id, title: title })).then(() => {
+      store.dispatch(fetchBoard(board.id));
+    });
+  };
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
@@ -105,7 +115,6 @@ export const BeautifulDragBoard = () => {
   };
 
   return (
-    // <div>
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={'board-1'} direction={'horizontal'} type={'column'}>
         {(provided) => (
@@ -131,11 +140,28 @@ export const BeautifulDragBoard = () => {
                 <ColumnBeautiful key={column.id} column={column} tasks={tasks} index={index} />
               );
             })}
+            <Button
+              variant={'contained'}
+              color={'success'}
+              sx={{
+                height: 50,
+                minWidth: '200px',
+                opacity: 0.8,
+              }}
+              onClick={() => setShowAddColumnDialog(true)}
+            >
+              {t('Add column')}
+            </Button>
+            <AddColumnDialog
+              itemName={t('column')}
+              open={showAddColumnDialog}
+              setOpen={setShowAddColumnDialog}
+              addColumn={addColumn}
+            />
             {provided.placeholder}
           </BoardContent>
         )}
       </Droppable>
     </DragDropContext>
-    // </div>
   );
 };

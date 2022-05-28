@@ -31,7 +31,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   const board = useSelector((state: RootState) => state.board.boardData);
   const userId = useSelector((state: RootState) => state.auth.userId);
   const { order, id } = column;
-
+  console.log(board);
   const boardId = board.id;
   const columnId = column.id;
 
@@ -51,12 +51,12 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
     store.dispatch(fetchBoard(boardId));
   };
 
-  const addTaskHandler = (index: number, title: string, description: string) => {
+  const addTaskHandler = (title: string, description: string) => {
     store
       .dispatch(
         fetchCreateTask({
-          boardId: board.id,
-          columnId: columnId,
+          boardId,
+          columnId,
           title,
           description,
           userId,
@@ -117,6 +117,21 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                     />
                   );
                 })}
+                {/*{isAddTaskOpen && (*/}
+                {/*  <AddTaskCard*/}
+                {/*    open={isAddTaskOpen}*/}
+                {/*    setOpen={setIsAddTaskOpen}*/}
+                {/*    addTask={addTaskHandler}*/}
+                {/*  />*/}
+                {/*)}*/}
+                <Button
+                  onClick={() => setIsAddTaskOpen(true)}
+                  startIcon={<Add />}
+                  fullWidth={true}
+                  sx={{ justifyContent: 'flex-start' }}
+                >
+                  {t('Add Task')}
+                </Button>
                 {provided.placeholder}
               </ColumnTasks>
             )}
@@ -124,13 +139,12 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
           {/*{isAddTaskOpen && (
             <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
           )}*/}
-          {/*<CreateItemDialog
+          <CreateItemDialog
             itemName={'task'}
             open={isAddTaskOpen}
             setOpen={setIsAddTaskOpen}
             createItem={addTaskHandler}
-            // createItem={addTask}
-          />*/}
+          />
           <ConfirmationDialog
             open={open}
             setOpen={setOpen}
