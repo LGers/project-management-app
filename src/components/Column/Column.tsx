@@ -12,6 +12,7 @@ import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
+import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
   groupName: string;
@@ -75,8 +76,16 @@ export const Column = (props: ColumnProps): ReactElement => {
                   disableMove={item.isEnd}
                   outerScrollBar={true}
                 >
-                  {!item.isHeader && !item.isEnd && (
+                  {/* {!item.isHeader && !item.isEnd && (
                     <FakeTaskCard
+                      item={item}
+                      boardId={boardId}
+                      columnId={columnId}
+                      onClick={onClickTask}
+                    />
+                  )} */}
+                  {!item.isHeader && !item.isEnd && (
+                    <TaskCard
                       item={item}
                       boardId={boardId}
                       columnId={columnId}
