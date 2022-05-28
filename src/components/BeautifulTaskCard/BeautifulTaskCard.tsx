@@ -28,7 +28,7 @@ export const BeautifulTaskCard = ({ task, onClick, index }: Props) => {
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <Card
-          sx={{ p: 0.5, mb: 0.5 }}
+          sx={{ p: 0.5, mb: 1.5 }}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}

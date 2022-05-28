@@ -114,6 +114,7 @@ export const BeautifulDragBoard = () => {
             ref={provided.innerRef}
             {...provided.droppableProps}
             sx={{
+              justifyContent: 'flex-start',
               // bgcolor: '#f1f111', // todo del it
               overflow: 'auto',
             }}

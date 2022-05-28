@@ -11,7 +11,7 @@ import {
 } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
 import { FakeTaskCard } from '../FakeTaskCard/FakeTaskCard';
-import { ColumnCard } from './ColumnBeautiful.styles';
+import { ColumnCard, ColumnHeader, ColumnTasks } from './ColumnBeautiful.styles';
 import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
@@ -78,52 +78,52 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
-        <Card
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            bgcolor: 'transparent',
-          }}
+        // <Card
+        //   sx={{
+        //     display: 'flex',
+        //     flexDirection: 'column',
+        //     // bgcolor: 'transparent',
+        //   }}
+        // >
+        <ColumnCard
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
         >
-          <ColumnCard
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-          >
-            <div style={{ minWidth: 400 }}>
-              <TitleField title={column.title} setField={onUpdateColumnTitle} />
-              <Button onClick={onDeleteColumn}>Delete</Button>
-            </div>
-            <Droppable droppableId={column.id} type={'task'}>
-              {(provided, snapshot) => (
-                <Paper
-                  elevation={0}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  sx={{
-                    pb: '12px',
-                    transition: 'transform 0.05s ease',
-                    bgcolor: snapshot.draggingOverWith ? '#bdbdd5' : '#ebebeb',
-                  }}
-                >
-                  {tasks.map((task, index) => {
-                    return (
-                      <BeautifulTaskCard
-                        key={task.id}
-                        task={task}
-                        onClick={onClickTask}
-                        index={index}
-                      />
-                    );
-                  })}
-                  {provided.placeholder}
-                </Paper>
-              )}
-            </Droppable>
-            {/*{isAddTaskOpen && (
+          <ColumnHeader>
+            <TitleField title={column.title} setField={onUpdateColumnTitle} />
+            <Button onClick={onDeleteColumn}>Delete</Button>
+          </ColumnHeader>
+          <Droppable droppableId={column.id} type={'task'}>
+            {(provided, snapshot) => (
+              <ColumnTasks
+                elevation={0}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                sx={{
+                  // pb: '12px',
+                  // transition: 'transform 0.05s ease',
+                  bgcolor: snapshot.draggingOverWith ? '#bdbdd5' : '#ebebeb',
+                  overflow: 'auto', //
+                }}
+              >
+                {tasks.map((task, index) => {
+                  return (
+                    <BeautifulTaskCard
+                      key={task.id}
+                      task={task}
+                      onClick={onClickTask}
+                      index={index}
+                    />
+                  );
+                })}
+                {provided.placeholder}
+              </ColumnTasks>
+            )}
+          </Droppable>
+          {/*{isAddTaskOpen && (
             <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
           )}*/}
-          </ColumnCard>
           {/*<CreateItemDialog
             itemName={'task'}
             open={isAddTaskOpen}
@@ -138,7 +138,8 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
             itemTitle={column.title}
             deleteItem={deleteColumn}
           />
-        </Card>
+        </ColumnCard>
+        // </Card>
       )}
     </Draggable>
   );
