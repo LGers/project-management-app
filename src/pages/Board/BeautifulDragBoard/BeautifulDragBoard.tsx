@@ -10,6 +10,7 @@ import { BoardContent } from './Board.styles';
 import { AddColumnDialog } from '../../../components/AddColumnDialog';
 import { useTranslation } from 'react-i18next';
 import { fetchBoard, fetchCreateColumn } from '../../../redux/board/board.thunk';
+import { BeautifulTaskProps } from '../../../components/BeautifulTaskCard/BeautifulTaskCardt.types';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -136,6 +137,7 @@ export const BeautifulDragBoard = () => {
               const tasks = column.taskIds.map((taskId) => {
                 return state.tasks[taskId];
               });
+              // console.log('tasks', tasks);
               return (
                 <ColumnBeautiful key={column.id} column={column} tasks={tasks} index={index} />
               );

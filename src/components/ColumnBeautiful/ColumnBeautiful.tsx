@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
 import { BeautifulTaskCard } from '../BeautifulTaskCard/BeautifulTaskCard';
+import { _BeautifulTaskCard } from '../BeautifulTaskCard/_BeautifulTaskCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { TaskCard } from '../TaskCard/TaskCard';
@@ -32,7 +33,8 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   const board = useSelector((state: RootState) => state.board.boardData);
   const userId = useSelector((state: RootState) => state.auth.userId);
   const { order, id } = column;
-  console.log(board);
+  // console.log(board);
+  console.log('column', column);
   const boardId = board.id;
   const columnId = column.id;
 
@@ -105,18 +107,20 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                   // pb: '12px',
                   // transition: 'transform 0.05s ease',
                   bgcolor: snapshot.draggingOverWith ? '#bdbdd5' : '#ebebeb',
-                  overflow: 'auto', //
+                  overflow: 'auto',
                 }}
               >
                 {tasks.map((task, index) => {
                   return (
-                    <TaskCard
+                    <BeautifulTaskCard
                       key={task.id}
-                      // task={task}
-                      task={{  }}
+                      task={task}
+                      // task={{  }}
                       onClick={onClickTask}
                       index={index}
+                      columnId={columnId}
                     />
+                    // <p key={task.id}>{task.id}</p>
                   );
                 })}
                 {/*{isAddTaskOpen && (*/}

@@ -56,9 +56,9 @@ export const Board = () => {
             <TitleField title={board.description} setField={setBoardDescription} />
           </Box>
           {!board.title && <ColumnSkeleton />}
-          {/*<DragBoard />*/}
           <BeautifulDragBoard />
-          <Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
+          {/*<DragBoard />*/}
+          {/*<Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>*/}
           <AddColumnDialog
             itemName={t('column')}
             open={showAddColumnDialog}
