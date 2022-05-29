@@ -9,14 +9,13 @@ import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { BoardContent } from './Board.styles';
 import { AddColumnDialog } from '../../../components/AddColumnDialog';
 import { useTranslation } from 'react-i18next';
-import { fetchBoard, fetchCreateColumn } from '../../../redux/board/board.thunk';
+import { fetchBoard, fetchCreateColumn, fetchUpdateColumn } from '../../../redux/board/board.thunk';
 import { BeautifulTaskProps } from '../../../components/BeautifulTaskCard/BeautifulTaskCardt.types';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
   newColumnIds: string[];
 }
-
 export const BeautifulDragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
 
@@ -48,11 +47,33 @@ export const BeautifulDragBoard = () => {
 
     if (type === 'column') {
       const newColumnOrder = Array.from(state.columnOrder);
+      const columnId = draggableId;
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
       // console.log('destination.index', destination.index);
       // console.log('fetchUpdateColumn with order', draggableId + 1);
       console.log('fetchUpdateColumn with order', destination.index + 1);
+      console.log('fetchUpdateColumn with boardId', board.id);
+      console.log('fetchUpdateColumn with columnId', draggableId);
+      console.log('fetchUpdateColumn with result', result);
+      console.log('fetchUpdateColumn with destination', destination);
+      const col = board.columns.find((column) => column.id === columnId);
+      const title = col?.title ?? '';
+
+      console.log('fetchUpdateColumn with col', col);
+      console.log('fetchUpdateColumn with columns', board.columns);
+      store
+        .dispatch(
+          fetchUpdateColumn({
+            boardId: board.id,
+            columnId: draggableId,
+            title: 'ddd',
+            order: destination.index + 1,
+          })
+        )
+        .then(() => {
+          store.dispatch(fetchBoard(board.id));
+        });
 
       const newState = {
         ...state,
