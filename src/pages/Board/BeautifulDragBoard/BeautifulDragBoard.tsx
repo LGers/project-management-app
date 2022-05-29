@@ -62,18 +62,18 @@ export const BeautifulDragBoard = () => {
 
       console.log('fetchUpdateColumn with col', col);
       console.log('fetchUpdateColumn with columns', board.columns);
-      store
-        .dispatch(
-          fetchUpdateColumn({
-            boardId: board.id,
-            columnId: draggableId,
-            title: 'ddd',
-            order: destination.index + 1,
-          })
-        )
-        .then(() => {
-          store.dispatch(fetchBoard(board.id));
-        });
+      // store
+      //   .dispatch(
+      //     fetchUpdateColumn({
+      //       boardId: board.id,
+      //       columnId: draggableId,
+      //       title: 'ddd',
+      //       order: destination.index + 1,
+      //     })
+      //   )
+      //   .then(() => {
+      //     store.dispatch(fetchBoard(board.id));
+      //   });
 
       const newState = {
         ...state,
