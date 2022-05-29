@@ -28,10 +28,10 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
   const [open, setOpen] = useState(false);
   const taskId = task.id;
   const onDelTask = () => {
-    console.log('boardId', boardId);
-    console.log('columnId', columnId);
-    console.log('taskId', taskId);
-    console.log('task', task);
+    // console.log('boardId', boardId);
+    // console.log('columnId', columnId);
+    // console.log('taskId', taskId);
+    // console.log('task', task);
     store.dispatch(fetchDeleteTask({ boardId, columnId, taskId })).then(() => {
       store.dispatch(fetchBoard(boardId));
     });
@@ -48,7 +48,7 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
   const handleClickOpen = () => {
     setOpenContent(true);
     // console.log(item, boardId, columnId);
-    console.log(task, boardId, columnId);
+    // console.log(task, boardId, columnId);
   };
 
   const handleClose = () => {
@@ -89,9 +89,22 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
-        <div>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          {/*<Card sx={{ height: 20, cursor: 'pointer' }} onClick={handleClickOpen}>
+            Task drag me
+          </Card>*/}
+          <Card
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              pt: '10px',
+              pb: '10px',
+              pl: '10px',
+              bgcolor: '#e1e1e1', // todo del it
+              mb: 1,
+            }}
+          >
+            <Card
               variant="outlined"
               onClick={handleClickOpen}
               sx={{
@@ -99,6 +112,9 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 width: '100%',
+                cursor: 'pointer',
+                bgcolor: '#e1e1e1',
+                pl: 1,
               }}
             >
               <Typography variant={'h6'} component="div">
@@ -109,11 +125,11 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
                 {/*{item.task.description}*/}
                 {task.description}
               </Typography>
-            </Button>
+            </Card>
             <IconButton color="error" onClick={openDelDialog}>
               <DeleteForeverIcon fontSize="large" />
             </IconButton>
-          </Box>
+          </Card>
           <BeautifulTaskContent
             open={openContent}
             onClose={handleClose}

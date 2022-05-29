@@ -146,9 +146,11 @@ export const BeautifulDragBoard = () => {
               variant={'contained'}
               color={'success'}
               sx={{
+                // color: 'black',
                 height: 50,
                 minWidth: '200px',
-                opacity: 0.8,
+                opacity: 0.85,
+                // backgroundColor: 'white',
               }}
               onClick={() => setShowAddColumnDialog(true)}
             >

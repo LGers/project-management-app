@@ -34,7 +34,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   const userId = useSelector((state: RootState) => state.auth.userId);
   const { order, id } = column;
   // console.log(board);
-  console.log('column', column);
+  // console.log('column', column);
   const boardId = board.id;
   const columnId = column.id;
 
