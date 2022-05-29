@@ -15,8 +15,6 @@ import { Box, Button, Dialog, TextField } from '@mui/material';
 import { SIGNUP_FORM_FIELDS } from '../Auth/Auth.dictionary';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormInputs } from '../Auth/Auth.types';
-// import { fetchSignUp, fetchUser } from '../../redux/auth/auth.thunk';
-// import { getUserById } from '../../api/users';
 import { ConfirmationDialog } from '../../components/ConfirmationDialog';
 
 export const EditProfilePage = () => {
@@ -83,7 +81,7 @@ export const EditProfilePage = () => {
       <Wrapper>
         {isAuth ? <MainHeader /> : <WelcomePageHeader />}
         <Box sx={{ margin: '18px 18px 0px 18px' }}>
-          <>Edit Profile Page of user {userId}</>
+          <>Edit Profile Page of user</>
         </Box>
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
