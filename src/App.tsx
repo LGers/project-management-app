@@ -16,6 +16,7 @@ import { fetchUsers } from './redux/auth/auth.thunk';
 import { Boards } from './pages/Boards';
 import { Languages } from './redux/auth/auth.types';
 import { Board } from './pages/Board';
+import { EditProfilePage } from './pages/EditProfilePage/EditProfilePage';
 
 const ProtectedRoute = ({ isAuth, children }: ProtectedRouteProps) => {
   if (!isAuth) {
@@ -53,6 +54,14 @@ export const App = () => {
         <Route path={PATH.SIGN_UP} element={<Auth formName={'signUp'} />} />
         <Route path={PATH.SIGN_OUT} element={<Auth formName={'singOut'} />} />
         <Route path={PATH.WELCOME_PAGE} element={<WelcomePage />} />
+        <Route
+          path={PATH.PROFILE}
+          element={
+            <ProtectedRoute isAuth={isAuth}>
+              <EditProfilePage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path={PATH.BOARD + ':id'}
           element={
