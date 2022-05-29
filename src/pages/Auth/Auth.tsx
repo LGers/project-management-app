@@ -18,6 +18,7 @@ import { signInValidationSchema, signUpValidationSchema } from './Auth.validatio
 import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 
 export const Auth = ({ formName }: FormNameInterface) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -93,6 +94,7 @@ export const Auth = ({ formName }: FormNameInterface) => {
   return (
     <BodyWrapper>
       <Wrapper>
+        <WelcomePageHeader />
         <AuthContent>
           <h4>Lemasello</h4>
           <AuthForm onSubmit={handleSubmit(onSubmit)}>

@@ -1,5 +1,5 @@
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
-import React from 'react';
+import { AppBar, Button, Slide, Toolbar, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { useTranslation } from 'react-i18next';
@@ -30,17 +30,35 @@ const GoToMainPageButton = () => {
   );
 };
 
-export const WelcomePageHeader = () => {
+export const WelcomePageHeader = ({ hide = true }: { hide?: boolean }) => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const header = (
+    <Toolbar>
+      <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+        Lemasello
+      </Typography>
+      {isAuth ? <GoToMainPageButton /> : <AuthButtons />}
+      <LanguageSelect />
+    </Toolbar>
+  );
+
   return (
-    <AppBar position="static" color="inherit" sx={{ gap: '2opx' }}>
-      <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-          Lemasello
-        </Typography>
-        {isAuth ? <GoToMainPageButton /> : <AuthButtons />}
-        <LanguageSelect />
-      </Toolbar>
-    </AppBar>
+    <>
+      <Slide appear={false} direction="down" in={!hide}>
+        <AppBar
+          position="static"
+          color="inherit"
+          sx={{
+            backgroundColor: '#cfe8fc',
+          }}
+        >
+          {header}
+        </AppBar>
+      </Slide>
+
+      <Slide appear={false} direction="down" in={hide}>
+        <div style={{ marginTop: -64 }}>{header}</div>
+      </Slide>
+    </>
   );
 };
