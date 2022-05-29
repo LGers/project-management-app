@@ -9,10 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/auth/auth.slice';
 import { store } from '../../redux';
-import { fetchBoards, fetchCreateBoard } from '../../redux/boards/boards.thunk';
-import { CreateItemDialog } from '../CreateItemDialog';
+import { fetchCreateBoard } from '../../redux/boards/boards.thunk';
 import { CreateBoardDialog } from '../CreateBoardDialog';
-import { set } from 'react-hook-form';
 
 export const MainHeader = ({ hide = true }: { hide?: boolean }) => {
   const { t } = useTranslation();
