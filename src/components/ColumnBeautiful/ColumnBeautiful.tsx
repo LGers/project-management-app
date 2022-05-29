@@ -94,6 +94,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
           ref={provided.innerRef}
         >
           <ColumnHeader>
+            <Card sx={{ height: '30px', bgcolor: '#e1e1e1' }}></Card>
             <TitleField title={column.title} setField={onUpdateColumnTitle} />
             <Button onClick={onDeleteColumn}>Delete</Button>
           </ColumnHeader>
