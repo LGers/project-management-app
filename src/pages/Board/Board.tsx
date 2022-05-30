@@ -46,7 +46,6 @@ export const Board = () => {
     store.dispatch(fetchBoard(board.id));
   };
 
-  console.log(board.description);
   return (
     <BodyWrapper>
       <Wrapper>

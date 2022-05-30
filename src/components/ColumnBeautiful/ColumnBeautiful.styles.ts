@@ -36,4 +36,5 @@ export const ColumnHeader = styled('div')({
   width: '400px',
   backgroundColor: '#ebebeb',
   borderRadius: '8px 8px 0 0',
+  // paddingLeft: 10,
 });

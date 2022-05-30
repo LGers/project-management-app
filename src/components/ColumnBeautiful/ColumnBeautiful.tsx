@@ -11,7 +11,7 @@ import {
 } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
 import { ColumnCard, ColumnHeader, ColumnTasks } from './ColumnBeautiful.styles';
-import { Add } from '@mui/icons-material';
+import { Add, Delete, DeleteForever } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
@@ -68,7 +68,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   };
 
   const onClickTask = () => {
-    console.log('TaskOpen');
+    // console.log('TaskOpen');
   };
 
   return (
@@ -82,7 +82,14 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
           <ColumnHeader>
             <Card sx={{ height: '30px', bgcolor: '#e1e1e1', width: 400 }} />
             <TitleField title={column.title} setField={onUpdateColumnTitle} />
-            <Button onClick={onDeleteColumn}>Delete</Button>
+            <Button
+              sx={{ ml: 1 }}
+              startIcon={<DeleteForever />}
+              color={'error'}
+              onClick={onDeleteColumn}
+            >
+              {t('Delete column')}
+            </Button>
           </ColumnHeader>
           <Droppable droppableId={column.id} type={'task'}>
             {(provided, snapshot) => (
@@ -112,7 +119,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                   fullWidth={true}
                   sx={{ justifyContent: 'flex-start' }}
                 >
-                  {t('Add Task')}
+                  {t('Add task')}
                 </Button>
                 {provided.placeholder}
               </ColumnTasks>

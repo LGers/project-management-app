@@ -16,6 +16,7 @@ import {
   fetchUpdateTack,
 } from '../../../redux/board/board.thunk';
 import { BeautifulTaskProps } from '../../../components/BeautifulTaskCard/BeautifulTaskCardt.types';
+import { Add } from '@mui/icons-material';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -169,10 +170,10 @@ export const BeautifulDragBoard = () => {
             <Button
               variant={'contained'}
               color={'success'}
+              startIcon={<Add />}
               sx={{
-                // color: 'black',
                 height: 50,
-                minWidth: '200px',
+                minWidth: '230px',
                 opacity: 0.85,
               }}
               onClick={() => setShowAddColumnDialog(true)}
