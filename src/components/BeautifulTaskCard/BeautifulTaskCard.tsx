@@ -20,11 +20,9 @@ type Props = {
 };
 
 export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => {
-  // const { columnId, /*boardId,*/ title, description } = task;
   const board = useSelector((state: RootState) => state.board.boardData);
   const boardId = board.id;
   const { t } = useTranslation();
-  // const [open, setOpen] = useState(false);
   const taskId = task.id;
   const onDelTask = () => {
     store.dispatch(fetchDeleteTask({ boardId, columnId, taskId })).then(() => {
@@ -32,7 +30,6 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
     });
   };
 
-  //----
   const [openContent, setOpenContent] = useState<boolean>(false);
   const [openDel, setOpenDel] = useState<boolean>(false);
 
@@ -67,7 +64,7 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
         store.dispatch(fetchBoard(boardId));
       });
   };
-  //----
+
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -104,8 +101,6 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
             <Typography variant={'caption'} component="div" sx={{ color: 'GrayText' }}>
               {task.description}
             </Typography>
-            {/*<p>task order: {task.order}</p> /!*todo del it*!/*/}
-            {/*<p>task id: {task.id}</p> /!*todo del it*!/*/}
           </Card>
           <IconButton color="error" onClick={openDelDialog}>
             <DeleteForeverIcon fontSize="large" />

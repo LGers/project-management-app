@@ -53,19 +53,11 @@ export const BeautifulDragBoard = () => {
     if (type === 'column') {
       const newColumnOrder = Array.from(state.columnOrder);
       const columnId = draggableId;
-      // console.log('columnId', columnId);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
-      // console.log('fetchUpdateColumn with order', destination.index + 1);
-      // console.log('fetchUpdateColumn with boardId', board.id);
-      // console.log('fetchUpdateColumn with columnId', draggableId);
-      // console.log('fetchUpdateColumn with result', result);
-      // console.log('fetchUpdateColumn with destination', destination);
       const col = board.columns.find((column) => column.id === columnId);
       const title = col?.title ?? '';
 
-      // console.log('fetchUpdateColumn with col', col);
-      // console.log('fetchUpdateColumn with columns', board.columns);
       store
         .dispatch(
           fetchUpdateColumn({
@@ -87,7 +79,6 @@ export const BeautifulDragBoard = () => {
       return;
     }
 
-    // const column = state.columns[source.droppableId];
     const startColumn = state.columns[source.droppableId];
     const finishColumn = state.columns[destination.droppableId];
 
@@ -96,12 +87,9 @@ export const BeautifulDragBoard = () => {
       const columnId = startColumn.id;
       const taskId = draggableId;
       const task = startColumn.tasks.find((task) => task.id === taskId);
-      // console.log('startColumn', startColumn);
-      // console.log('taskId', taskId);
-      // console.log('columnId', columnId);
       newTasksIds.splice(source.index, 1);
       newTasksIds.splice(destination.index, 0, draggableId);
-      console.log('fetchUpdateTaskInOldColumn with order', destination.index + 1);
+      // console.log('fetchUpdateTaskInOldColumn with order', destination.index + 1);
       // store
       //   .dispatch(
       //     fetchUpdateTack({
@@ -144,7 +132,7 @@ export const BeautifulDragBoard = () => {
 
     const finishTaskIds = Array.from(finishColumn.taskIds);
     finishTaskIds.splice(destination.index, 0, draggableId);
-    console.log('fetchUpdateTaskInNewColumn with order', destination.index + 1);
+    // console.log('fetchUpdateTaskInNewColumn with order', destination.index + 1);
 
     const newFinishColumn = {
       ...finishColumn,
@@ -173,7 +161,6 @@ export const BeautifulDragBoard = () => {
                 const tasks = column.taskIds.map((taskId) => {
                   return state.tasks[taskId];
                 });
-                // console.log('tasks', tasks);
                 return (
                   <ColumnBeautiful key={column.id} column={column} tasks={tasks} index={index} />
                 );
@@ -187,7 +174,6 @@ export const BeautifulDragBoard = () => {
                 height: 50,
                 minWidth: '200px',
                 opacity: 0.85,
-                // backgroundColor: 'white',
               }}
               onClick={() => setShowAddColumnDialog(true)}
             >

@@ -58,13 +58,13 @@ export const Board = () => {
           {!board.title && <ColumnSkeleton />}
           <BeautifulDragBoard />
           {/*<DragBoard />*/}
-          <Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
+          {/*<Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
           <AddColumnDialog
             itemName={t('column')}
             open={showAddColumnDialog}
             setOpen={setShowAddColumnDialog}
             addColumn={addColumn}
-          />
+          />*/}
           <ErrorMessage errorMessage={errorMessage} />
           <FooterWrapper>
             <Footer />

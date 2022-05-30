@@ -1,4 +1,4 @@
-import { Button, Card, Container, Paper } from '@mui/material';
+import { Button, Card } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
 import { ColumnBeautifulProps, TaskBeautiful } from '../../redux/boards/boards.types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -10,18 +10,14 @@ import {
   fetchUpdateColumn,
 } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
-import { FakeTaskCard } from '../FakeTaskCard/FakeTaskCard';
 import { ColumnCard, ColumnHeader, ColumnTasks } from './ColumnBeautiful.styles';
-import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
 import { BeautifulTaskCard } from '../BeautifulTaskCard/BeautifulTaskCard';
-import { _BeautifulTaskCard } from '../BeautifulTaskCard/_BeautifulTaskCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { TaskCard } from '../TaskCard/TaskCard';
 
 interface ColumnProps {
   column: ColumnBeautifulProps;
@@ -32,14 +28,11 @@ interface ColumnProps {
 export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactElement => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const userId = useSelector((state: RootState) => state.auth.userId);
-  const { order, id } = column;
-  // console.log(board);
-  // console.log('column', column);
+  const { order } = column;
   const boardId = board.id;
   const columnId = column.id;
 
   const { t } = useTranslation();
-  // const { addTask, tasks } = props;
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -81,19 +74,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
-        // <Card
-        //   sx={{
-        //     display: 'flex',
-        //     flexDirection: 'column',
-        //     // bgcolor: 'transparent',
-        //   }}
-        // >
-        // <Container
-        //   {...provided.draggableProps}
-        //   {...provided.dragHandleProps}
-        //   ref={provided.innerRef}
-        //   sx={{ overflow: 'auto' }}
-        // >
         <ColumnCard
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -138,9 +118,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
               </ColumnTasks>
             )}
           </Droppable>
-          {/*{isAddTaskOpen && (
-            <AddTaskCard open={isAddTaskOpen} setOpen={setIsAddTaskOpen} addTask={addTaskHandler} />
-          )}*/}
           <CreateItemDialog
             itemName={'task'}
             open={isAddTaskOpen}
@@ -155,8 +132,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
             deleteItem={deleteColumn}
           />
         </ColumnCard>
-        // </Container>
-        // </Card>
       )}
     </Draggable>
   );

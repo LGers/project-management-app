@@ -1,16 +1,12 @@
 import { styled } from '@mui/system';
-import { Stack } from '@mui/material';
 
 export const BoardContent = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   gap: 15,
   padding: 10,
-  // height: '100%',
-  // justifyContent: 'space-between',
-  // width: '100%',
+  height: '100%',
   justifyContent: 'flex-start',
-  // alignItems: 'flex-start',
   overflowY: 'auto',
 
   '&::-webkit-scrollbar': {
