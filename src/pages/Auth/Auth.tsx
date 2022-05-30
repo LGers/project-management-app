@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
+import { Footer } from '../../components/Footer';
 
 export const Auth = ({ formName }: FormNameInterface) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -114,7 +115,9 @@ export const Auth = ({ formName }: FormNameInterface) => {
           <LanguageSelect />
           <AuthAlert />
         </AuthContent>
-        <FooterWrapper>Footer</FooterWrapper>
+        <FooterWrapper>
+          <Footer />
+        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );
