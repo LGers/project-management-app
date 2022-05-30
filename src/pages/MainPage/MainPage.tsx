@@ -34,9 +34,6 @@ export const MainPage = () => {
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} {...board} />;
           })}
-          <Link to={PATH.WELCOME_PAGE}>Welcome Page</Link>
-          <Link to={PATH.COLUMNS}>columns</Link>
-          <Link to={PATH.BOARD}>Boards</Link>
         </Content>
         <FooterWrapper>
           <Footer />
