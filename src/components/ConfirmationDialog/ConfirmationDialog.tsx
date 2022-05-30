@@ -41,9 +41,9 @@ export const ConfirmationDialog = ({ open, setOpen, itemTitle, itemName, deleteI
         <DialogContentText id="delete-dialog-description">{itemTitle}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>No</Button>
+        <Button onClick={handleClose}>{t('No')}</Button>
         <Button color={'error'} onClick={handleDeleteItem} autoFocus>
-          Yes
+          {t('Yes')}
         </Button>
       </DialogActions>
     </Dialog>

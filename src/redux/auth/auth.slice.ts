@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchLogin, fetchSignUp, fetchUsers } from './auth.thunk';
+import {
+  fetchDeleteUser,
+  fetchLogin,
+  fetchSignUp,
+  fetchUpdateUser,
+  fetchUsers,
+} from './auth.thunk';
 import { AuthState, Languages, MyKnownError, TokenData } from './auth.types';
 import jwt_decode from 'jwt-decode';
 
@@ -83,6 +89,36 @@ export const authSlice = createSlice({
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.isFetching = false;
       state.isAuth = false;
+    });
+
+    builder.addCase(fetchDeleteUser.pending, (state) => {
+      state.isFetching = true;
+      state.error = initialState.error;
+    });
+    builder.addCase(fetchDeleteUser.fulfilled, (state) => {
+      state.isFetching = false;
+      state.isAuth = false;
+      localStorage.setItem('authToken', '');
+    });
+    builder.addCase(fetchDeleteUser.rejected, (state, action) => {
+      state.isFetching = false;
+      // state.isAuth = false;
+      state.error = action.payload as MyKnownError;
+    });
+
+    builder.addCase(fetchUpdateUser.pending, (state) => {
+      state.isFetching = true;
+      state.error = initialState.error;
+    });
+    builder.addCase(fetchUpdateUser.fulfilled, (state, action) => {
+      state.isFetching = false;
+      // state.isAuth = false;
+      state.userId = action.payload.userId;
+    });
+    builder.addCase(fetchUpdateUser.rejected, (state, action) => {
+      state.isFetching = false;
+      // state.isAuth = false;
+      state.error = action.payload as MyKnownError;
     });
   },
 });

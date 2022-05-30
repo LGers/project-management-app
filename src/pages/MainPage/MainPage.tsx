@@ -1,8 +1,6 @@
 import { Box } from '@mui/material';
 import React, { LegacyRef, useEffect, useRef } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
-import { PATH } from '../../constants/common.dictionary';
-import { Link } from 'react-router-dom';
 import { Footer } from '../../components/Footer';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';

@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
-import {
-  BodyWrapper,
-  FooterWrapper,
-  Wrapper,
-} from '../../components/CommonComponents/CommonComponents';
+import { BodyWrapper, FooterWrapper, Wrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState, store } from '../../redux/store';
 import { MainHeader } from '../../components/MainHeader';
@@ -16,29 +12,42 @@ import { SIGNUP_FORM_FIELDS } from '../Auth/Auth.dictionary';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormInputs } from '../Auth/Auth.types';
 import { ConfirmationDialog } from '../../components/ConfirmationDialog';
+import jwt_decode from 'jwt-decode';
+import { TokenData } from '../../redux/auth/auth.types';
+import { fetchDeleteUser, fetchUpdateUser } from '../../redux/auth/auth.thunk';
+
+export type User = {
+  id: string;
+  name: string;
+  login: string;
+};
 
 export const EditProfilePage = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const userId = useSelector((state: RootState) => state.auth.userId);
-  const tempState = useSelector((state: RootState) => state);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [openDel, setOpenDel] = useState<boolean>(false);
-
+  const token = localStorage.getItem('authToken') ?? '';
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
   } = useForm<SignUpFormInputs>({
     shouldUnregister: true,
+    defaultValues: {
+      userName: '',
+      confirmPassword: '',
+      password: '',
+      userLogin: '',
+    },
   });
 
   const onSubmit: SubmitHandler<SignUpFormInputs> = (data) => {
-    console.log(data);
-    // dispatch(setAuth(true)); //todo after confirm in slice
-    // store.dispatch(
-    //   fetchSignUp({ name: data.userName, login: data.userLogin, password: data.password })
-    // );
+    const { userLogin, userName, password } = data;
+    const name = userName;
+    const login = userLogin;
+    store.dispatch(fetchUpdateUser({ userId, name, login, password }));
   };
 
   const signUpFields = SIGNUP_FORM_FIELDS.map((field) => {
@@ -46,10 +55,10 @@ export const EditProfilePage = () => {
     return (
       <TextField
         key={id}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
         type={type}
         size="small"
-        label={(errors[name] && 'This field is required') || placeholder}
+        label={(errors[name] && t('This field is required')) || t(placeholder)}
         fullWidth
         {...register(name, { required: true })}
       />
@@ -57,23 +66,21 @@ export const EditProfilePage = () => {
   });
 
   const testClick = () => {
-    console.log('testClick');
-    console.log('store:', store);
-    console.log('tempState:', tempState);
+    // console.log('testClick');
+    // console.log('store:', store);
+    // console.log('tempState:', tempState);
   };
 
   const onDelTask = () => {
-    console.log('delete user');
+    store.dispatch(fetchDeleteUser({ userId: (jwt_decode(token) as TokenData).userId }));
   };
 
   const handlerEditProfile = () => {
     setOpenEdit(true);
-    console.log('edit profile');
   };
 
   const handlerDeleteUser = () => {
     setOpenDel(true);
-    console.log('delete user');
   };
 
   return (
@@ -81,7 +88,7 @@ export const EditProfilePage = () => {
       <Wrapper>
         {isAuth ? <MainHeader /> : <WelcomePageHeader />}
         <Box sx={{ margin: '18px 18px 0px 18px' }}>
-          <>Edit Profile Page of user</>
+          <>{t('Edit Profile Page of user')}</>
         </Box>
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -92,7 +99,7 @@ export const EditProfilePage = () => {
               onClick={handlerEditProfile}
               sx={{ margin: '18px 18px 0px 18px' }}
             >
-              Edit User Profile
+              {t('Edit User Profile')}
             </Button>
             <Button
               variant="contained"
@@ -101,17 +108,17 @@ export const EditProfilePage = () => {
               onClick={handlerDeleteUser}
               sx={{ margin: '18px 18px 0px 18px' }}
             >
-              Delete User
+              {t('Delete User')}
             </Button>
           </Box>
         </Box>
         <Dialog open={openEdit} onClose={() => setOpenEdit(false)}>
           <AuthContent>
             <AuthForm onSubmit={handleSubmit(onSubmit)}>
-              <strong>Edit Your profile</strong>
+              <strong>{t('Edit Your profile')}</strong>
               {signUpFields}
               <Button variant="contained" type="submit" color="success" sx={{ width: '100%' }}>
-                Confirm Change
+                {t('Confirm Change')}
               </Button>
             </AuthForm>
           </AuthContent>
@@ -120,7 +127,7 @@ export const EditProfilePage = () => {
           open={openDel}
           setOpen={setOpenDel}
           itemName={'user'}
-          itemTitle={userId}
+          itemTitle={(jwt_decode(token) as TokenData).login}
           deleteItem={onDelTask}
         />
         <FooterWrapper>
