@@ -7,7 +7,7 @@ export const mainHeaderEn = {
   Cancel: 'Cancel',
   Create: 'Create',
   'task title': 'Task title',
-  'board title': 'Board title',
+  'Board title': 'Board title',
   'task description': 'Task description',
   'board description': 'Board description',
 };
@@ -25,7 +25,9 @@ export const mainHeaderRu = {
   'Please enter board name here': 'Пожалуйста, введите название доски здесь',
   'task title': 'Название задания',
   'board title': 'Название доски',
+  'Board title': 'Название доски',
   'task description': 'Описание задания',
   'board description': 'Описание доски',
+  'Board description': 'Описание доски',
   'Enter column title': 'Название колонки',
 };
