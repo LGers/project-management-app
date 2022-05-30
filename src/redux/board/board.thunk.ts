@@ -117,13 +117,28 @@ type FetchUpdateTack = {
   description: string;
   userId: string;
   order: number;
+  newBoardId: string;
+  newColumnId: string;
 };
 
 export const fetchUpdateTack = createAsyncThunk<Column, FetchUpdateTack>(
   'board/fetchUpdateTack',
-  async ({ boardId, columnId, taskId, title, description, userId, order }, thunkAPI) => {
+  async (
+    { boardId, columnId, taskId, title, description, userId, order, newBoardId, newColumnId },
+    thunkAPI
+  ) => {
     try {
-      const res = await updateTask(boardId, columnId, taskId, title, description, userId, order);
+      const res = await updateTask(
+        boardId,
+        columnId,
+        taskId,
+        title,
+        description,
+        userId,
+        order,
+        newBoardId,
+        newColumnId
+      );
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as MyKnownError).response.data);

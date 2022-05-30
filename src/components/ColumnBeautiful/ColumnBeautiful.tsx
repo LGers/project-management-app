@@ -107,7 +107,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                   .map((task, index) => {
                     return (
                       <BeautifulTaskCard
-                        key={task.id}
+                        key={task.id + index}
                         task={task}
                         onClick={onClickTask}
                         index={index}

@@ -90,11 +90,11 @@ export const BeautifulDragBoard = () => {
       const task = startColumn.tasks.find((task) => task.id === taskId);
       newTasksIds.splice(source.index, 1);
       newTasksIds.splice(destination.index, 0, draggableId);
-      console.log('Col: ', startColumn.title);
-      console.log('columnId: ', columnId);
-      console.log('taskId', taskId);
-      console.log('NewOrder', destination.index + 1);
-      console.log('Task order', task?.order);
+      // console.log('Col: ', startColumn.title);
+      // console.log('columnId: ', columnId);
+      // console.log('taskId', taskId);
+      // console.log('NewOrder', destination.index + 1);
+      // console.log('Task order', task?.order);
       // console.log('fetchUpdateTaskInOldColumn with order', destination.index + 1);
       store
         .dispatch(
@@ -106,14 +106,13 @@ export const BeautifulDragBoard = () => {
             description: task?.description ?? ' ',
             userId: task?.userId ?? ' ',
             order: destination.index + 1,
-            // order: task?.order ?? 1,
-            // order: 3,
+            newBoardId: board.id,
+            newColumnId: columnId,
           })
         )
         .then(() => {
           store.dispatch(fetchBoard(board.id));
         });
-
       const newColumn = {
         ...startColumn,
         taskIds: newTasksIds,

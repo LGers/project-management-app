@@ -58,6 +58,8 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
           description,
           userId,
           order,
+          newBoardId: boardId,
+          newColumnId: columnId,
         })
       )
       .then(() => {

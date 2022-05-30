@@ -22,15 +22,19 @@ export const updateTask = (
   title: string,
   description: string,
   userId: string,
-  order: number
+  order: number,
+  newBoardId: string,
+  newColumnId: string
 ) => {
   return instance.put(URL.updateTask(boardId, columnId, taskId), {
     title,
     order,
     description,
     userId,
-    boardId,
-    columnId,
+    // boardId,
+    // columnId,
+    boardId: newBoardId,
+    columnId: newColumnId,
   });
 };
 
