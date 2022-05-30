@@ -19,6 +19,8 @@ export const Content = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
+  overflow: 'auto',
+  paddingBottom: '10px',
 });
 
 export const FooterWrapper = styled('div')({

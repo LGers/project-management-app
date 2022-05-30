@@ -28,10 +28,10 @@ export const MainPage = () => {
     <BodyWrapper>
       <Wrapper>
         <MainHeader hide={trigger} />
+        <Box sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2 }}>
+          <h1>{t('Boards')}</h1>
+        </Box>
         <Content ref={ref as unknown as LegacyRef<HTMLDivElement>}>
-          <Box sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2 }}>
-            <h1>{t('Boards')}</h1>
-          </Box>
           {boards.isFetching && <BoardCardSkeleton />}
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} {...board} />;
