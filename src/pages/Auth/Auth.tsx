@@ -20,6 +20,7 @@ import { LanguageSelect } from '../../components/LanguageSelect/LanguageSelect';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { Footer } from '../../components/Footer';
+import Login from '@mui/icons-material/Login';
 
 export const Auth = ({ formName }: FormNameInterface) => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -44,7 +45,7 @@ export const Auth = ({ formName }: FormNameInterface) => {
           placeholder={t(placeholder)}
           type={type}
           size="small"
-          label={(errors[name] && errors[name]?.message) || t(placeholder)}
+          label={(errors[name] && t(errors[name]?.message ?? '')) || t(placeholder)}
           fullWidth
           {...register(name)}
         />
@@ -105,6 +106,7 @@ export const Auth = ({ formName }: FormNameInterface) => {
               type="submit"
               loading={auth.isFetching}
               loadingPosition="end"
+              endIcon={<Login />}
               variant="contained"
               color="success"
               sx={{ width: '100%' }}

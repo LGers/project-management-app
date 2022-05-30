@@ -20,6 +20,7 @@ export const authRu = {
   'Confirm Password': 'Подтвердите пароль',
   'Sign In to': 'Войти в',
   'Sign Up to': 'Регистрация в',
-  'Go to Main page': 'На главную страницу'
+  'Go to Main page': 'На главную страницу',
+  'Required': 'Это поле обязательно',
 };
 /* eslint-disable */
