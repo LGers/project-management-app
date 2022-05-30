@@ -10,15 +10,6 @@ export type ITaskItem = {
   columnId: string;
 };
 
-export interface _BeautifulTaskProps {
-  open: boolean;
-  onClose: (value: boolean) => void;
-  openDelDialog: () => void;
-  onUpdateTask: (newTitle: string, newDescription: string) => void;
-  item: DragItem;
-  boardId: string;
-  columnId: string;
-}
 export interface BeautifulTaskProps {
   open: boolean;
   onClose: (value: boolean) => void;

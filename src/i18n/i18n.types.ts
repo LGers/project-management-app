@@ -11,7 +11,6 @@ export interface dictionaryFields {
   auth: Record<AuthFields, string>;
   mainPage: Record<PageFields, string>;
   welcomePage: Record<PageFields, string>;
-  // SignIn: string;
   languageLabel: string;
   welcomePageDictionary: Record<string, string>;
 }

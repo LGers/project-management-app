@@ -19,7 +19,7 @@ type Props = {
   columnId: string;
 };
 
-export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => {
+export const BeautifulTaskCard = ({ task, index, columnId }: Props) => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const boardId = board.id;
   const { t } = useTranslation();

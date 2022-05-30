@@ -6,11 +6,7 @@ import {
   PATH,
 } from '../../constants/common.dictionary';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
-import {
-  BodyWrapper,
-  FooterWrapper,
-  Wrapper,
-} from '../../components/CommonComponents/CommonComponents';
+import { BodyWrapper, FooterWrapper, Wrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageTitleBig, MessageTitleMedium, Page404Content } from './Page404Styles';

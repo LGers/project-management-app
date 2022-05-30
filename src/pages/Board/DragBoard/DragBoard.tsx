@@ -16,9 +16,6 @@ import { DragBoardColumn, DragBoardContent } from './DragBoard.styles';
 export const DragBoard = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const userId = useSelector((state: RootState) => state.auth.userId);
-  // const users = useSelector((state: RootState) => state.auth.users);
-  // const login = localStorage.getItem('login');
-  // const userId = users.find((user) => user.login === login)?.id as string;
   const [buckets, setBuckets] = useState<DragBucket[]>([]);
   const name = 'board-group';
 

@@ -6,8 +6,6 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import IconButton from '@mui/material/IconButton';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { BeautifulTaskProps } from './BeautifulTaskCardt.types';
-// import { ITaskProp } from './BeautifulTaskCardt.types';
-// import { ITaskProp } from './TaskCardtypes';
 
 export const BeautifulTaskContent = (props: BeautifulTaskProps) => {
   const { open, onClose, task, openDelDialog, onUpdateTask } = props;

@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';

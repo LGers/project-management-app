@@ -37,16 +37,6 @@ export const createTasksObj = (columnsData: ColumnBeautifulProps[]) => {
   return {
     tasks,
     columns,
-    // boards: {
-    //   // 'board-1': {
-    //   //   id: 'board-1',
-    //   //   columnIds: [
-    //   //     '6218a1a8-f0b9-47db-9c40-2d652ef0d411--',
-    //   //     '55f4e7fa-1050-44a0-bddb-d525f5cc51ba',
-    //   //     '7a9fdb2f-26d5-474a-8849-dea5f29f6778',
-    //   //   ],
-    //   // },
-    // },
     columnOrder,
   };
 };
