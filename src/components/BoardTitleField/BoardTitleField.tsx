@@ -12,16 +12,6 @@ export const BoardTitleField = ({ title, setField }: BoardTitleFieldProps) => {
   }, [title]);
 
   const handleFieldKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    // if (event.key === 'Enter' || event.key === 'Escape') {
-    //   event.preventDefault();
-    //   if (!newValue) {
-    //     setNewValue(title);
-    //     setFocussed(false);
-    //   } else {
-    //     setFocussed(false);
-    //     setField(newValue);
-    //   }
-    // }
     if (event.key === 'Enter') {
       event.preventDefault();
       if (event.key === 'Enter') {

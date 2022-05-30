@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Card, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
@@ -14,9 +14,11 @@ import { AddColumnDialog } from '../../components/AddColumnDialog';
 import { ColumnSkeleton } from '../../components/ColumnSkeleton';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { TitleField } from '../../components/TitleField';
+import { BeautifulDragBoard } from './BeautifulDragBoard';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
+  const isFetching = useSelector((state: RootState) => state.board.isFetching);
   const errorMessage = useSelector((state: RootState) => state.board.error.message);
   const { t } = useTranslation();
   const { id } = useParams();
@@ -48,26 +50,39 @@ export const Board = () => {
   return (
     <BodyWrapper>
       <Wrapper>
-        <MainHeader />
         <Content>
-          <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
-            <BoardTitleField title={board.title} setField={setBoardTitle} />
-            <TitleField title={board.description} setField={setBoardDescription} />
-          </Box>
+          <MainHeader />
+          <Paper sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2, ml: 1, mr: 1, padding: 1 }}>
+            <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+              <Typography variant={'h4'} sx={{ width: 220 }}>
+                {t('Board')}:{' '}
+              </Typography>
+              <BoardTitleField title={board.title} setField={setBoardTitle} />
+              {isFetching && <CircularProgress />}
+            </Stack>
+            <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+              <Typography variant={'h4'} sx={{ width: 220 }}>
+                {t('Description')}:{' '}
+              </Typography>
+              {/*<TitleField title={board.description} setField={setBoardDescription} />*/}
+              <BoardTitleField title={board.description} setField={setBoardDescription} />
+            </Stack>
+          </Paper>
           {!board.title && <ColumnSkeleton />}
-          <DragBoard />
-          <Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
+          <BeautifulDragBoard />
+          {/*<DragBoard />*/}
+          {/*<Button onClick={() => setShowAddColumnDialog(true)}>{t('Add column')}</Button>
           <AddColumnDialog
             itemName={t('column')}
             open={showAddColumnDialog}
             setOpen={setShowAddColumnDialog}
             addColumn={addColumn}
-          />
+          />*/}
           <ErrorMessage errorMessage={errorMessage} />
+          <FooterWrapper>
+            <Footer />
+          </FooterWrapper>
         </Content>
-        <FooterWrapper>
-          <Footer />
-        </FooterWrapper>
       </Wrapper>
     </BodyWrapper>
   );

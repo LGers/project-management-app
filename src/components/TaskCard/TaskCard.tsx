@@ -44,6 +44,8 @@ export const TaskCard = ({ item, boardId, columnId }: TaskCardProps) => {
           description,
           userId,
           order,
+          newBoardId: boardId,
+          newColumnId: columnId,
         })
       )
       .then(() => {

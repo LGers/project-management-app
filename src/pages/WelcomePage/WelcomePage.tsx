@@ -1,11 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import React, { LegacyRef, useRef } from 'react';
-import {
-  Wrapper,
-  Content,
-  FooterWrapper,
-  BodyWrapper,
-} from '../../components/CommonComponents/CommonComponents';
+import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { Footer } from '../../components/Footer';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +17,7 @@ export const WelcomePage = () => {
       <Wrapper>
         <WelcomePageHeader hide={trigger} />
         <Content ref={ref as unknown as LegacyRef<HTMLDivElement>}>
-          <Box sx={{ bgcolor: '#cfe8fc' }}>
+          <Box sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2 }}>
             <h1>{t('Welcome to Lemasello')}</h1>
           </Box>
           <Container sx={{ textAlign: 'center' }}>

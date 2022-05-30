@@ -47,7 +47,12 @@ export const boardSlice = createSlice({
     });
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
       state.isFetching = false;
-      state.boardData = action.payload;
+      const boardData = {
+        ...action.payload,
+        columns: action.payload.columns.sort((a, b) => a.order - b.order),
+      };
+      // state.boardData = action.payload;
+      state.boardData = boardData;
     });
     builder.addCase(fetchBoard.rejected, (state, action) => {
       state.isFetching = false;

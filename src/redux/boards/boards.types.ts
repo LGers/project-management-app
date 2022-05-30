@@ -35,11 +35,30 @@ export interface Task {
   files: Files[];
 }
 
+export interface TaskBeautiful {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+  files: Files[];
+}
+
 export interface Column {
   id: string;
   title: string;
   order: number;
-  tasks: Task[];
+  // tasks: Task[];
+  tasks: TaskBeautiful[];
+}
+
+export interface ColumnBeautifulProps {
+  id: string;
+  title: string;
+  order: number;
+  tasks: TaskBeautiful[];
 }
 
 export interface DragItem {

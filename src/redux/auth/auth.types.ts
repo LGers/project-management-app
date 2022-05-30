@@ -40,3 +40,9 @@ export interface TokenData {
   userId: string;
   login: string;
 }
+
+export interface UserInterface {
+  iat: number;
+  userId: string;
+  login: string;
+}
