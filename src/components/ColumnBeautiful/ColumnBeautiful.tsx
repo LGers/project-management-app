@@ -1,4 +1,4 @@
-import { Button, Card, Paper } from '@mui/material';
+import { Button, Card, Container, Paper } from '@mui/material';
 import React, { ReactElement, useState } from 'react';
 import { ColumnBeautifulProps, TaskBeautiful } from '../../redux/boards/boards.types';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -88,13 +88,19 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
         //     // bgcolor: 'transparent',
         //   }}
         // >
+        // <Container
+        //   {...provided.draggableProps}
+        //   {...provided.dragHandleProps}
+        //   ref={provided.innerRef}
+        //   sx={{ overflow: 'auto' }}
+        // >
         <ColumnCard
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
           <ColumnHeader>
-            <Card sx={{ height: '30px', bgcolor: '#e1e1e1' }}></Card>
+            <Card sx={{ height: '30px', bgcolor: '#e1e1e1', width: 400 }} />
             <TitleField title={column.title} setField={onUpdateColumnTitle} />
             <Button onClick={onDeleteColumn}>Delete</Button>
           </ColumnHeader>
@@ -105,8 +111,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 sx={{
-                  // pb: '12px',
-                  // transition: 'transform 0.05s ease',
                   bgcolor: snapshot.draggingOverWith ? '#bdbdd5' : '#ebebeb',
                   overflow: 'auto',
                 }}
@@ -116,21 +120,12 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                     <BeautifulTaskCard
                       key={task.id}
                       task={task}
-                      // task={{  }}
                       onClick={onClickTask}
                       index={index}
                       columnId={columnId}
                     />
-                    // <p key={task.id}>{task.id}</p>
                   );
                 })}
-                {/*{isAddTaskOpen && (*/}
-                {/*  <AddTaskCard*/}
-                {/*    open={isAddTaskOpen}*/}
-                {/*    setOpen={setIsAddTaskOpen}*/}
-                {/*    addTask={addTaskHandler}*/}
-                {/*  />*/}
-                {/*)}*/}
                 <Button
                   onClick={() => setIsAddTaskOpen(true)}
                   startIcon={<Add />}
@@ -160,6 +155,7 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
             deleteItem={deleteColumn}
           />
         </ColumnCard>
+        // </Container>
         // </Card>
       )}
     </Draggable>
