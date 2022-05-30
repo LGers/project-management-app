@@ -1,0 +1,1 @@
+export { BoardCardSkeleton } from './BoardCardSkeleton';

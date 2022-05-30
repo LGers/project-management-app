@@ -1,4 +1,4 @@
-import { Box, Button, Card, Paper } from '@mui/material';
+import { Box, Button, Card, CircularProgress, Paper, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
@@ -18,6 +18,7 @@ import { BeautifulDragBoard } from './BeautifulDragBoard';
 
 export const Board = () => {
   const board = useSelector((state: RootState) => state.board.boardData);
+  const isFetching = useSelector((state: RootState) => state.board.isFetching);
   const errorMessage = useSelector((state: RootState) => state.board.error.message);
   const { t } = useTranslation();
   const { id } = useParams();
@@ -52,8 +53,12 @@ export const Board = () => {
         <Content>
           <MainHeader />
           <Paper sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2, ml: 1, mr: 1, padding: 1 }}>
-            <BoardTitleField title={board.title} setField={setBoardTitle} />
             <TitleField title={board.description} setField={setBoardDescription} />
+            <Stack direction={'row'}>
+              <BoardTitleField title={board.title} setField={setBoardTitle} />
+              {isFetching && <CircularProgress />}
+            </Stack>
+            <BoardTitleField title={board.description} setField={setBoardDescription} />
           </Paper>
           {!board.title && <ColumnSkeleton />}
           <BeautifulDragBoard />

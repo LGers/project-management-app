@@ -12,6 +12,7 @@ import { MainHeader } from '../../components/MainHeader';
 import { fetchBoards } from '../../redux/boards/boards.thunk';
 
 import { useScroll } from './useScroll';
+import { BoardCardSkeleton } from '../../components/BoardCardSkeleton';
 
 export const MainPage = () => {
   const boards = useSelector((state: RootState) => state.boards);
@@ -31,6 +32,7 @@ export const MainPage = () => {
           <Box sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2 }}>
             <h1>{t('Boards')}</h1>
           </Box>
+          {boards.isFetching && <BoardCardSkeleton />}
           {boards.boards.map((board) => {
             return <BoardCard key={board.id} {...board} />;
           })}

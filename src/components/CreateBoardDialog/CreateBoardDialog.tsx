@@ -28,6 +28,7 @@ export const CreateBoardDialog = ({
   const handleCreateBoard = () => {
     setOpen(false);
     setBoardTitle('');
+    setBoardDescription('');
     createBoard(boardTitle, boardDescription);
   };
 

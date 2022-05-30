@@ -28,6 +28,7 @@ export const CreateItemDialog = ({
   const handleCreateBoard = () => {
     setOpen(false);
     setItemTitle('');
+    setItemDescription('');
     createItem(itemTitle, itemDescription);
   };
 
