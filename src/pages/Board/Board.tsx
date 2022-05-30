@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Card, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
@@ -46,15 +46,16 @@ export const Board = () => {
     store.dispatch(fetchBoard(board.id));
   };
 
+  console.log(board.description);
   return (
     <BodyWrapper>
       <Wrapper>
         <Content>
           <MainHeader />
-          <Box sx={{ bgcolor: '#cfe8fc', p: 1 }}>
+          <Paper sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2, ml: 1, mr: 1, padding: 1 }}>
             <BoardTitleField title={board.title} setField={setBoardTitle} />
             <TitleField title={board.description} setField={setBoardDescription} />
-          </Box>
+          </Paper>
           {!board.title && <ColumnSkeleton />}
           <BeautifulDragBoard />
           {/*<DragBoard />*/}
