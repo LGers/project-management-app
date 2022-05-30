@@ -22,16 +22,13 @@ export const BoardCard = (props: { id: string; title: string; description: strin
     <div>
       <Card sx={{ minWidth: 275, mt: 1.5, ml: 1, mr: 2, padding: '0' }}>
         <Stack direction="row" justifyContent={'space-between'} spacing={2} sx={{ width: '100%' }}>
-          <Link to={PATH.BOARD + props.id}>
+          <Link to={PATH.BOARD + props.id} style={{ textDecoration: 'none', color: '#000' }}>
             <CardContent>
               <Typography variant="h5" component="div">
                 {props.title}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 Description: {props.description}
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {props.id}
               </Typography>
             </CardContent>
           </Link>
