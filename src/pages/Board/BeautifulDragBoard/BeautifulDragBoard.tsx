@@ -17,6 +17,7 @@ import {
 } from '../../../redux/board/board.thunk';
 import { BeautifulTaskProps } from '../../../components/BeautifulTaskCard/BeautifulTaskCardt.types';
 import { Add } from '@mui/icons-material';
+import { ErrorMessage } from '../../../components/ErrorMessage';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -90,12 +91,7 @@ export const BeautifulDragBoard = () => {
       const task = startColumn.tasks.find((task) => task.id === taskId);
       newTasksIds.splice(source.index, 1);
       newTasksIds.splice(destination.index, 0, draggableId);
-      // console.log('Col: ', startColumn.title);
-      // console.log('columnId: ', columnId);
-      // console.log('taskId', taskId);
-      // console.log('NewOrder', destination.index + 1);
-      // console.log('Task order', task?.order);
-      // console.log('fetchUpdateTaskInOldColumn with order', destination.index + 1);
+
       store
         .dispatch(
           fetchUpdateTack({
@@ -113,6 +109,7 @@ export const BeautifulDragBoard = () => {
         .then(() => {
           store.dispatch(fetchBoard(board.id));
         });
+
       const newColumn = {
         ...startColumn,
         taskIds: newTasksIds,
@@ -139,7 +136,6 @@ export const BeautifulDragBoard = () => {
 
     const finishTaskIds = Array.from(finishColumn.taskIds);
     finishTaskIds.splice(destination.index, 0, draggableId);
-    // console.log('fetchUpdateTaskInNewColumn with order', destination.index + 1);
 
     const newFinishColumn = {
       ...finishColumn,
@@ -155,6 +151,26 @@ export const BeautifulDragBoard = () => {
       },
     };
     setState(newState);
+    const columnId = startColumn.id;
+    const taskId = draggableId;
+    const task = startColumn.tasks.find((task) => task.id === taskId);
+    store
+      .dispatch(
+        fetchUpdateTack({
+          boardId: board.id,
+          columnId,
+          taskId,
+          title: task?.title ?? ' ',
+          description: task?.description ?? ' ',
+          userId: task?.userId ?? ' ',
+          order: destination.index + 1,
+          newBoardId: board.id,
+          newColumnId: newFinishColumn.id,
+        })
+      )
+      .then(() => {
+        store.dispatch(fetchBoard(board.id));
+      });
   };
 
   return (
@@ -192,6 +208,7 @@ export const BeautifulDragBoard = () => {
               setOpen={setShowAddColumnDialog}
               addColumn={addColumn}
             />
+            <ErrorMessage errorMessage={errorMessage} />
             {provided.placeholder}
           </BoardContent>
         )}

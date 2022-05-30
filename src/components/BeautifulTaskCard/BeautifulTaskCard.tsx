@@ -97,8 +97,6 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
               pl: 1,
             }}
           >
-            <p>Order: {task.order}</p>
-            <p>taskId: {task.id}</p>
             <Typography variant={'h6'} component="div">
               {task.title}
             </Typography>
