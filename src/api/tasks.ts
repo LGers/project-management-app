@@ -26,10 +26,11 @@ export const updateTask = (
 ) => {
   return instance.put(URL.updateTask(boardId, columnId, taskId), {
     title,
+    order,
     description,
     userId,
     boardId,
-    order,
+    columnId,
   });
 };
 

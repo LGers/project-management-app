@@ -102,17 +102,19 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
                   overflow: 'auto',
                 }}
               >
-                {tasks.map((task, index) => {
-                  return (
-                    <BeautifulTaskCard
-                      key={task.id}
-                      task={task}
-                      onClick={onClickTask}
-                      index={index}
-                      columnId={columnId}
-                    />
-                  );
-                })}
+                {tasks
+                  .sort((a, b) => a.order - b.order)
+                  .map((task, index) => {
+                    return (
+                      <BeautifulTaskCard
+                        key={task.id}
+                        task={task}
+                        onClick={onClickTask}
+                        index={index}
+                        columnId={columnId}
+                      />
+                    );
+                  })}
                 <Button
                   onClick={() => setIsAddTaskOpen(true)}
                   startIcon={<Add />}
