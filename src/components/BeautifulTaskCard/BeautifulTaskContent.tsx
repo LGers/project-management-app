@@ -63,7 +63,12 @@ export const BeautifulTaskContent = (props: BeautifulTaskProps) => {
   };
 
   const onBlurDescriptionField = () => {
-    setNewTaskDescription(oldTaskDescription);
+    setNewTaskDescription(newTaskDescription);
+    if (newTaskDescription) {
+      onUpdateTask(newTaskTitle, newTaskDescription);
+    } else {
+      setNewTaskDescription(oldTaskDescription);
+    }
     setFocusDescription(false);
     setIsDescriptionBtnVisible(false);
   };
