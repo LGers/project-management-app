@@ -10,5 +10,7 @@ export const boardRu = {
   'Delete': 'Удалить',
   'Delete column': 'Удалить колонку',
   'Add column': 'Добавить колонку',
+  'Board': 'Доска',
+  'Description': 'Описание',
 };
 /* eslint-disable */

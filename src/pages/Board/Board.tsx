@@ -1,4 +1,4 @@
-import { Box, Button, Card, CircularProgress, Paper, Stack } from '@mui/material';
+import { Box, Button, Card, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Wrapper, Content, FooterWrapper, BodyWrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
@@ -53,12 +53,20 @@ export const Board = () => {
         <Content>
           <MainHeader />
           <Paper sx={{ bgcolor: '#ebebeb', opacity: 0.8, pl: 2, ml: 1, mr: 1, padding: 1 }}>
-            <TitleField title={board.description} setField={setBoardDescription} />
-            <Stack direction={'row'}>
+            <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+              <Typography variant={'h4'} sx={{ width: 220 }}>
+                {t('Board')}:{' '}
+              </Typography>
               <BoardTitleField title={board.title} setField={setBoardTitle} />
               {isFetching && <CircularProgress />}
             </Stack>
-            <BoardTitleField title={board.description} setField={setBoardDescription} />
+            <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+              <Typography variant={'h4'} sx={{ width: 220 }}>
+                {t('Description')}:{' '}
+              </Typography>
+              {/*<TitleField title={board.description} setField={setBoardDescription} />*/}
+              <BoardTitleField title={board.description} setField={setBoardDescription} />
+            </Stack>
           </Paper>
           {!board.title && <ColumnSkeleton />}
           <BeautifulDragBoard />
