@@ -102,7 +102,6 @@ export const authSlice = createSlice({
     });
     builder.addCase(fetchDeleteUser.rejected, (state, action) => {
       state.isFetching = false;
-      // state.isAuth = false;
       state.error = action.payload as MyKnownError;
     });
 
@@ -112,12 +111,10 @@ export const authSlice = createSlice({
     });
     builder.addCase(fetchUpdateUser.fulfilled, (state, action) => {
       state.isFetching = false;
-      // state.isAuth = false;
       state.userId = action.payload.userId;
     });
     builder.addCase(fetchUpdateUser.rejected, (state, action) => {
       state.isFetching = false;
-      // state.isAuth = false;
       state.error = action.payload as MyKnownError;
     });
   },

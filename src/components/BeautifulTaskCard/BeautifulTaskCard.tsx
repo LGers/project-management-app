@@ -19,7 +19,7 @@ type Props = {
   columnId: string;
 };
 
-export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => {
+export const BeautifulTaskCard = ({ task, index, columnId }: Props) => {
   const board = useSelector((state: RootState) => state.board.boardData);
   const boardId = board.id;
   const { t } = useTranslation();
@@ -46,7 +46,6 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
   };
 
   const userId = task.userId;
-  const order = task.order;
   const onUpdateTask = (title: string, description: string) => {
     store
       .dispatch(
@@ -57,7 +56,7 @@ export const BeautifulTaskCard = ({ task, onClick, index, columnId }: Props) => 
           title,
           description,
           userId,
-          order,
+          order: index + 1,
           newBoardId: boardId,
           newColumnId: columnId,
         })

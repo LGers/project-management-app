@@ -31,8 +31,6 @@ export const updateTask = (
     order,
     description,
     userId,
-    // boardId,
-    // columnId,
     boardId: newBoardId,
     columnId: newColumnId,
   });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { WelcomePageHeader } from '../../components/WelcomePageHeader';
 import { BodyWrapper, FooterWrapper, Wrapper } from '../../components/CommonComponents';
 import { Footer } from '../../components/Footer';
@@ -64,12 +64,6 @@ export const EditProfilePage = () => {
       />
     );
   });
-
-  const testClick = () => {
-    // console.log('testClick');
-    // console.log('store:', store);
-    // console.log('tempState:', tempState);
-  };
 
   const onDelTask = () => {
     store.dispatch(fetchDeleteUser({ userId: (jwt_decode(token) as TokenData).userId }));

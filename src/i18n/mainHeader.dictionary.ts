@@ -30,4 +30,5 @@ export const mainHeaderRu = {
   'board description': 'Описание доски',
   'Board description': 'Описание доски',
   'Enter column title': 'Название колонки',
+  'About us': 'О нас',
 };

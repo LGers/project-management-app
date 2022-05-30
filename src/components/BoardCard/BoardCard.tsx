@@ -44,14 +44,14 @@ export const BoardCard = (props: { id: string; title: string; description: strin
             </Button>
           </CardActions>
         </Stack>
+        <ConfirmationDialog
+          open={open}
+          setOpen={setOpen}
+          itemName={'board'}
+          itemTitle={props.title}
+          deleteItem={deleteItem}
+        />
       </Card>
-      <ConfirmationDialog
-        open={open}
-        setOpen={setOpen}
-        itemName={'board'}
-        itemTitle={props.title}
-        deleteItem={deleteItem}
-      />
     </div>
   );
 };

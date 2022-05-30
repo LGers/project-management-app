@@ -14,7 +14,7 @@ import {
   BodyWrapper,
   FooterWrapper,
   Wrapper,
-} from '../../components/CommonComponents/CommonComponents';
+} from '../../components/CommonComponents';
 
 export const SignIn = () => {
   const auth = useSelector((state: RootState) => state.auth);

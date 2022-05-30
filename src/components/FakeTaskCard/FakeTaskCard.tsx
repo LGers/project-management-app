@@ -17,9 +17,6 @@ type Props = {
 export const FakeTaskCard = ({ item, boardId, columnId, onClick }: Props) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  // console.log('boardId', boardId);
-  // console.log('columnId', columnId);
-  // console.log(item);
   const taskId = item.task.id;
   const onDelTask = () => {
     store.dispatch(fetchDeleteTask({ boardId, columnId, taskId })).then(() => {

@@ -17,7 +17,6 @@ export const TaskCard = ({ item, boardId, columnId }: TaskCardProps) => {
 
   const handleClickOpen = () => {
     setOpenContent(true);
-    console.log(item, boardId, columnId);
   };
 
   const handleClose = () => {

@@ -15,10 +15,8 @@ import {
   fetchUpdateColumn,
   fetchUpdateTack,
 } from '../../../redux/board/board.thunk';
-import { BeautifulTaskProps } from '../../../components/BeautifulTaskCard/BeautifulTaskCardt.types';
 import { Add } from '@mui/icons-material';
 import { ErrorMessage } from '../../../components/ErrorMessage';
-import { ColumnSkeleton } from '../../../components/ColumnSkeleton';
 
 export interface Props {
   columns: Record<string, ColumnBeautifulProps>;
@@ -126,7 +124,7 @@ export const BeautifulDragBoard = () => {
       setState(newState);
       return;
     }
-    // Moving from one list to another
+
     const startTaskIds = Array.from(startColumn.taskIds);
     startTaskIds.splice(source.index, 1);
 

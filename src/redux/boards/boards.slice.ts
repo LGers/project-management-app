@@ -27,7 +27,7 @@ export const boardsSlice = createSlice({
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
       state.isFetching = false;
-      state.boards = action.payload;
+      state.boards = action.payload.reverse();
     });
     builder.addCase(fetchBoards.rejected, (state, action) => {
       state.isFetching = false;

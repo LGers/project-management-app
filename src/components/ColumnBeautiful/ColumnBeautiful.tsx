@@ -11,7 +11,7 @@ import {
 } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
 import { ColumnCard, ColumnHeader, ColumnTasks } from './ColumnBeautiful.styles';
-import { Add, Delete, DeleteForever } from '@mui/icons-material';
+import { Add, DeleteForever } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { CreateItemDialog } from '../CreateItemDialog';
@@ -68,7 +68,6 @@ export const ColumnBeautiful = ({ column, tasks, index }: ColumnProps): ReactEle
   };
 
   const onClickTask = () => {
-    // console.log('TaskOpen');
   };
 
   return (

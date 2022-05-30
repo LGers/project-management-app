@@ -5,7 +5,6 @@ import { Droppable, Draggable } from 'react-virtualized-dnd';
 import { store } from '../../redux';
 import { fetchBoard, fetchDeleteColumn, fetchUpdateColumn } from '../../redux/board/board.thunk';
 import { TitleField } from '../TitleField';
-import { FakeTaskCard } from '../FakeTaskCard/FakeTaskCard';
 import { ColumnCard } from './Column.styles';
 import { AddTaskCard } from '../AddTaskCard';
 import { Add } from '@mui/icons-material';
@@ -47,7 +46,6 @@ export const Column = (props: ColumnProps): ReactElement => {
   };
 
   const onClickTask = () => {
-    console.log('TaskOpen');
   };
 
   return (
@@ -76,14 +74,6 @@ export const Column = (props: ColumnProps): ReactElement => {
                   disableMove={item.isEnd}
                   outerScrollBar={true}
                 >
-                  {/* {!item.isHeader && !item.isEnd && (
-                    <FakeTaskCard
-                      item={item}
-                      boardId={boardId}
-                      columnId={columnId}
-                      onClick={onClickTask}
-                    />
-                  )} */}
                   {!item.isHeader && !item.isEnd && (
                     <TaskCard
                       item={item}

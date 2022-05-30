@@ -45,7 +45,6 @@ export const AddTaskCard = ({ setOpen, addTask }: AddTaskCardProps) => {
 
   return (
     <div>
-      {/*<p>This add task dialog))</p>*/}
       <TextField
         fullWidth
         multiline

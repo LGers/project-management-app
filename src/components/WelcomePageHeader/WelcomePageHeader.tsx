@@ -1,5 +1,5 @@
 import { AppBar, Button, Slide, Toolbar, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { PATH } from '../../constants/common.dictionary';
 import { useTranslation } from 'react-i18next';

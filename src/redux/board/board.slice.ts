@@ -7,7 +7,6 @@ import {
   fetchCreateColumn,
   fetchDeleteColumn,
   fetchDeleteTask,
-  fetchUpdateBoard,
   fetchUpdateColumn,
 } from './board.thunk';
 
@@ -51,7 +50,6 @@ export const boardSlice = createSlice({
         ...action.payload,
         columns: action.payload.columns.sort((a, b) => a.order - b.order),
       };
-      // state.boardData = action.payload;
       state.boardData = boardData;
     });
     builder.addCase(fetchBoard.rejected, (state, action) => {
@@ -98,7 +96,6 @@ export const boardSlice = createSlice({
     });
     builder.addCase(fetchAllColumns.fulfilled, (state, action) => {
       state.isFetching = false;
-      // console.log(action.payload);
       state.boardData.columns = [...action.payload];
     });
     builder.addCase(fetchAllColumns.rejected, (state, action) => {
